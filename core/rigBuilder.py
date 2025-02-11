@@ -7,14 +7,14 @@ class RigBuilder():
     def __init__(self) -> None:
         self.rfm = RigFunctionsManager()
         self.HANDLER = HANDLER
-    
-    def manage_match_modules(self, entry):
 
+    def manage_match_modules(self, entry: str, namespace: str = "TEMP"):
         if entry == 0:
-            pass
+            self.rfm.match_controllers_and_buffers_to_guides(
+                namespace=namespace)
         if entry == 1:
-            pass
+            self.rfm.handle_arm_module_match_guides(namespace=namespace)
         if entry == 2:
-            pass
+            self.rfm.handle_leg_module_match_guides(namespace=namespace)
         if entry == 3:
-            pass
+            self.rfm.handle_hand_module_match_guides(namespace=namespace)

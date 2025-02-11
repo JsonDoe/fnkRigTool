@@ -11,7 +11,6 @@ class RigFunctionsManager():
         self.namespace = namespace
         self.mayaManager = MayaFunctionManager()
         self.ru = RigUtils()
-    
 
     def match_node_to_guide(self, node: str):
         """match node to it's guide if the node have a .rig_guid attribute
