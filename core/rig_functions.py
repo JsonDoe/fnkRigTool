@@ -139,7 +139,7 @@ def handle_arm_module_match_guides(namespace: str = DEFAULT_NSPC):
     for controller in FK_controllers:
         match_all_transformation(
             target=controller, source=controller.replace("_FK_CON", "_JNT"))
-    
+
     store_controllers_rest_pose(namespace=namespace)
 
 
@@ -159,7 +159,7 @@ def handle_leg_module_match_guides(namespace: str = DEFAULT_NSPC):
     for controller in FK_controllers:
         match_all_transformation(
             target=controller, source=controller.replace("_FK_CON", "_JNT"))
-    
+
     store_controllers_rest_pose(namespace=namespace)
 
 def handle_hand_module_match_guides(namespace: str = DEFAULT_NSPC):
@@ -168,4 +168,15 @@ def handle_hand_module_match_guides(namespace: str = DEFAULT_NSPC):
     :param namespace: namespace of the modules, defaults to DEFAULT_NSPC
     :type namespace: str, optional
     """
-    pass
+
+    match_controllers_and_buffers_to_guides(namespace=namespace)
+
+    FK_buffers = [x for x in cmds.ls() if x.startswith(namespace) and
+                  x.endswith("_FK_CON")]
+
+    for buffer in FK_buffers:
+        set_offset_parent_matrix_from_target_matrix(
+            target=buffer, source=buffer.replace("_FK_BUF", "_GUID"))
+
+    match_controllers_and_buffers_to_guides(namespace=namespace)
+    store_controllers_rest_pose(namespace=namespace)
