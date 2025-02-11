@@ -160,3 +160,31 @@ def set_offset_parent_matrix_from_target_matrix(source: str, target: str):
     # Apply the computed relative matrix to the target's offsetParentMatrix
     cmds.setAttr(
         target + ".offsetParentMatrix", list(relative_matrix), type="matrix")
+
+def set_offset_parent_matrix(
+        target: str,
+        matrix_values: list[float] = [
+            1, 0, 0, 0, 0,
+            1, 0, 0, 0, 0,
+            1, 0, 0, 0, 0,
+            1]):
+    """Sets the .offsetParentMatrix attribute of the target node to the given matrix values.
+
+    :param target: The target object whose offsetParentMatrix will be set.
+    :type target: str
+    :param matrix_values: A list of 16 values representing the transformation matrix.
+    :type matrix_values: list
+    """
+    if not cmds.objExists(target):
+        cmds.warning("Target object does not exist.")
+        return
+
+    if len(matrix_values) != 16:
+        cmds.warning("Invalid matrix: A transformation matrix must have 16 values.")
+        return
+
+    # Convert list to MMatrix for precision
+    input_mmatrix = om.MMatrix(matrix_values)
+
+    # Set the offsetParentMatrix attribute
+    cmds.setAttr(target + ".offsetParentMatrix", list(input_mmatrix), type="matrix")
