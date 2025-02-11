@@ -103,7 +103,7 @@ def disable_module_guides_visibility(namespace: str = DEFAULT_NSPC):
     :param namespace: namespace of the module, defaults to DEFAULT_NSPC
     :type namespace: str, optional
     """
-    cmds.setAttr(f"{namespace}guide_GRP.visibility", 0)
+    cmds.setAttr(f"{namespace}setup.guide_visibility", 0)
 
 
 def enable_module_guides_visibility(namespace: str = DEFAULT_NSPC):
@@ -112,7 +112,7 @@ def enable_module_guides_visibility(namespace: str = DEFAULT_NSPC):
     :param namespace: namespace of the module, defaults to DEFAULT_NSPC
     :type namespace: str, optional
     """
-    cmds.setAttr(f"{namespace}guide_GRP.visibility", 0)
+    cmds.setAttr(f"{namespace}setup.guide_visibility", 1)
 
 
 def get_FK_controllers(namespace: str = ""):
