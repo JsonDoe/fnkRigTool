@@ -23,7 +23,7 @@ def match_node_to_guide(node: str):
 
     if connections:
         guid = connections[-1]
-        match_all_transformation(node, guid)
+        match_all_transformation(target= node, source=guid)
     else:
         print(f"Skipping {node}: No connected guide found.")
 
@@ -41,7 +41,7 @@ def match_controllers_and_buffers_to_guides(namespace: str = None):
 
     if namespace:
         buffers = [node for node in sel if node.startswith(f"{namespace}") and
-                   node.endswith("_IN_BUF")]
+                   node.endswith("_BUF")]  # TODO change to _IN_BUF
         controllers = [node for node in sel if node.startswith(f"{namespace}")
                        and node.endswith("_CON")]
     else:
@@ -76,6 +76,7 @@ def store_controllers_rest_pose(namespace=DEFAULT_NSPC):
     cmds.select(controllers)
 
     ru.setNeutralPose2()
+    cmds.select(cl=True)
 
 
 def disable_module_controllers_visibility(namespace: str = DEFAULT_NSPC):
