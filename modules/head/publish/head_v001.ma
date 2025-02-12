@@ -1,19 +1,18 @@
 //Maya ASCII 2025ff03 scene
-//Name: head_v008.ma
-//Last modified: Mon, Feb 03, 2025 11:37:58 AM
+//Name: head_v009.ma
+//Last modified: Wed, Feb 12, 2025 11:05:07 AM
 //Codeset: 1252
 requires maya "2025ff03";
 requires "stereoCamera" "10.0";
 requires "mtoa" "5.4.2.1";
 requires -nodeType "fnk_rig_shape" "Frankenstein" "1.2.0";
-requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202407121012-8ed02f4c99";
 fileInfo "osv" "Windows 10 Pro v2009 (Build: 19045)";
-fileInfo "UUID" "546AD165-4599-8F1E-E872-EF99BD9B4995";
+fileInfo "UUID" "92637DDB-4AD7-C313-9656-2DBFD90D1D3C";
 fileInfo "license" "education";
 createNode transform -n "module";
 	rename -uid "0D5B0427-4D89-9425-A1A2-068A13FA0C7C";
@@ -77,6 +76,8 @@ createNode transform -n "setup" -p "module";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "guideVisibility" -ln "guideVisibility" -nn "Guide Visibility" 
+		-min 0 -max 1 -at "bool";
 	setAttr -l on -k off ".v";
 	setAttr -l on -k off ".tx";
 	setAttr -l on -k off ".ty";
@@ -88,6 +89,7 @@ createNode transform -n "setup" -p "module";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
 	setAttr ".rig_objectType" 5;
+	setAttr -k on ".guideVisibility";
 createNode transform -n "guid_GRP" -p "module";
 	rename -uid "683D4D7E-4707-3669-B8C2-B38C9A1D2443";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
@@ -118,7 +120,6 @@ createNode transform -n "guid_GRP" -p "module";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".v" no;
 	setAttr ".rig_objectType" 5;
 createNode transform -n "head_GUID" -p "guid_GRP";
 	rename -uid "15646720-40DB-4BF3-5909-AB9CF0A9D351";
@@ -472,7 +473,7 @@ createNode fnk_rig_shape -n "setup_CONShape" -p "setup_CON";
 	setAttr ".shapeType" 13;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.30000000000000004 0 -0 0 -0 0 -0.30000000000000004 0
+	setAttr ".offsetMatrix" -type "matrix" 0.30000000000000004 0 0 0 0 0 -0.30000000000000004 0
 		 0 0.30000000000000004 0 0 0 0 0 1;
 createNode transform -n "bones_GRP" -p "module";
 	rename -uid "B177CC7C-414D-E846-093F-1C91B7C01142";
@@ -738,7 +739,7 @@ select -ne :defaultResolution;
 	setAttr ".pa" 1;
 select -ne :defaultColorMgtGlobals;
 	setAttr ".cfe" yes;
-	setAttr ".cfp" -type "string" "//svm-users/dev/rez_packages/external/ocio_config/2.1.0/.ocio-2.3.0/ocio-config.ocio";
+	setAttr ".cfp" -type "string" "//srv-sto-02/dev/rez_packages/external/ocio_config/2.1.0/.ocio-2.3.0/ocio-config.ocio";
 	setAttr ".vtn" -type "string" "ACES 1.0 - SDR Video (sRGB - Display)";
 	setAttr ".vn" -type "string" "ACES 1.0 - SDR Video";
 	setAttr ".dn" -type "string" "sRGB - Display";
@@ -748,6 +749,7 @@ select -ne :defaultColorMgtGlobals;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
+connectAttr "setup.guideVisibility" "guid_GRP.v";
 connectAttr "head_IN_BUF.wm" "headControllers_target_BUF.opm";
 connectAttr "head_GUID.msg" "head_CON.rig_guid";
 connectAttr "jaw_GUID.msg" "jaw_CON.rig_guid";
@@ -756,4 +758,4 @@ connectAttr "jaw_CON.wm" "jaw_FK_JNT.opm";
 connectAttr "head_GUID.msg" "head_IN_BUF.rig_guid";
 connectAttr "FK_JNT.wm" "head_OUT_BUF.opm";
 connectAttr "jaw_FK_JNT.wm" "jaw_OUT_BUF.opm";
-// End of head_v008.ma
+// End of head_v009.ma

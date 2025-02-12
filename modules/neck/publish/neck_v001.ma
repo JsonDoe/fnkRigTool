@@ -1,6 +1,6 @@
 //Maya ASCII 2025ff03 scene
-//Name: neck_v005.ma
-//Last modified: Mon, Feb 03, 2025 04:19:13 PM
+//Name: neck_v006.ma
+//Last modified: Wed, Feb 12, 2025 11:11:12 AM
 //Codeset: 1252
 requires maya "2025ff03";
 requires "stereoCamera" "10.0";
@@ -12,7 +12,7 @@ fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202407121012-8ed02f4c99";
 fileInfo "osv" "Windows 10 Pro v2009 (Build: 19045)";
-fileInfo "UUID" "24CA3AB6-4B3D-D91B-4195-BE8AFFBE10EC";
+fileInfo "UUID" "6F45D49A-40D9-8234-C097-F2B2DC718160";
 fileInfo "license" "education";
 createNode transform -n "module";
 	rename -uid "EF13EFF8-447D-D6F9-023F-0383830342F6";
@@ -76,7 +76,20 @@ createNode transform -n "setup" -p "module";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "guideVisibility" -ln "guideVisibility" -nn "Guide Visibility" 
+		-min 0 -max 1 -at "bool";
+	setAttr -l on -k off ".v";
+	setAttr -l on -k off ".tx";
+	setAttr -l on -k off ".ty";
+	setAttr -l on -k off ".tz";
+	setAttr -l on -k off ".rx";
+	setAttr -l on -k off ".ry";
+	setAttr -l on -k off ".rz";
+	setAttr -l on -k off ".sx";
+	setAttr -l on -k off ".sy";
+	setAttr -l on -k off ".sz";
 	setAttr ".rig_objectType" 5;
+	setAttr -k on ".guideVisibility";
 createNode transform -n "guid_GRP" -p "module";
 	rename -uid "96C22675-4B69-1765-9F66-7AA477149DCC";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
@@ -107,7 +120,6 @@ createNode transform -n "guid_GRP" -p "module";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".v" no;
 	setAttr ".rig_objectType" 5;
 createNode transform -n "baseNeck_GUID" -p "guid_GRP";
 	rename -uid "D5B0DB9F-43D2-7D7E-8236-259C78AAB060";
@@ -758,7 +770,7 @@ select -ne :defaultResolution;
 	setAttr ".pa" 1;
 select -ne :defaultColorMgtGlobals;
 	setAttr ".cfe" yes;
-	setAttr ".cfp" -type "string" "//svm-users/dev/rez_packages/external/ocio_config/2.1.0/.ocio-2.3.0/ocio-config.ocio";
+	setAttr ".cfp" -type "string" "//srv-sto-02/dev/rez_packages/external/ocio_config/2.1.0/.ocio-2.3.0/ocio-config.ocio";
 	setAttr ".vtn" -type "string" "ACES 1.0 - SDR Video (sRGB - Display)";
 	setAttr ".vn" -type "string" "ACES 1.0 - SDR Video";
 	setAttr ".dn" -type "string" "sRGB - Display";
@@ -768,6 +780,7 @@ select -ne :defaultColorMgtGlobals;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
+connectAttr "setup.guideVisibility" "guid_GRP.v";
 connectAttr "baseNeck_IN_BUF.wm" "baseNeck_target_BUF.opm";
 connectAttr "baseNeck_GUID.msg" "baseNeck_CON.rig_guid";
 connectAttr "neck_GUID.msg" "neck_CON.rig_guid";
@@ -778,4 +791,4 @@ connectAttr "topNeck_CON.wm" "topNeck_JNT.opm";
 connectAttr "baseNeck_GUID.msg" "baseNeck_IN_BUF.rig_guid";
 connectAttr "topNeck_GUID.msg" "topNeck_OUT_BUF.rig_guid";
 connectAttr "topNeck_JNT.wm" "topNeck_OUT_BUF.opm";
-// End of neck_v005.ma
+// End of neck_v006.ma

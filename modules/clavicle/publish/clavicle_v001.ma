@@ -1,6 +1,6 @@
 //Maya ASCII 2025ff03 scene
-//Name: clavicle_v008.ma
-//Last modified: Mon, Feb 03, 2025 11:51:09 AM
+//Name: clavicle_v010.ma
+//Last modified: Wed, Feb 12, 2025 11:00:11 AM
 //Codeset: 1252
 requires maya "2025ff03";
 requires "stereoCamera" "10.0";
@@ -12,7 +12,7 @@ fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202407121012-8ed02f4c99";
 fileInfo "osv" "Windows 10 Pro v2009 (Build: 19045)";
-fileInfo "UUID" "A69A8A2B-4C06-3ADF-5247-F8B599425719";
+fileInfo "UUID" "9EB5C95F-4B9A-BCE4-2568-F88C15DC5808";
 fileInfo "license" "education";
 createNode transform -n "module";
 	rename -uid "C4D0B7B3-43C0-34B9-AEA4-4798DF3F4594";
@@ -77,6 +77,8 @@ createNode transform -n "setup" -p "module";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	addAttr -ci true -sn "mirrorX" -ln "mirrorX" -nn "Mirror X" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "guideVisibility" -ln "guideVisibility" -nn "Guide Visibility" 
+		-min 0 -max 1 -at "bool";
 	setAttr -l on -k off ".v";
 	setAttr -l on -k off ".tx";
 	setAttr -l on -k off ".ty";
@@ -89,6 +91,7 @@ createNode transform -n "setup" -p "module";
 	setAttr -l on -k off ".sz";
 	setAttr ".rig_objectType" 5;
 	setAttr -k on ".mirrorX";
+	setAttr -k on ".guideVisibility";
 createNode transform -n "guid_GRP" -p "module";
 	rename -uid "FD860D2A-423B-BB56-17BF-979FD2AE55E0";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
@@ -119,7 +122,6 @@ createNode transform -n "guid_GRP" -p "module";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".v" no;
 	setAttr ".rig_objectType" 5;
 createNode transform -n "clavicle_GUID" -p "guid_GRP";
 	rename -uid "44A451E4-46F1-6EFE-6ADC-2F935664CF0F";
@@ -652,7 +654,7 @@ select -ne :defaultResolution;
 	setAttr ".pa" 1;
 select -ne :defaultColorMgtGlobals;
 	setAttr ".cfe" yes;
-	setAttr ".cfp" -type "string" "//svm-users/dev/rez_packages/external/ocio_config/2.1.0/.ocio-2.3.0/ocio-config.ocio";
+	setAttr ".cfp" -type "string" "//srv-sto-02/dev/rez_packages/external/ocio_config/2.1.0/.ocio-2.3.0/ocio-config.ocio";
 	setAttr ".vtn" -type "string" "ACES 1.0 - SDR Video (sRGB - Display)";
 	setAttr ".vn" -type "string" "ACES 1.0 - SDR Video";
 	setAttr ".dn" -type "string" "sRGB - Display";
@@ -662,6 +664,7 @@ select -ne :defaultColorMgtGlobals;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
+connectAttr "setup.guideVisibility" "guid_GRP.v";
 connectAttr "clavicle_IN_BUF.wm" "clavicle_target_BUF.opm";
 connectAttr "clavicle_GUID.msg" "clavicle_FK_CON.rig_guid";
 connectAttr "clavicleTarget_GUID.msg" "clavicleTarget_FK_BUF.rig_guid";
@@ -671,4 +674,4 @@ connectAttr "clavicle_GUID.msg" "clavicle_IN_BUF.rig_guid";
 connectAttr "clavicleTarget_FK_BUF.wm" "clavicleTarget_OUT_BUF.opm";
 connectAttr "setup.mirrorX" "fnk_float_rescale_mirrorX.floatX";
 connectAttr "fnk_float_rescale_mirrorX.msg" ":defaultRenderUtilityList1.u" -na;
-// End of clavicle_v008.ma
+// End of clavicle_v010.ma

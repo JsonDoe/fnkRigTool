@@ -1,6 +1,8 @@
 import maya.cmds as cmds
-from maya_functions import match_all_transformation, \
-    set_offset_parent_matrix_from_target_matrix
+from maya_functions import (
+    match_all_transformation,
+    set_offset_parent_matrix_from_target_matrix,
+)
 from frankenstein.rigUtils import RigUtils
 
 
@@ -13,17 +15,17 @@ def match_node_to_guide(node: str):
     :param node: node to move
     :type node: str
     """
-# Check if the .rig_guid attribute exists
+    # Check if the .rig_guid attribute exists
     if not cmds.attributeQuery("rig_guid", node=node, exists=True):
         print(f"Skipping {node}: .rig_guid attribute not found.")
-        pass # TODO replace to continue if error
+        pass  # TODO replace to continue if error
 
     # Get connections to the guide
     connections = cmds.listConnections(f"{node}.rig_guid")
 
     if connections:
         guid = connections[-1]
-        match_all_transformation(target= node, source=guid)
+        match_all_transformation(target=node, source=guid)
     else:
         print(f"Skipping {node}: No connected guide found.")
 
@@ -40,10 +42,16 @@ def match_controllers_and_buffers_to_guides(namespace: str = None):
     sel = cmds.ls()
 
     if namespace:
-        buffers = [node for node in sel if node.startswith(f"{namespace}") and
-                   node.endswith("_BUF")]  # TODO change to _IN_BUF
-        controllers = [node for node in sel if node.startswith(f"{namespace}")
-                       and node.endswith("_CON")]
+        buffers = [
+            node
+            for node in sel
+            if node.startswith(f"{namespace}") and node.endswith("_BUF")
+        ]  # TODO change to _IN_BUF
+        controllers = [
+            node
+            for node in sel
+            if node.startswith(f"{namespace}") and node.endswith("_CON")
+        ]
     else:
         buffers = [node for node in sel if node.endswith("_IN_BUF")]
         controllers = [node for node in sel if node.endswith("_CON")]
@@ -65,14 +73,19 @@ def store_controllers_rest_pose(namespace=DEFAULT_NSPC):
     ru = RigUtils()
     if namespace:
         controllers = [
-            x for x in cmds.ls() if x.startswith(namespace) and
-            x.endswith("_CON") and "tangent" not in x and "setup" not in x
-            ]
+            x
+            for x in cmds.ls()
+            if x.startswith(namespace)
+            and x.endswith("_CON")
+            and "tangent" not in x
+            and "setup" not in x
+        ]
     else:
         controllers = [
-            x for x in cmds.ls() if x.endswith("_CON") and "tangent"
-            not in x and "setup" not in x
-            ]
+            x
+            for x in cmds.ls()
+            if x.endswith("_CON") and "tangent" not in x and "setup" not in x
+        ]
     cmds.select(controllers)
 
     ru.setNeutralPose2()
@@ -118,9 +131,10 @@ def enable_module_guides_visibility(namespace: str = DEFAULT_NSPC):
 def get_FK_controllers(namespace: str = ""):
 
     return [
-        x for x in cmds.ls() if x.startswith(namespace)
-        and x.endswith("_FK_CON")
-        ]
+        x
+        for x in cmds.ls()
+        if x.startswith(namespace) and x.endswith("_FK_CON")
+    ]
 
 
 def handle_arm_module_match_guides(namespace: str = DEFAULT_NSPC):
@@ -134,11 +148,13 @@ def handle_arm_module_match_guides(namespace: str = DEFAULT_NSPC):
     # set rig to IK
     # TODO add switch function
     match_all_transformation(
-        target=f"{namespace}wrist_IK_CON", source=f"{namespace}wrist_JNT")
+        target=f"{namespace}wrist_IK_CON", source=f"{namespace}wrist_JNT"
+    )
     FK_controllers = get_FK_controllers(namespace=namespace)
     for controller in FK_controllers:
         match_all_transformation(
-            target=controller, source=controller.replace("_FK_CON", "_JNT"))
+            target=controller, source=controller.replace("_FK_CON", "_JNT")
+        )
 
     store_controllers_rest_pose(namespace=namespace)
 
@@ -151,16 +167,19 @@ def handle_leg_module_match_guides(namespace: str = DEFAULT_NSPC):
     """
     match_controllers_and_buffers_to_guides(namespace=namespace)
     match_all_transformation(
-        target=f"{namespace}ankle_IK_CON", source=f"{namespace}ankle_JNT")
+        target=f"{namespace}ankle_IK_CON", source=f"{namespace}ankle_JNT"
+    )
     # set rig to IK
     # TODO add switch function
 
     FK_controllers = get_FK_controllers(namespace=namespace)
     for controller in FK_controllers:
         match_all_transformation(
-            target=controller, source=controller.replace("_FK_CON", "_JNT"))
+            target=controller, source=controller.replace("_FK_CON", "_JNT")
+        )
 
     store_controllers_rest_pose(namespace=namespace)
+
 
 def handle_hand_module_match_guides(namespace: str = DEFAULT_NSPC):
     """manage the controllers placement for an hand module
@@ -171,12 +190,16 @@ def handle_hand_module_match_guides(namespace: str = DEFAULT_NSPC):
 
     match_controllers_and_buffers_to_guides(namespace=namespace)
 
-    FK_buffers = [x for x in cmds.ls() if x.startswith(namespace) and
-                  x.endswith("_FK_CON")]
+    FK_buffers = [
+        x
+        for x in cmds.ls()
+        if x.startswith(namespace) and x.endswith("_FK_CON")
+    ]
 
     for buffer in FK_buffers:
         set_offset_parent_matrix_from_target_matrix(
-            target=buffer, source=buffer.replace("_FK_BUF", "_GUID"))
+            target=buffer, source=buffer.replace("_FK_BUF", "_GUID")
+        )
 
     match_controllers_and_buffers_to_guides(namespace=namespace)
     store_controllers_rest_pose(namespace=namespace)

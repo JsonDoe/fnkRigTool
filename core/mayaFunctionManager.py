@@ -3,9 +3,8 @@ import os
 import maya.api.OpenMaya as om
 
 
-class MayaFunctionManager():
-    """Function manager for maya
-    """
+class MayaFunctionManager:
+    """Function manager for maya"""
 
     def __init__(self) -> None:
         self.CONS = None
@@ -23,7 +22,6 @@ class MayaFunctionManager():
         else:
             print(f"Source ({source}) or Target ({target}) does not exist.")
 
-
     def match_rotation(self, target: str, source: str):
         """Matches the rotation of the target object to the source object.
 
@@ -36,7 +34,6 @@ class MayaFunctionManager():
             cmds.xform(target, ws=True, rotation=rot)
         else:
             print(f"Source ({source}) or Target ({target}) does not exist.")
-
 
     def match_scale(self, source: str, target: str):
         """Matches the scale of the target object to the source object.
@@ -72,9 +69,7 @@ class MayaFunctionManager():
         else:
             print(f"Source ({source}) or Target ({target}) does not exist.")
 
-
-    def rename_namespace(
-            self, old_namespace: str , new_namespace: str):
+    def rename_namespace(self, old_namespace: str, new_namespace: str):
         """
         Renames an existing namespace in Maya.
         :param old_namespace: The current namespace to rename.
@@ -85,8 +80,10 @@ class MayaFunctionManager():
             return
 
         if cmds.namespace(exists=new_namespace):
-            print(f"Error: Namespace '{new_namespace}' "
-                  "already exists. Choose a different name.")
+            print(
+                f"Error: Namespace '{new_namespace}' "
+                "already exists. Choose a different name."
+            )
             return
         try:
             # Move all objects to the new namespace
@@ -95,9 +92,9 @@ class MayaFunctionManager():
         except Exception as e:
             print(f"Failed to rename namespace: {e}")
 
-
     def load_ma_file_as_reference(
-            self, file_path, namespace: str = "__BUILD__"):
+        self, file_path, namespace: str = "__BUILD__"
+    ):
         """
         Loads a .ma file into the current Maya scene within a specified
         namespace.
@@ -111,10 +108,10 @@ class MayaFunctionManager():
             # Load the file using reference the specified namespace
             cmds.file(file_path, reference=True, namespace=namespace)
             print(
-                f"Successfully loaded {file_path} into namespace: {namespace}")
+                f"Successfully loaded {file_path} into namespace: {namespace}"
+            )
         except Exception as e:
             print(f"Failed to load file: {e}")
-
 
     def load_ma_af_reference_with_dialog(self, namespace: str = "__BUILD__"):
         """
@@ -125,14 +122,15 @@ class MayaFunctionManager():
 
         """
         file_path = cmds.fileDialog2(
-            fileFilter="Maya ASCII (*.ma)", dialogStyle=2, fileMode=1)
+            fileFilter="Maya ASCII (*.ma)", dialogStyle=2, fileMode=1
+        )
 
         if file_path:
             self.load_ma_file_as_reference(file_path[0], namespace)
 
-
     def set_offset_parent_matrix_from_target_matrix(
-            self, source: str, target: str):
+        self, source: str, target: str
+    ):
         """set the .offsetParentMatrix attribute of the target node using the
         matrix of the source
 
@@ -146,7 +144,8 @@ class MayaFunctionManager():
             return
         # Get the world transformation matrix of the source object
         source_matrix = cmds.xform(
-            source, query=True, worldSpace=True, matrix=True)
+            source, query=True, worldSpace=True, matrix=True
+        )
 
         # Convert to MMatrix for better precision
         source_mmatrix = om.MMatrix(source_matrix)
@@ -154,25 +153,29 @@ class MayaFunctionManager():
         parent = cmds.listRelatives(target, parent=True)
         if parent:
             parent_matrix = cmds.xform(
-                parent[0], query=True, worldSpace=True, matrix=True)
+                parent[0], query=True, worldSpace=True, matrix=True
+            )
             parent_mmatrix = om.MMatrix(parent_matrix)
             relative_matrix = source_mmatrix * parent_mmatrix.inverse()
         else:
-            relative_matrix = source_mmatrix  # If no parent, use the world matrix
+            relative_matrix = (
+                source_mmatrix  # If no parent, use the world matrix
+            )
         # Apply the computed relative matrix to the target's offsetParentMatrix
         cmds.setAttr(
-            target + ".offsetParentMatrix",
-            list(relative_matrix), type="matrix")
-        
+            target + ".offsetParentMatrix", list(relative_matrix), type="matrix"
+        )
 
     def set_offset_parent_matrix(
-            self,
-            target: str,
-            matrix_values: list[float] = [
-                1, 0, 0, 0, 0,
-                1, 0, 0, 0, 0,
-                1, 0, 0, 0, 0,
-                1]):
+        self,
+        target: str,
+        matrix_values: list[float] = [
+            1, 0, 0, 0, 0,
+            1, 0, 0, 0, 0,
+            1, 0, 0, 0, 0,
+            1,
+        ],
+    ):
         """Sets the .offsetParentMatrix attribute of the target node
         to the given matrix values.
         :param target: The target object whose offsetParentMatrix will be set.
@@ -186,10 +189,12 @@ class MayaFunctionManager():
             return
         if len(matrix_values) != 16:
             cmds.warning(
-                "Invalid matrix: A transformation matrix must have 16 values.")
+                "Invalid matrix: A transformation matrix must have 16 values."
+            )
             return
         # Convert list to MMatrix for precision
         input_mmatrix = om.MMatrix(matrix_values)
         # Set the offsetParentMatrix attribute
         cmds.setAttr(
-            target + ".offsetParentMatrix", list(input_mmatrix), type="matrix")
+            target + ".offsetParentMatrix", list(input_mmatrix), type="matrix"
+        )

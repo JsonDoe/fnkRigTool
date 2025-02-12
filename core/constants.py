@@ -6,5 +6,5 @@ HANDLER = {
     "leg": 2,
     "neck": 0,
     "spine": 0,
-    "SRT_global": 0,
+    "SRT_global": 4,
 }
