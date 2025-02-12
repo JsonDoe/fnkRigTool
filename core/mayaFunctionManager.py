@@ -163,7 +163,8 @@ class MayaFunctionManager:
             )
         # Apply the computed relative matrix to the target's offsetParentMatrix
         cmds.setAttr(
-            target + ".offsetParentMatrix", list(relative_matrix), type="matrix"
+            target + ".offsetParentMatrix", list(relative_matrix),
+            type="matrix"
         )
 
     def set_offset_parent_matrix(

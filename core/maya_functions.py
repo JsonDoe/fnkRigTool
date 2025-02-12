@@ -144,7 +144,8 @@ def set_offset_parent_matrix_from_target_matrix(source: str, target: str):
         return
 
     # Get the world transformation matrix of the source object
-    source_matrix = cmds.xform(source, query=True, worldSpace=True, matrix=True)
+    source_matrix = cmds.xform(
+        source, query=True, worldSpace=True, matrix=True)
 
     # Convert to MMatrix for better precision
     source_mmatrix = om.MMatrix(source_matrix)
@@ -175,11 +176,12 @@ def set_offset_parent_matrix(
         0, 0, 0, 0, 1
     ],
 ):
-    """Sets the .offsetParentMatrix attribute of the target node to the given matrix values.
-
+    """Sets the .offsetParentMatrix attribute of the target node to the given
+    matrix values.
     :param target: The target object whose offsetParentMatrix will be set.
     :type target: str
-    :param matrix_values: A list of 16 values representing the transformation matrix.
+    :param matrix_values: A list of 16 values representing the transformation
+    matrix.
     :type matrix_values: list
     """
     if not cmds.objExists(target):

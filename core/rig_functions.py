@@ -22,7 +22,6 @@ def match_node_to_guide(node: str):
 
     # Get connections to the guide
     connections = cmds.listConnections(f"{node}.rig_guid")
-
     if connections:
         guid = connections[-1]
         match_all_transformation(target=node, source=guid)
