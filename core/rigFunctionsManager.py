@@ -110,7 +110,7 @@ class RigFunctionsManager:
         :param namespace: namespace of the module, defaults to "TEMP"
         :type namespace: str, optional
         """
-        cmds.setAttr(f"{namespace}setup.guide_visibility", 0)
+        cmds.setAttr(f"{namespace}setup.guideVisibility", 0)
 
     def enable_module_guides_visibility(self, namespace: str = "TEMP"):
         """disable the module controller group visibility
@@ -118,7 +118,7 @@ class RigFunctionsManager:
         :param namespace: namespace of the module, defaults to "TEMP"
         :type namespace: str, optional
         """
-        cmds.setAttr(f"{namespace}setup.guide_visibility", 1)
+        cmds.setAttr(f"{namespace}setup.guideVisibility", 1)
 
     def get_FK_controllers(self, namespace: str = "TEMP"):
         """get all the FK controllers from a namespace
