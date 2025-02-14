@@ -44,7 +44,8 @@ def match_controllers_and_buffers_to_guides(namespace: str = None):
         buffers = [
             node
             for node in sel
-            if node.startswith(f"{namespace}") and node.endswith("_BUF")
+            if node.startswith(f"{namespace}") and node.endswith("_BUF") and
+            "_IN_" in node and "Target" not in node
         ]  # TODO change to _IN_BUF
         controllers = [
             node
@@ -52,7 +53,8 @@ def match_controllers_and_buffers_to_guides(namespace: str = None):
             if node.startswith(f"{namespace}") and node.endswith("_CON")
         ]
     else:
-        buffers = [node for node in sel if node.endswith("_IN_BUF")]
+        buffers = [node for node in sel if node.endswith("_BUF") and
+                   "_IN_" in node and "Target" not in node]
         controllers = [node for node in sel if node.endswith("_CON")]
 
     # Prioritize matching buffers first
