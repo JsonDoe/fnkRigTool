@@ -5,7 +5,6 @@ class EditionWidget(QtWidgets.QFrame):
 
     def __init__(self):
         super(EditionWidget, self).__init__()
-        self.rig_module_list = ["test001", "test002", "test003"]
         self.initUI()
 
     def initUI(self):
