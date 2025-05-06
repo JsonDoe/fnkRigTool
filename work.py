@@ -302,7 +302,7 @@ def disable_module_controllers_visibility(namespace: str = DEFAULT_NSPC):
     :param namespace: namespace of the module, defaults to DEFAULT_NSPC
     :type namespace: str, optional
     """
-    cmds.setAttr(f"{namespace}controller_GRP.visibility", 0)
+    cmds.setAttr(f"{namespace}setup.controllersVisibility", 0)
 
 
 def enable_module_controllers_visibility(namespace: str = DEFAULT_NSPC):
@@ -311,7 +311,7 @@ def enable_module_controllers_visibility(namespace: str = DEFAULT_NSPC):
     :param namespace: namespace of the module, defaults to DEFAULT_NSPC
     :type namespace: str, optional
     """
-    cmds.setAttr(f"{namespace}controller_GRP.visibility", 1)
+    cmds.setAttr(f"{namespace}setup.controllersVisibility", 1)
 
 
 def disable_module_guides_visibility(namespace: str = DEFAULT_NSPC):
@@ -320,7 +320,7 @@ def disable_module_guides_visibility(namespace: str = DEFAULT_NSPC):
     :param namespace: namespace of the module, defaults to DEFAULT_NSPC
     :type namespace: str, optional
     """
-    cmds.setAttr(f"{namespace}setup.guide_visibility", 0)
+    cmds.setAttr(f"{namespace}setup.guidesVisibility", 0)
 
 
 def enable_module_guides_visibility(namespace: str = DEFAULT_NSPC):
@@ -329,7 +329,27 @@ def enable_module_guides_visibility(namespace: str = DEFAULT_NSPC):
     :param namespace: namespace of the module, defaults to DEFAULT_NSPC
     :type namespace: str, optional
     """
-    cmds.setAttr(f"{namespace}setup.guide_visibility", 1)
+    cmds.setAttr(f"{namespace}setup.guidesVisibility", 1)
+
+def disable_module_joints_visibility(namespace: str = DEFAULT_NSPC):
+    """disable the module bones group visibility
+
+    :param namespace: namespace of the module, defaults to DEFAULT_NSPC
+    :type namespace: str, optional
+    """
+    cmds.setAttr(f"{namespace}setup.jointsVisibility", 0)
+
+
+def enable_module_joints_visibility(namespace: str = DEFAULT_NSPC):
+    """disable the module bones group visibility
+
+    :param namespace: namespace of the module, defaults to DEFAULT_NSPC
+    :type namespace: str, optional
+    """
+    cmds.setAttr(f"{namespace}setup.jointsVisibility", 1)
+
+
+
 
 
 def get_FK_controllers(namespace: str = ""):
