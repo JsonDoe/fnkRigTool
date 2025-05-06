@@ -348,10 +348,6 @@ def enable_module_joints_visibility(namespace: str = DEFAULT_NSPC):
     """
     cmds.setAttr(f"{namespace}setup.jointsVisibility", 1)
 
-
-
-
-
 def get_FK_controllers(namespace: str = ""):
 
     return [
