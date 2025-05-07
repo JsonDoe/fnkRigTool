@@ -4,8 +4,12 @@ from PySide6 import QtWidgets, QtCore, QtGui
 from maya import OpenMayaUI as omui
 from shiboken6 import wrapInstance
 
+# Path setup
 MODULES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'modules'))
-PREVIEW_DIR = os.path.join(MODULES_DIR, 'preview')
+PREVIEW_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'utils', 'preview'))
+
+# Import the second UI for building modules
+from .build_ui import ModuleBuildUI
 
 def get_maya_main_window():
     main_window_ptr = omui.MQtUtil.mainWindow()
@@ -62,7 +66,7 @@ class AutoRigToolUI(QtWidgets.QDialog):
             self.preview_label.clear()
             return
 
-        # Check for PNG or JPG preview
+        # Look for PNG or JPG in /utils/preview
         preview_path_png = os.path.join(PREVIEW_DIR, f"{selected}.png")
         preview_path_jpg = os.path.join(PREVIEW_DIR, f"{selected}.jpg")
 
@@ -82,8 +86,10 @@ class AutoRigToolUI(QtWidgets.QDialog):
     def build_selected_module(self):
         selected = self.module_selector.currentText()
         if selected:
-            QtWidgets.QMessageBox.information(self, "Build", f"Building module: {selected}")
-            # TODO: Insert actual build logic here
+            self.hide()  # Optional: hide main UI
+            builder = ModuleBuildUI(selected, parent=self)
+            builder.exec()
+            self.show()  # Show again after build UI closes
 
     def edit_module(self):
         selected = self.module_selector.currentText()
