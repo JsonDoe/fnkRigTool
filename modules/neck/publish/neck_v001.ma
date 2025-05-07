@@ -1,21 +1,21 @@
 //Maya ASCII 2025ff03 scene
-//Name: neck_v006.ma
-//Last modified: Wed, Feb 12, 2025 11:11:12 AM
+//Name: neck_v001.ma
+//Last modified: Tue, May 06, 2025 12:50:46 PM
 //Codeset: 1252
 requires maya "2025ff03";
 requires "stereoCamera" "10.0";
-requires "mtoa" "5.4.2.1";
 requires -nodeType "fnk_rig_shape" "Frankenstein" "1.2.0";
+requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202407121012-8ed02f4c99";
 fileInfo "osv" "Windows 10 Pro v2009 (Build: 19045)";
-fileInfo "UUID" "6F45D49A-40D9-8234-C097-F2B2DC718160";
+fileInfo "UUID" "E052532D-43C3-B6EC-F4F4-839C12A8E735";
 fileInfo "license" "education";
 createNode transform -n "module";
-	rename -uid "EF13EFF8-447D-D6F9-023F-0383830342F6";
+	rename -uid "38F95FB5-4098-DDD3-7DD0-E3BEB903210D";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -47,7 +47,7 @@ createNode transform -n "module";
 	setAttr ".t" -type "double3" 2.809714165160921e-18 0 6.9388939039072284e-18 ;
 	setAttr ".rig_objectType" 7;
 createNode transform -n "setup" -p "module";
-	rename -uid "94E7EC2B-44FB-38E5-B0CB-F88CBFBA358D";
+	rename -uid "143E50E6-4C4C-6AC4-BC5A-0EAD810653B7";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -76,8 +76,12 @@ createNode transform -n "setup" -p "module";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	addAttr -ci true -sn "guideVisibility" -ln "guideVisibility" -nn "Guide Visibility" 
+	addAttr -ci true -k true -sn "Guides_Visibility" -ln "Guides_Visibility" -nn "Guides Visibility" 
 		-min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "Joints_Visibility" -ln "Joints_Visibility" -nn "Joints Visibility" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "Controllers_Visibility" -ln "Controllers_Visibility" 
+		-nn "Controllers Visibility" -min 0 -max 1 -at "bool";
 	setAttr -l on -k off ".v";
 	setAttr -l on -k off ".tx";
 	setAttr -l on -k off ".ty";
@@ -89,9 +93,11 @@ createNode transform -n "setup" -p "module";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
 	setAttr ".rig_objectType" 5;
-	setAttr -k on ".guideVisibility";
+	setAttr -k on ".Guides_Visibility";
+	setAttr -k on ".Joints_Visibility" yes;
+	setAttr -k on ".Controllers_Visibility" yes;
 createNode transform -n "guid_GRP" -p "module";
-	rename -uid "96C22675-4B69-1765-9F66-7AA477149DCC";
+	rename -uid "8A484FE5-45CE-937F-D48A-D793D06AF7F7";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -122,7 +128,7 @@ createNode transform -n "guid_GRP" -p "module";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "baseNeck_GUID" -p "guid_GRP";
-	rename -uid "D5B0DB9F-43D2-7D7E-8236-259C78AAB060";
+	rename -uid "8AD9A977-45AA-D88F-C97B-769ED20A187B";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -154,18 +160,18 @@ createNode transform -n "baseNeck_GUID" -p "guid_GRP";
 	setAttr ".t" -type "double3" -0.00041354240966027936 13.094085205685012 -0.47011370454476081 ;
 	setAttr ".s" -type "double3" 1 1.0000000000000007 1 ;
 createNode fnk_rig_shape -n "baseNeck_GUIDShape" -p "baseNeck_GUID";
-	rename -uid "9D85D61D-46EF-9152-3B08-69B6479B9E87";
+	rename -uid "832FADBB-4892-39E3-8B06-58ABC380E43F";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.69183201 0.080841944 0.19996908 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 	setAttr ".offsetMatrix" -type "matrix" 0.19999999999999996 0 0 0 0 0.19999999999999996 0 0
 		 0 0 0.19999999999999996 0 0 0 0 1;
 createNode transform -n "neck_GUID" -p "guid_GRP";
-	rename -uid "11EC5C4E-4C74-9243-2A47-40A1A8E724C5";
+	rename -uid "2E3C1195-4B35-6E14-DA54-3E9386AC1FF9";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -197,18 +203,18 @@ createNode transform -n "neck_GUID" -p "guid_GRP";
 	setAttr ".t" -type "double3" 9.9268353672890371e-05 13.437299901788888 -0.42180878122813825 ;
 	setAttr ".s" -type "double3" 1 1.0000000000000007 1 ;
 createNode fnk_rig_shape -n "neck_GUIDShape" -p "neck_GUID";
-	rename -uid "DFD7085E-4A6F-20AB-A578-AFA763F73316";
+	rename -uid "3DE1CB84-4B3E-8F1B-0FB5-0D9AC000564F";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.69183201 0.080841944 0.19996908 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 	setAttr ".offsetMatrix" -type "matrix" 0.19999999999999996 0 0 0 0 0.19999999999999996 0 0
 		 0 0 0.19999999999999996 0 0 0 0 1;
 createNode transform -n "topNeck_GUID" -p "guid_GRP";
-	rename -uid "96C6EFB1-403E-3AAB-7F42-B28B7195CB0A";
+	rename -uid "C3EDC157-4EB9-0C10-22AA-EF9B621F34F9";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -240,18 +246,18 @@ createNode transform -n "topNeck_GUID" -p "guid_GRP";
 	setAttr ".t" -type "double3" 2.6670084723337448e-06 13.816285523501312 -0.3488079734420742 ;
 	setAttr ".s" -type "double3" 1 1.0000000000000007 1 ;
 createNode fnk_rig_shape -n "topNeck_GUIDShape" -p "topNeck_GUID";
-	rename -uid "8FD9C04C-42AB-0B7D-869F-FF9DD537EAD1";
+	rename -uid "ADED3604-4B1B-AB21-AF08-2ABFCA7265CB";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.69183201 0.080841944 0.19996908 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 	setAttr ".offsetMatrix" -type "matrix" 0.19999999999999996 0 0 0 0 0.19999999999999996 0 0
 		 0 0 0.19999999999999996 0 0 0 0 1;
 createNode transform -n "controllers_GRP" -p "module";
-	rename -uid "EBB49660-47E7-D5F8-4E60-76B369657BFD";
+	rename -uid "15DB789E-48C4-1831-4169-2EB77995FE7E";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -282,7 +288,7 @@ createNode transform -n "controllers_GRP" -p "module";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "IK_GRP" -p "controllers_GRP";
-	rename -uid "381E4B33-43EB-72F3-2943-3B981D086949";
+	rename -uid "4B1CE6FC-4728-55FB-9C82-D7A52C2CF2AC";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -313,7 +319,7 @@ createNode transform -n "IK_GRP" -p "controllers_GRP";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "FK_GRP" -p "controllers_GRP";
-	rename -uid "6AA31D76-4675-DE48-98D0-15AAFE535E47";
+	rename -uid "DAA4DA76-4C1D-C5E5-9153-C3B1DE946F26";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -344,7 +350,7 @@ createNode transform -n "FK_GRP" -p "controllers_GRP";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "baseNeck_target_BUF" -p "FK_GRP";
-	rename -uid "2966857F-4D53-E1EA-6185-7C89D12C4610";
+	rename -uid "B55C56B1-4594-67D1-CA53-93B85CEC404B";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -379,7 +385,7 @@ createNode transform -n "baseNeck_target_BUF" -p "FK_GRP";
 	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr ".rig_objectType" 1;
 createNode transform -n "baseNeck_CON" -p "baseNeck_target_BUF";
-	rename -uid "BB792EAB-461F-EB41-B365-F4BC3C663417";
+	rename -uid "C5CEFABA-4080-61D0-20A8-439DAF87DD59";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -411,7 +417,7 @@ createNode transform -n "baseNeck_CON" -p "baseNeck_target_BUF";
 	setAttr ".opm" -type "matrix" 1 0 0 0 0 1.0000000000000002 0 0 0 0 1 0 -2.6562953225894859e-18 3.5527136788005009e-15 -5.5511151231257827e-17 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "baseNeck_CONShape" -p "baseNeck_CON";
-	rename -uid "9210A6BF-435B-89C2-303F-22B744C81C0B";
+	rename -uid "E8FF9DC2-442D-D302-38FE-5F93A36BB797";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
@@ -421,7 +427,7 @@ createNode fnk_rig_shape -n "baseNeck_CONShape" -p "baseNeck_CON";
 	setAttr ".transparency" 0.10000000149011612;
 	setAttr ".offsetMatrix" -type "matrix" 1 0 0 0 0 0 -1 0 0 1 0 0 0 0 0 1;
 createNode transform -n "neck_CON" -p "baseNeck_CON";
-	rename -uid "D1E8169A-4DF6-397C-E480-919EDDCDD105";
+	rename -uid "1B98A96F-4735-D5B4-209E-68B9A16AA864";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -453,7 +459,7 @@ createNode transform -n "neck_CON" -p "baseNeck_CON";
 	setAttr ".opm" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0.00051281076333316972 0.34321469610387645 0.048304923316622561 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "neck_CONShape" -p "neck_CON";
-	rename -uid "B46B737B-412F-90EE-821C-0BB49825A8FF";
+	rename -uid "999A395B-420D-1210-74AE-B7AD9BE2D5D2";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
@@ -463,7 +469,7 @@ createNode fnk_rig_shape -n "neck_CONShape" -p "neck_CON";
 	setAttr ".transparency" 0.10000000149011612;
 	setAttr ".offsetMatrix" -type "matrix" 1 0 0 0 0 0 -1 0 0 1 0 0 0 0 0 1;
 createNode transform -n "topNeck_CON" -p "neck_CON";
-	rename -uid "46B1EF19-45CA-CFC7-B0FF-81B1A1AD320F";
+	rename -uid "67F8CAA8-4D34-7643-C62E-2BA740B9ACB9";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -495,7 +501,7 @@ createNode transform -n "topNeck_CON" -p "neck_CON";
 	setAttr ".opm" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 -9.6601345200556622e-05 0.37898562171242389 0.073000807786064048 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "topNeck_CONShape" -p "topNeck_CON";
-	rename -uid "1B7BAFD9-481D-5B6E-16F2-BB9C93FFE108";
+	rename -uid "3EE27226-4AD7-EA8E-6C1A-EAB86F1EB266";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
@@ -505,7 +511,7 @@ createNode fnk_rig_shape -n "topNeck_CONShape" -p "topNeck_CON";
 	setAttr ".transparency" 0.10000000149011612;
 	setAttr ".offsetMatrix" -type "matrix" 1 0 0 0 0 0 -1 0 0 1 0 0 0 0 0 1;
 createNode transform -n "bones_GRP" -p "module";
-	rename -uid "EC3A6349-493F-7211-F7B0-36BE862ED91A";
+	rename -uid "19A074CB-482D-FE02-A65C-62BE81D925A9";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -536,7 +542,7 @@ createNode transform -n "bones_GRP" -p "module";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode joint -n "baseNeck_JNT" -p "bones_GRP";
-	rename -uid "2B19C277-42D0-4624-8190-FEBF48D22E5C";
+	rename -uid "1C9607DF-4E73-6832-7970-3AB8B4CDE201";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -570,7 +576,7 @@ createNode joint -n "baseNeck_JNT" -p "bones_GRP";
 	setAttr ".radi" 0.2;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "neck_JNT" -p "bones_GRP";
-	rename -uid "BAB917FB-444E-6842-01B4-A0B9993B032B";
+	rename -uid "18B6042D-41A2-0CF0-57DA-72908119D44A";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -604,7 +610,7 @@ createNode joint -n "neck_JNT" -p "bones_GRP";
 	setAttr ".radi" 0.2;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "topNeck_JNT" -p "bones_GRP";
-	rename -uid "C903A81A-408D-5600-6548-D7AFCA8B801E";
+	rename -uid "7F2A6DDC-4380-16B5-40FB-F8A2C827189B";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -638,7 +644,7 @@ createNode joint -n "topNeck_JNT" -p "bones_GRP";
 	setAttr ".radi" 0.2;
 	setAttr ".rig_objectType" 8;
 createNode transform -n "algo_GRP" -p "module";
-	rename -uid "0E1E0910-489F-5F56-E8CF-82B61962072E";
+	rename -uid "3897270E-4CCE-E6E9-C59B-F2AE0B6567A7";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -668,8 +674,8 @@ createNode transform -n "algo_GRP" -p "module";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
-createNode transform -n "baseNeck_IN_BUF" -p "algo_GRP";
-	rename -uid "A95AF92B-42FB-7970-9512-28865D0CFAAC";
+createNode transform -n "baseNeck_RT_IN_BUF" -p "algo_GRP";
+	rename -uid "F6276151-438D-5B08-C929-9286123267A3";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -703,7 +709,7 @@ createNode transform -n "baseNeck_IN_BUF" -p "algo_GRP";
 	setAttr ".oclr" -type "float3" 0 1 0 ;
 	setAttr ".rig_objectType" 1;
 createNode transform -n "topNeck_OUT_BUF" -p "algo_GRP";
-	rename -uid "4654FE0F-4FC2-2BFF-2157-C0B778CB36F8";
+	rename -uid "0A7F92D8-4CC8-7279-0287-BFB05460CD78";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -738,8 +744,8 @@ createNode transform -n "topNeck_OUT_BUF" -p "algo_GRP";
 	setAttr ".oclr" -type "float3" 1 0 0 ;
 	setAttr ".rig_objectType" 1;
 select -ne :time1;
-	setAttr ".o" 1;
-	setAttr ".unw" 1;
+	setAttr ".o" 3;
+	setAttr ".unw" 3;
 select -ne :hardwareRenderingGlobals;
 	setAttr ".otfna" -type "stringArray" 22 "NURBS Curves" "NURBS Surfaces" "Polygons" "Subdiv Surface" "Particles" "Particle Instance" "Fluids" "Strokes" "Image Planes" "UI" "Lights" "Cameras" "Locators" "Joints" "IK Handles" "Deformers" "Motion Trails" "Components" "Hair Systems" "Follicles" "Misc. UI" "Ornaments"  ;
 	setAttr ".otfva" -type "Int32Array" 22 0 1 1 1 1 1
@@ -754,6 +760,8 @@ select -ne :defaultShaderList1;
 	setAttr -s 5 ".s";
 select -ne :postProcessList1;
 	setAttr -s 2 ".p";
+select -ne :defaultRenderUtilityList1;
+	setAttr -s 20 ".u";
 select -ne :defaultRenderingList1;
 select -ne :standardSurface1;
 	setAttr ".bc" -type "float3" 0.40000001 0.40000001 0.40000001 ;
@@ -780,15 +788,17 @@ select -ne :defaultColorMgtGlobals;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
-connectAttr "setup.guideVisibility" "guid_GRP.v";
-connectAttr "baseNeck_IN_BUF.wm" "baseNeck_target_BUF.opm";
-connectAttr "baseNeck_GUID.msg" "baseNeck_CON.rig_guid";
+select -ne :ikSystem;
+	setAttr -s 4 ".sol";
+connectAttr "setup.Guides_Visibility" "guid_GRP.v";
+connectAttr "setup.Controllers_Visibility" "controllers_GRP.v";
+connectAttr "baseNeck_RT_IN_BUF.wm" "baseNeck_target_BUF.opm";
 connectAttr "neck_GUID.msg" "neck_CON.rig_guid";
 connectAttr "topNeck_GUID.msg" "topNeck_CON.rig_guid";
+connectAttr "setup.Joints_Visibility" "bones_GRP.v";
 connectAttr "baseNeck_CON.wm" "baseNeck_JNT.opm";
 connectAttr "neck_CON.wm" "neck_JNT.opm";
 connectAttr "topNeck_CON.wm" "topNeck_JNT.opm";
-connectAttr "baseNeck_GUID.msg" "baseNeck_IN_BUF.rig_guid";
-connectAttr "topNeck_GUID.msg" "topNeck_OUT_BUF.rig_guid";
+connectAttr "baseNeck_GUID.msg" "baseNeck_RT_IN_BUF.rig_guid";
 connectAttr "topNeck_JNT.wm" "topNeck_OUT_BUF.opm";
-// End of neck_v006.ma
+// End of neck_v001.ma

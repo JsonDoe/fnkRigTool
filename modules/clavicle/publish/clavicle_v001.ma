@@ -1,21 +1,21 @@
 //Maya ASCII 2025ff03 scene
-//Name: clavicle_v010.ma
-//Last modified: Wed, Feb 12, 2025 11:00:11 AM
+//Name: clavicle_v001.ma
+//Last modified: Tue, May 06, 2025 12:43:37 PM
 //Codeset: 1252
 requires maya "2025ff03";
 requires "stereoCamera" "10.0";
-requires "mtoa" "5.4.2.1";
 requires -nodeType "fnk_float_rescale" -nodeType "fnk_rig_shape" "Frankenstein" "1.2.0";
+requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202407121012-8ed02f4c99";
 fileInfo "osv" "Windows 10 Pro v2009 (Build: 19045)";
-fileInfo "UUID" "9EB5C95F-4B9A-BCE4-2568-F88C15DC5808";
+fileInfo "UUID" "F5E7E56E-498F-8EB2-3AA1-F5AF9C015627";
 fileInfo "license" "education";
 createNode transform -n "module";
-	rename -uid "C4D0B7B3-43C0-34B9-AEA4-4798DF3F4594";
+	rename -uid "5900C903-4D0F-8CCD-71F6-73B71CA683DE";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -47,7 +47,7 @@ createNode transform -n "module";
 	setAttr ".t" -type "double3" 2.809714165160921e-18 0 6.9388939039072284e-18 ;
 	setAttr ".rig_objectType" 7;
 createNode transform -n "setup" -p "module";
-	rename -uid "0B085EF8-41CD-1D4C-F620-A7B913416929";
+	rename -uid "7E7C5E89-493A-0274-693F-649DEFBA67B1";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -77,8 +77,12 @@ createNode transform -n "setup" -p "module";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	addAttr -ci true -sn "mirrorX" -ln "mirrorX" -nn "Mirror X" -min 0 -max 1 -at "bool";
-	addAttr -ci true -sn "guideVisibility" -ln "guideVisibility" -nn "Guide Visibility" 
+	addAttr -ci true -k true -sn "Guides_Visibility" -ln "Guides_Visibility" -nn "Guides Visibility" 
 		-min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "Joints_Visibility" -ln "Joints_Visibility" -nn "Joints Visibility" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "Controllers_Visibility" -ln "Controllers_Visibility" 
+		-nn "Controllers Visibility" -min 0 -max 1 -at "bool";
 	setAttr -l on -k off ".v";
 	setAttr -l on -k off ".tx";
 	setAttr -l on -k off ".ty";
@@ -91,9 +95,11 @@ createNode transform -n "setup" -p "module";
 	setAttr -l on -k off ".sz";
 	setAttr ".rig_objectType" 5;
 	setAttr -k on ".mirrorX";
-	setAttr -k on ".guideVisibility";
+	setAttr -k on ".Guides_Visibility";
+	setAttr -k on ".Joints_Visibility" yes;
+	setAttr -k on ".Controllers_Visibility" yes;
 createNode transform -n "guid_GRP" -p "module";
-	rename -uid "FD860D2A-423B-BB56-17BF-979FD2AE55E0";
+	rename -uid "D688FBFF-45B3-21D0-0D47-55AA994EB560";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -124,7 +130,7 @@ createNode transform -n "guid_GRP" -p "module";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "clavicle_GUID" -p "guid_GRP";
-	rename -uid "44A451E4-46F1-6EFE-6ADC-2F935664CF0F";
+	rename -uid "2F2DBBCD-4746-44D0-70D0-C3BEEF2F09F8";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -154,20 +160,20 @@ createNode transform -n "clavicle_GUID" -p "guid_GRP";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".t" -type "double3" 0.50514208984206821 12.383703336044283 -0.3927394412457943 ;
-	setAttr ".r" -type "double3" 0 0 5 ;
+	setAttr ".r" -type "double3" -12.117569051987282 -20.493204450559759 23.347381853029454 ;
 createNode fnk_rig_shape -n "clavicle_GUIDShape" -p "clavicle_GUID";
-	rename -uid "34AA7688-4902-BA91-9BB7-DB8778D9A62B";
+	rename -uid "5F9EF1EF-4338-C36E-0F86-1DB4DE4B32D2";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 	setAttr ".offsetMatrix" -type "matrix" 0.099999999999999978 0 0 0 0 0.099999999999999978 0 0
 		 0 0 0.099999999999999978 0 0 0 0 1;
 createNode transform -n "clavicleTarget_GUID" -p "clavicle_GUID";
-	rename -uid "3D2C9FA4-4221-F31D-777D-6A91B181796F";
+	rename -uid "D5B88033-478E-88D5-E482-079ABFDDF8CB";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -198,7 +204,7 @@ createNode transform -n "clavicleTarget_GUID" -p "clavicle_GUID";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".t" -type "double3" 0.75629198143465604 -1.7126057516581028e-15 0 ;
 createNode fnk_rig_shape -n "clavicleTarget_GUIDShape" -p "clavicleTarget_GUID";
-	rename -uid "5B1F4614-49FE-FB8D-87B5-9697E2585300";
+	rename -uid "58C07F1D-492B-2847-AF74-CB88778811D0";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
@@ -209,7 +215,7 @@ createNode fnk_rig_shape -n "clavicleTarget_GUIDShape" -p "clavicleTarget_GUID";
 	setAttr ".offsetMatrix" -type "matrix" 0.099999999999999978 0 0 0 0 0.099999999999999978 0 0
 		 0 0 0.099999999999999978 0 0 0 0 1;
 createNode transform -n "controllers_GRP" -p "module";
-	rename -uid "62D6E66B-4102-D5DB-57A8-42822BEBB117";
+	rename -uid "80A2AA1D-4BA0-F904-5A00-F5AFE5FE8EBB";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -240,7 +246,7 @@ createNode transform -n "controllers_GRP" -p "module";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "IK_GRP" -p "controllers_GRP";
-	rename -uid "7E31BAD1-4D58-3A51-5282-F5A8926F419F";
+	rename -uid "D46C1483-454F-59C9-A4C0-55A3B6456A29";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -271,7 +277,7 @@ createNode transform -n "IK_GRP" -p "controllers_GRP";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "FK_GRP" -p "controllers_GRP";
-	rename -uid "02532260-41D2-97B7-9E82-D6A06316B701";
+	rename -uid "EB8B2D1F-47C9-A84E-7C6A-EF9A28AEFC01";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -302,7 +308,7 @@ createNode transform -n "FK_GRP" -p "controllers_GRP";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "clavicle_target_BUF" -p "FK_GRP";
-	rename -uid "2CF0740C-42E9-8C94-6199-9197151EB1F5";
+	rename -uid "BBC1A429-4B07-7DAA-AC1E-9CAD8A47D461";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -335,7 +341,7 @@ createNode transform -n "clavicle_target_BUF" -p "FK_GRP";
 	setAttr ".oclr" -type "float3" 0 1 0 ;
 	setAttr ".rig_objectType" 1;
 createNode transform -n "clavicle_FK_CON" -p "clavicle_target_BUF";
-	rename -uid "69E160C3-4606-523B-6F57-40BA3AE7D1F3";
+	rename -uid "D6DE70B3-4C54-160D-3A7D-BAA557DDB661";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -369,7 +375,7 @@ createNode transform -n "clavicle_FK_CON" -p "clavicle_target_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "clavicle_FK_CONShape" -p "clavicle_FK_CON";
-	rename -uid "13A2A321-46D1-C3F6-7416-518753AF37A4";
+	rename -uid "6360B411-4147-09E8-7991-759498A38032";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
@@ -379,8 +385,8 @@ createNode fnk_rig_shape -n "clavicle_FK_CONShape" -p "clavicle_FK_CON";
 	setAttr ".transparency" 0.10000000149011612;
 	setAttr ".offsetMatrix" -type "matrix" 0 0 1 0 -0.58903197558302167 0.10459032874093641 0 0
 		 -0.17482841108737113 -0.98459891665422083 0 0 0.71469197197706613 0.37223627170365586 1.1829875484977623e-16 1;
-createNode transform -n "clavicleTarget_FK_BUF" -p "clavicle_FK_CON";
-	rename -uid "AD8C809E-4E20-EECB-E131-1B95FF4DEB35";
+createNode transform -n "clavicleTarget_T_FK_BUF" -p "clavicle_FK_CON";
+	rename -uid "71C067A7-4726-2D7E-8320-4591BCCDBBC7";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -413,7 +419,7 @@ createNode transform -n "clavicleTarget_FK_BUF" -p "clavicle_FK_CON";
 		 0 0 1 0 0.75629198143465648 0 -1.6653345369377348e-16 1;
 	setAttr ".rig_objectType" 1;
 createNode transform -n "bones_GRP" -p "module";
-	rename -uid "519CA3CC-49E6-194F-9CB3-5596F6E7DEAE";
+	rename -uid "A6950F99-49CE-B725-9488-B788033CC329";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -444,7 +450,7 @@ createNode transform -n "bones_GRP" -p "module";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode joint -n "clavicle_JNT" -p "bones_GRP";
-	rename -uid "09CE5130-46D9-557D-96DF-E89FF6D7F989";
+	rename -uid "D89C79ED-4A62-B4BB-56F1-E5B25C0C3331";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -481,7 +487,7 @@ createNode joint -n "clavicle_JNT" -p "bones_GRP";
 	setAttr ".radi" 0.3;
 	setAttr ".rig_objectType" 8;
 createNode transform -n "algo_GRP" -p "module";
-	rename -uid "A1D8ABAD-4894-C516-F960-E7A9B46E1D3C";
+	rename -uid "447A32CD-4C44-D806-A258-EAB95D4985E3";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -512,7 +518,7 @@ createNode transform -n "algo_GRP" -p "module";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "mirrorCompensate_BUF" -p "algo_GRP";
-	rename -uid "3D36F0A0-4AEC-FC44-4E01-3C95BF07BAE7";
+	rename -uid "C2D86FFF-4E57-C026-766C-95BD0A0F679F";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -545,8 +551,8 @@ createNode transform -n "mirrorCompensate_BUF" -p "algo_GRP";
 	setAttr ".uocol" yes;
 	setAttr ".oclr" -type "float3" 0 1 1 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "clavicle_IN_BUF" -p "mirrorCompensate_BUF";
-	rename -uid "055FAE93-4AF8-98A4-8587-D184D5BF0973";
+createNode transform -n "clavicle_RT_IN_BUF" -p "mirrorCompensate_BUF";
+	rename -uid "120D387C-4FC7-4A48-003F-CC9A182A1E3B";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -582,7 +588,7 @@ createNode transform -n "clavicle_IN_BUF" -p "mirrorCompensate_BUF";
 	setAttr ".oclr" -type "float3" 0 1 0 ;
 	setAttr ".rig_objectType" 1;
 createNode transform -n "clavicleTarget_OUT_BUF" -p "algo_GRP";
-	rename -uid "E929F48F-48F1-D47E-B29A-809E575E2453";
+	rename -uid "19C9E1CD-4361-AE5A-0534-C4BEFFDB41DE";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -616,13 +622,13 @@ createNode transform -n "clavicleTarget_OUT_BUF" -p "algo_GRP";
 	setAttr ".oclr" -type "float3" 1 0 0 ;
 	setAttr ".rig_objectType" 1;
 createNode fnk_float_rescale -n "fnk_float_rescale_mirrorX";
-	rename -uid "2744D8A3-41FD-93BC-ADAC-41A801479BDA";
+	rename -uid "7A79F521-4E5F-B11A-961A-78BAA4491431";
 	setAttr ".oldMin" 1;
 	setAttr ".oldMax" 0;
 	setAttr ".newMin" -1;
 select -ne :time1;
-	setAttr ".o" 1;
-	setAttr ".unw" 1;
+	setAttr ".o" 3;
+	setAttr ".unw" 3;
 select -ne :hardwareRenderingGlobals;
 	setAttr ".otfna" -type "stringArray" 22 "NURBS Curves" "NURBS Surfaces" "Polygons" "Subdiv Surface" "Particles" "Particle Instance" "Fluids" "Strokes" "Image Planes" "UI" "Lights" "Cameras" "Locators" "Joints" "IK Handles" "Deformers" "Motion Trails" "Components" "Hair Systems" "Follicles" "Misc. UI" "Ornaments"  ;
 	setAttr ".otfva" -type "Int32Array" 22 0 1 1 1 1 1
@@ -664,14 +670,18 @@ select -ne :defaultColorMgtGlobals;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
-connectAttr "setup.guideVisibility" "guid_GRP.v";
-connectAttr "clavicle_IN_BUF.wm" "clavicle_target_BUF.opm";
+select -ne :ikSystem;
+	setAttr -s 4 ".sol";
+connectAttr "setup.Guides_Visibility" "guid_GRP.v";
+connectAttr "setup.Controllers_Visibility" "controllers_GRP.v";
+connectAttr "clavicle_RT_IN_BUF.wm" "clavicle_target_BUF.opm";
 connectAttr "clavicle_GUID.msg" "clavicle_FK_CON.rig_guid";
-connectAttr "clavicleTarget_GUID.msg" "clavicleTarget_FK_BUF.rig_guid";
+connectAttr "clavicleTarget_GUID.msg" "clavicleTarget_T_FK_BUF.rig_guid";
+connectAttr "setup.Joints_Visibility" "bones_GRP.v";
 connectAttr "clavicle_FK_CON.wm" "clavicle_JNT.opm";
 connectAttr "fnk_float_rescale_mirrorX.result" "mirrorCompensate_BUF.sx";
-connectAttr "clavicle_GUID.msg" "clavicle_IN_BUF.rig_guid";
-connectAttr "clavicleTarget_FK_BUF.wm" "clavicleTarget_OUT_BUF.opm";
+connectAttr "clavicle_GUID.msg" "clavicle_RT_IN_BUF.rig_guid";
+connectAttr "clavicleTarget_T_FK_BUF.wm" "clavicleTarget_OUT_BUF.opm";
 connectAttr "setup.mirrorX" "fnk_float_rescale_mirrorX.floatX";
 connectAttr "fnk_float_rescale_mirrorX.msg" ":defaultRenderUtilityList1.u" -na;
-// End of clavicle_v010.ma
+// End of clavicle_v001.ma

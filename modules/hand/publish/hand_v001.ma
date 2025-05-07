@@ -1,10 +1,9 @@
 //Maya ASCII 2025ff03 scene
-//Name: hand_v008.ma
-//Last modified: Wed, Feb 05, 2025 01:06:09 PM
+//Name: hand_v001.ma
+//Last modified: Tue, May 06, 2025 12:46:08 PM
 //Codeset: 1252
 requires maya "2025ff03";
 requires "stereoCamera" "10.0";
-requires "mtoa" "5.4.2.1";
 requires -nodeType "fnk_float_add" -nodeType "fnk_float_multiply" -nodeType "fnk_float_rescale"
 		 -nodeType "fnk_rig_shape" "Frankenstein" "1.2.0";
 requires "stereoCamera" "10.0";
@@ -14,10 +13,10 @@ fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202407121012-8ed02f4c99";
 fileInfo "osv" "Windows 10 Pro v2009 (Build: 19045)";
-fileInfo "UUID" "430DF9A4-4D83-C996-629F-2DA7F36E789D";
+fileInfo "UUID" "3AF841E0-4644-435E-B45E-C9A0CC196474";
 fileInfo "license" "education";
 createNode transform -n "module";
-	rename -uid "A9BB0813-407A-3155-E968-02BA5834ABBF";
+	rename -uid "D37298BE-4513-F937-BCD0-6F972AC2A792";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -49,7 +48,7 @@ createNode transform -n "module";
 	setAttr ".t" -type "double3" 2.809714165160921e-18 0 6.9388939039072284e-18 ;
 	setAttr ".rig_objectType" 7;
 createNode transform -n "setup" -p "module";
-	rename -uid "0E302B35-4E49-BC17-0D0C-AD81ADF716CC";
+	rename -uid "95200F5B-4E43-23CD-DFFA-48B6FECC1E6D";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -78,9 +77,13 @@ createNode transform -n "setup" -p "module";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	addAttr -ci true -sn "guideVisibility" -ln "guideVisibility" -nn "Guide Visibility" 
-		-min 0 -max 1 -at "bool";
 	addAttr -ci true -sn "mirrorX" -ln "mirrorX" -nn "Mirror X" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "Guides_Visibility" -ln "Guides_Visibility" -nn "Guides Visibility" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "Joints_Visibility" -ln "Joints_Visibility" -nn "Joints Visibility" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "Controllers_Visibility" -ln "Controllers_Visibility" 
+		-nn "Controllers Visibility" -min 0 -max 1 -at "bool";
 	setAttr -k off ".v";
 	setAttr -k off ".tx";
 	setAttr -k off ".ty";
@@ -92,10 +95,12 @@ createNode transform -n "setup" -p "module";
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".rig_objectType" 5;
-	setAttr -k on ".guideVisibility";
 	setAttr -k on ".mirrorX";
+	setAttr -k on ".Guides_Visibility";
+	setAttr -k on ".Joints_Visibility" yes;
+	setAttr -k on ".Controllers_Visibility" yes;
 createNode transform -n "guid_GRP" -p "module";
-	rename -uid "6FC490D6-410D-8CFB-DC9F-5BBC4DD6B330";
+	rename -uid "24E4034C-42F7-D049-82E7-AEA81902ABDA";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -126,7 +131,7 @@ createNode transform -n "guid_GRP" -p "module";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "hand_GUID" -p "guid_GRP";
-	rename -uid "E29159D5-4040-13F7-7740-32AC7AD98956";
+	rename -uid "6C0ED553-4CCB-9BD0-0C96-C9B685952664";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -159,17 +164,17 @@ createNode transform -n "hand_GUID" -p "guid_GRP";
 		 0.69139318877458866 0.70698206331320401 0.14883487719453434 0 -0.35118471105347099 0.14883487377294638 0.92440114618669755 0
 		 4.8357711022207912 9.6270115247119747 0.37970113268005434 1;
 createNode fnk_rig_shape -n "hand_GUIDShape" -p "hand_GUID";
-	rename -uid "CC91A694-4324-82CE-CC59-4492E05695F2";
+	rename -uid "4A6F7B68-4CA6-E997-1317-72A223F04664";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "metacarpalThumb_GUID" -p "hand_GUID";
-	rename -uid "956BE7C8-4F98-DD6E-0149-6896878DE636";
+	rename -uid "1FF7DB6E-4258-8A1F-5115-EB96ECFF0233";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -202,17 +207,17 @@ createNode transform -n "metacarpalThumb_GUID" -p "hand_GUID";
 	setAttr ".r" -type "double3" 115.83574429836668 -26.268033801848041 -20.966477680789577 ;
 	setAttr ".s" -type "double3" 0.99999999999999856 1.0000000000000013 1.0000000000000044 ;
 createNode fnk_rig_shape -n "metacarpalThumb_GUIDShape" -p "metacarpalThumb_GUID";
-	rename -uid "779EC07F-4B87-DCB0-425A-5FBE2348BB4D";
+	rename -uid "65FB8781-489A-A173-FF42-B9903463FD02";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "thumb001_GUID" -p "metacarpalThumb_GUID";
-	rename -uid "DAA5C553-4CC5-60E2-1832-C7B469D6F20F";
+	rename -uid "11461ADC-47FD-2818-22AE-DDBC4C882921";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -245,17 +250,17 @@ createNode transform -n "thumb001_GUID" -p "metacarpalThumb_GUID";
 	setAttr ".r" -type "double3" 6.5134090190072591 0.27001725258102066 -2.1383192290969952 ;
 	setAttr ".s" -type "double3" 0.99999999999998912 0.9999999999999909 1.0000000000000142 ;
 createNode fnk_rig_shape -n "thumb001_GUIDShape" -p "thumb001_GUID";
-	rename -uid "FD30D74A-4A45-61E1-71E7-258D62D77996";
+	rename -uid "86B52FD3-46E3-24C8-9E32-D998D6E3EA26";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "thumb002_GUID" -p "thumb001_GUID";
-	rename -uid "AC49A763-4AA5-FF72-FE09-1C83129F87BE";
+	rename -uid "74B26432-49E0-5B25-43E2-FC948B74B832";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -288,17 +293,17 @@ createNode transform -n "thumb002_GUID" -p "thumb001_GUID";
 	setAttr ".r" -type "double3" -5.9333398981790939 0 0 ;
 	setAttr ".s" -type "double3" 0.99999999999997613 0.99999999999999112 1.0000000000000338 ;
 createNode fnk_rig_shape -n "thumb002_GUIDShape" -p "thumb002_GUID";
-	rename -uid "F1EE54AC-436D-5CB5-4A69-9B8A1F9761E1";
+	rename -uid "06225220-4002-3FDD-6CD5-4B97904EE993";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "metacarpalIndex_GUID" -p "hand_GUID";
-	rename -uid "A82083D4-46EB-1954-3A8B-C8BCA5CDCD9A";
+	rename -uid "080D1AB8-4122-74AA-B198-5DAA34D50C59";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -331,17 +336,17 @@ createNode transform -n "metacarpalIndex_GUID" -p "hand_GUID";
 	setAttr ".r" -type "double3" 25.416583518867608 -9.4505121588190821 -0.22857066024667494 ;
 	setAttr ".s" -type "double3" 0.99999999999999811 1.0000000000000009 0.99999999999999967 ;
 createNode fnk_rig_shape -n "metacarpalIndex_GUIDShape" -p "metacarpalIndex_GUID";
-	rename -uid "AC43DABF-42EA-F5C8-3DD5-85BF503982BA";
+	rename -uid "1A57EA59-4015-2A3B-95B0-A5A7BD18128F";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "index001_GUID" -p "metacarpalIndex_GUID";
-	rename -uid "236306CE-4A12-8079-9BC7-AFA163B90BC8";
+	rename -uid "E764F096-42CB-0CAA-D1DD-A69CA209FAA8";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -374,17 +379,17 @@ createNode transform -n "index001_GUID" -p "metacarpalIndex_GUID";
 	setAttr ".r" -type "double3" -8.7660084969670056 1.2250707382452311 -6.4187576094673195 ;
 	setAttr ".s" -type "double3" 0.99999999999998801 1.0000000000000062 0.99999999999999967 ;
 createNode fnk_rig_shape -n "index001_GUIDShape" -p "index001_GUID";
-	rename -uid "9B97A363-4B6B-C520-E4A1-C69DE7816F9B";
+	rename -uid "93DD49F4-4D47-E1F6-E027-0F8D0A0F81B3";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "index002_GUID" -p "index001_GUID";
-	rename -uid "28D25B83-4262-D04D-EB12-868DE9AEF035";
+	rename -uid "7E80362B-47C3-922E-71A2-28BE278867D3";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -417,17 +422,17 @@ createNode transform -n "index002_GUID" -p "index001_GUID";
 	setAttr ".r" -type "double3" 0 4.0134158087131189 -21.842241390192786 ;
 	setAttr ".s" -type "double3" 0.99999999999992339 1.0000000000000646 1.0000000000000109 ;
 createNode fnk_rig_shape -n "index002_GUIDShape" -p "index002_GUID";
-	rename -uid "543F1041-4144-206A-DAAA-8E884A6C4DFA";
+	rename -uid "D985620A-4483-05F1-1C11-04BE04CCFBD1";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "index003_GUID" -p "index002_GUID";
-	rename -uid "0305030A-415D-52A5-8F43-A78E0BFEFE1E";
+	rename -uid "0735F056-45F0-C51F-0323-85A16032FA02";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -460,17 +465,17 @@ createNode transform -n "index003_GUID" -p "index002_GUID";
 	setAttr ".r" -type "double3" 6.5112144269014838 0.070848053838392946 -7.2377263155098204 ;
 	setAttr ".s" -type "double3" 0.99999999999982137 1.0000000000001528 1.0000000000000238 ;
 createNode fnk_rig_shape -n "index003_GUIDShape" -p "index003_GUID";
-	rename -uid "B05314AF-447B-0E6B-7ECC-56BE7A1E777B";
+	rename -uid "F5BDFD21-4017-6527-5A84-C48C5FA28A18";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "metacarpalMajor_GUID" -p "hand_GUID";
-	rename -uid "D20532F3-4A46-D9F2-456F-FD948820F21B";
+	rename -uid "E58C2D7C-482E-FB19-1F8F-5C806EF3FC5B";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -503,17 +508,17 @@ createNode transform -n "metacarpalMajor_GUID" -p "hand_GUID";
 	setAttr ".r" -type "double3" 15.491767285341652 -3.5758547190300587 1.707416395788302 ;
 	setAttr ".s" -type "double3" 0.99999999999999978 1.000000000000002 0.99999999999999944 ;
 createNode fnk_rig_shape -n "metacarpalMajor_GUIDShape" -p "metacarpalMajor_GUID";
-	rename -uid "240508EB-4F9D-B046-964F-EF8A982CFF04";
+	rename -uid "65679B28-438F-2863-C525-7595CD1B9FB6";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "major001_GUID" -p "metacarpalMajor_GUID";
-	rename -uid "69729834-4E5F-8D5C-0F7B-1A990D6255B9";
+	rename -uid "8E4BF858-4959-210D-1EF5-F6AA48A80296";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -546,17 +551,17 @@ createNode transform -n "major001_GUID" -p "metacarpalMajor_GUID";
 	setAttr ".r" -type "double3" 2.6822308951087068 1.3592219669071919 -10.253394233317429 ;
 	setAttr ".s" -type "double3" 0.999999999999994 1.000000000000006 0.99999999999999489 ;
 createNode fnk_rig_shape -n "major001_GUIDShape" -p "major001_GUID";
-	rename -uid "0CF5F616-4899-78CE-DEB5-42A74B799ACB";
+	rename -uid "584EEEF4-487A-9B8D-FFF5-8F941C72DD8A";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "major002_GUID" -p "major001_GUID";
-	rename -uid "1C21498C-4304-007C-4695-F4BC5961D4F0";
+	rename -uid "65DA80EF-435B-D321-A277-84BF8F7F7844";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -589,17 +594,17 @@ createNode transform -n "major002_GUID" -p "major001_GUID";
 	setAttr ".r" -type "double3" -3.6534151282189624 -1.7881565055086146 -27.773574911208012 ;
 	setAttr ".s" -type "double3" 0.99999999999997491 1.0000000000000346 0.99999999999998979 ;
 createNode fnk_rig_shape -n "major002_GUIDShape" -p "major002_GUID";
-	rename -uid "519E23DE-48E0-3EB6-A2EB-DBB0C8093C39";
+	rename -uid "F6063DFB-4401-E510-AA59-C182A7F2579E";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "major003_GUID" -p "major002_GUID";
-	rename -uid "8068AB04-4492-FFF7-7F66-62B5CB75332E";
+	rename -uid "25AD5E93-4548-E49D-EBAE-6381D8F036E2";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -632,17 +637,17 @@ createNode transform -n "major003_GUID" -p "major002_GUID";
 	setAttr ".r" -type "double3" 0.64887355488620391 3.1060104311167141e-18 -2.7402995296748367 ;
 	setAttr ".s" -type "double3" 0.99999999999994282 1.0000000000000948 0.9999999999999587 ;
 createNode fnk_rig_shape -n "major003_GUIDShape" -p "major003_GUID";
-	rename -uid "6C3FEC47-493D-32E4-E3A7-238EE6E2A074";
+	rename -uid "17C19DD1-45B1-925D-12F6-C2B66BAED085";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "metacarpalAnnular_GUID" -p "hand_GUID";
-	rename -uid "027017C8-434B-53B4-AE6E-CAA6D5F601A3";
+	rename -uid "D3E8D85B-4738-95C4-A167-0CA655497239";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -675,17 +680,17 @@ createNode transform -n "metacarpalAnnular_GUID" -p "hand_GUID";
 	setAttr ".r" -type "double3" 6.0378220562622946 2.8662182956248881 -0.86270530369607379 ;
 	setAttr ".s" -type "double3" 0.99999999999999967 0.99999999999999933 0.99999999999999978 ;
 createNode fnk_rig_shape -n "metacarpalAnnular_GUIDShape" -p "metacarpalAnnular_GUID";
-	rename -uid "B87AF204-405A-DD0F-52C0-BE86467FC4B3";
+	rename -uid "746C9B18-4BCA-2872-2A2A-F9A6A0C1E3DF";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "annular001_GUID" -p "metacarpalAnnular_GUID";
-	rename -uid "09394972-4BF7-886E-80C6-ECA1A3ACC2A2";
+	rename -uid "A7354D22-4648-67B0-A7BB-F29173139FC3";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -718,17 +723,17 @@ createNode transform -n "annular001_GUID" -p "metacarpalAnnular_GUID";
 	setAttr ".r" -type "double3" -0.72444607943670791 9.7691226667323043 -4.4299046512367921 ;
 	setAttr ".s" -type "double3" 1 0.99999999999999811 0.99999999999999922 ;
 createNode fnk_rig_shape -n "annular001_GUIDShape" -p "annular001_GUID";
-	rename -uid "20BE545A-4F55-49B9-1B14-1181545D5D3A";
+	rename -uid "35AB82B5-4D43-82C0-6BA3-4D8B3B1E30B3";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "annular002_GUID" -p "annular001_GUID";
-	rename -uid "33C2E623-48BD-4E65-11E9-A294E7184B51";
+	rename -uid "B1DE3B58-4B64-DFBC-9DDF-C99984DFE570";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -761,17 +766,17 @@ createNode transform -n "annular002_GUID" -p "annular001_GUID";
 	setAttr ".r" -type "double3" 0.88669199106116536 -4.330455508007149 -24.722322407279702 ;
 	setAttr ".s" -type "double3" 0.99999999999999767 1.0000000000000029 0.99999999999999623 ;
 createNode fnk_rig_shape -n "annular002_GUIDShape" -p "annular002_GUID";
-	rename -uid "B4DF9DDD-45EC-EC45-F10F-C68D771EC8C6";
+	rename -uid "146663C6-4FE3-BEAA-B19B-24AA8892CBCA";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "annular003_GUID" -p "annular002_GUID";
-	rename -uid "16891992-4D2D-1E13-37DB-2F93B7F5E10B";
+	rename -uid "C77C40D0-46AC-7EA9-A24F-D99E1EC8C927";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -804,17 +809,17 @@ createNode transform -n "annular003_GUID" -p "annular002_GUID";
 	setAttr ".r" -type "double3" 1.0244094569979514 0.011442468185788554 -0.63988867937191829 ;
 	setAttr ".s" -type "double3" 0.99999999999997613 1.0000000000000244 1.0000000000000009 ;
 createNode fnk_rig_shape -n "annular003_GUIDShape" -p "annular003_GUID";
-	rename -uid "AADDD72C-4E8E-9115-A6CB-BF92150AE940";
+	rename -uid "D6B8BC7E-487F-A802-8C52-4D9F6B6153D4";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "metacarpalPinky_GUID" -p "hand_GUID";
-	rename -uid "AF56774C-4649-8933-C0F9-9B858B95E39B";
+	rename -uid "62B6B435-4E0E-A22A-EB6A-73B2E6E9D020";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -847,17 +852,17 @@ createNode transform -n "metacarpalPinky_GUID" -p "hand_GUID";
 	setAttr ".r" -type "double3" -3.6324795608042209 10.569002198671605 -0.59059204757197392 ;
 	setAttr ".s" -type "double3" 1.0000000000000016 0.99999999999999967 0.99999999999999944 ;
 createNode fnk_rig_shape -n "metacarpalPinky_GUIDShape" -p "metacarpalPinky_GUID";
-	rename -uid "9CA4B2B8-4EDB-E6F5-32E9-19895753A3F0";
+	rename -uid "12F11A35-48E1-BFF4-21A1-3C90503017AB";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "pinky001_GUID" -p "metacarpalPinky_GUID";
-	rename -uid "A47D2F9F-4692-BBAE-5009-32B4545D6BF0";
+	rename -uid "C303F7FD-4F47-A88B-B69D-74AD389EA6A4";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -890,17 +895,17 @@ createNode transform -n "pinky001_GUID" -p "metacarpalPinky_GUID";
 	setAttr ".r" -type "double3" -0.75086721084027364 6.5873776032802578 -5.7437838017254279 ;
 	setAttr ".s" -type "double3" 1.0000000000000062 0.99999999999999711 0.99999999999999167 ;
 createNode fnk_rig_shape -n "pinky001_GUIDShape" -p "pinky001_GUID";
-	rename -uid "4E070F71-4B0B-9E62-4895-3999E7619E44";
+	rename -uid "2A03D598-449D-8245-8E39-85A5AC70D04F";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "pinky002_GUID" -p "pinky001_GUID";
-	rename -uid "D89BCF3D-4593-0BC4-9FDC-339CA75DD957";
+	rename -uid "2A41A3CE-4A8E-1AA4-FA62-FBABCF06D81D";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -933,17 +938,17 @@ createNode transform -n "pinky002_GUID" -p "pinky001_GUID";
 	setAttr ".r" -type "double3" 0.047415982529814805 -4.3809548612867859 -12.639146767961698 ;
 	setAttr ".s" -type "double3" 1.0000000000000075 1.0000000000000118 0.99999999999997602 ;
 createNode fnk_rig_shape -n "pinky002_GUIDShape" -p "pinky002_GUID";
-	rename -uid "C93FC928-4906-1886-57B3-C48F4EE7496E";
+	rename -uid "F9070720-4A56-7543-B9B9-9D9985915C19";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "pinky003_GUID" -p "pinky002_GUID";
-	rename -uid "CA6EEE34-4043-C2C4-0D90-4F9971893D3F";
+	rename -uid "1F217B85-4468-20AB-1352-DB93F77405DD";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -976,17 +981,17 @@ createNode transform -n "pinky003_GUID" -p "pinky002_GUID";
 	setAttr ".r" -type "double3" 1.6410061676803078 0.002805647953941324 -0.097932400017265719 ;
 	setAttr ".s" -type "double3" 0.99999999999994427 1.0000000000001006 0.99999999999995548 ;
 createNode fnk_rig_shape -n "pinky003_GUIDShape" -p "pinky003_GUID";
-	rename -uid "30F7E882-4C03-724D-3DE6-65ABD64B37D0";
+	rename -uid "2F85860E-48E7-DB5E-6399-58979552C719";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 1 0.5 0 ;
+	setAttr ".ovrgb" -type "float3" 0 1 0 ;
 	setAttr ".shapeType" 31;
 	setAttr ".globalScale" 0.05000000074505806;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
 createNode transform -n "controllers_GRP" -p "module";
-	rename -uid "BE385FE3-417C-D789-1147-138734294FCB";
+	rename -uid "FA66E85A-42D9-D973-58C0-74B4870B59DC";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1017,7 +1022,7 @@ createNode transform -n "controllers_GRP" -p "module";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "IK_GRP" -p "controllers_GRP";
-	rename -uid "09F1B632-4F9E-57C0-E98D-AF9566BD1C97";
+	rename -uid "EAF66621-4612-506D-BAC6-00A768EE9BEC";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1048,7 +1053,7 @@ createNode transform -n "IK_GRP" -p "controllers_GRP";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "FK_GRP" -p "controllers_GRP";
-	rename -uid "0C19F9D5-4C5F-5A18-E8D6-0F8A277B7FF7";
+	rename -uid "9D80F35A-4DB6-399F-5A85-95AE07B6E48C";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1079,7 +1084,7 @@ createNode transform -n "FK_GRP" -p "controllers_GRP";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "handWrist_Target_BUF" -p "FK_GRP";
-	rename -uid "4360B749-483B-390A-3659-FEA921154EED";
+	rename -uid "9532031F-4E42-B1F4-B632-4686B45FAFDE";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1112,8 +1117,8 @@ createNode transform -n "handWrist_Target_BUF" -p "FK_GRP";
 	setAttr ".uocol" yes;
 	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "metacarpalThumb_FK_BUF" -p "handWrist_Target_BUF";
-	rename -uid "787A2FC9-4F13-D1D1-EF1D-CFBAFBD0E050";
+createNode transform -n "metacarpalThumb_RT_FK_BUF" -p "handWrist_Target_BUF";
+	rename -uid "1F51406A-4A8C-52E0-6290-7ABED5158912";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1142,12 +1147,43 @@ createNode transform -n "metacarpalThumb_FK_BUF" -p "handWrist_Target_BUF";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.8373607080017712 -0.32087067731913632 0.44257095830106896 0
-		 -0.52789699927410416 -0.2644060355541073 0.80710235194797819 0 -0.14195704579964738 -0.90946767771006043 -0.39078989284335292 0
-		 0.19607880444141834 -0.067551864373436743 0.20083761286643648 1;
+	setAttr ".opm" -type "matrix" 0.83736070800177353 -0.3208706773191361 0.44257095830106941 0
+		 -0.5278969992741056 -0.26440603555410735 0.80710235194797653 0 -0.14195704579964738 -0.90946767771005599 -0.39078989284335203 0
+		 0.19607880444141865 -0.06755186437343659 0.20083761286643681 1;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "metacarpalThumb_FK_CON" -p "metacarpalThumb_FK_BUF";
-	rename -uid "3F0FEE13-487F-062C-1A38-A9A4C34F96BA";
+createNode transform -n "metacarpalThumb_mechanic_FK_BUF" -p "metacarpalThumb_RT_FK_BUF";
+	rename -uid "5E7EDB98-46BC-B6CD-B08E-64BEFDB54DF2";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "metacarpalThumb_FK_CON" -p "metacarpalThumb_mechanic_FK_BUF";
+	rename -uid "FAA2FEE1-4563-7CB2-F7C8-95A19021D429";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1181,19 +1217,19 @@ createNode transform -n "metacarpalThumb_FK_CON" -p "metacarpalThumb_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "metacarpalThumb_FK_CONShape" -p "metacarpalThumb_FK_CON";
-	rename -uid "A9307F20-4919-1861-4DA9-BCB978E1779C";
+	rename -uid "68D596C6-491D-F730-8627-FE9BF571562B";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207012 0 0 0 0 0.11000941165207012 0 0
-		 0 0 0.11000941165207012 0 4.5729505475087254e-15 0.21560037405774382 7.9539119082351016e-15 1;
-createNode transform -n "thumb001_FK_BUF" -p "metacarpalThumb_FK_CON";
-	rename -uid "4C401E31-4D8D-B163-00B7-27811D0F3660";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292324238e-08 0 -0.11000941165206427 0
+		 0 0.11000941165207012 0 0 0.11000941165206427 0 3.5950514292324238e-08 0 4.5729505475087254e-15 0.21560037405774382 7.9539119082351016e-15 1;
+createNode transform -n "thumb001_RT_FK_BUF" -p "metacarpalThumb_FK_CON";
+	rename -uid "51BD2A83-4F7D-9AA3-8EA8-D39C0FCAC01D";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1222,12 +1258,43 @@ createNode transform -n "thumb001_FK_BUF" -p "metacarpalThumb_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.99929256612336903 -0.0373116336688748 -0.004712672650373062 0
-		 0.037605424498189044 0.99283354658161271 0.1134344781381264 0 0.00044647380763823685 -0.11353145280105559 0.9935343023197778 0
-		 0.43240692800453928 -3.3306690738754696e-16 0 1;
+	setAttr ".t" -type "double3" 0.43240692800453839 1.2212453270876722e-15 -1.7763568394002505e-15 ;
+	setAttr ".r" -type "double3" 6.5134090190070539 0.27001725258095316 -2.1383192290969242 ;
+	setAttr ".s" -type "double3" 1.0000000000000016 0.99999999999999833 0.99999999999999589 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "thumb001_FK_CON" -p "thumb001_FK_BUF";
-	rename -uid "485CA659-46FC-2D00-D1DC-B89A18CE50DA";
+createNode transform -n "thumb001_mechanic_FK_BUF" -p "thumb001_RT_FK_BUF";
+	rename -uid "94DE0729-418B-6171-4ED5-359FEE8E166A";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "thumb001_FK_CON" -p "thumb001_mechanic_FK_BUF";
+	rename -uid "5EBF0683-4B7E-1153-4554-66A6FDEAACB4";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1260,19 +1327,19 @@ createNode transform -n "thumb001_FK_CON" -p "thumb001_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "thumb001_FK_CONShape" -p "thumb001_FK_CON";
-	rename -uid "57F3CCB3-4F0D-C5F4-CCB3-84810C8B40D9";
+	rename -uid "7A41707D-42CB-4D18-89F7-9C8CEF99B3F6";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165206979 0 0 0 0 0.11000941165207034 0 0
-		 0 0 0.11000941165207023 0 7.5591397311801344e-15 0.17494925874748873 1.2991194321618837e-14 1;
-createNode transform -n "thumb002_FK_BUF" -p "thumb001_FK_CON";
-	rename -uid "19B7EF78-40A9-9597-D342-ACAE5ECAE60D";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292324126e-08 0 -0.11000941165206393 0
+		 0 0.11000941165207034 0 0 0.11000941165206438 0 3.5950514292324271e-08 0 7.5591397311801344e-15 0.17494925874748873 1.2991194321618837e-14 1;
+createNode transform -n "thumb002_RT_FK_BUF" -p "thumb001_FK_CON";
+	rename -uid "78EB66DF-4634-A59A-22C1-F09800C1C356";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1301,11 +1368,43 @@ createNode transform -n "thumb002_FK_BUF" -p "thumb001_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.99999999999997624 0 5.5511151231257827e-17 0 1.1102230246251565e-16 0.99464283466722403 -0.10337132796443735 0
-		 0 0.10337132796444165 0.99464283466726666 0 0.22944584384950506 0 -1.7763568394002505e-15 1;
+	setAttr ".t" -type "double3" 0.22944584384950062 -1.1102230246251565e-15 1.7763568394002505e-15 ;
+	setAttr ".r" -type "double3" -5.9333398981790655 2.9845555913027516e-14 -7.9163763143287639e-15 ;
+	setAttr ".s" -type "double3" 1.0000000000000135 1.000000000000008 0.99999999999998224 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "thumb002_FK_CON" -p "thumb002_FK_BUF";
-	rename -uid "A77A19BB-4810-C87C-EF1B-0BAE1F748A9E";
+createNode transform -n "thumb002_mechanic_FK_BUF" -p "thumb002_RT_FK_BUF";
+	rename -uid "A4B4BD77-4910-3CD3-776F-85AB510FA1E7";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "thumb002_FK_CON" -p "thumb002_mechanic_FK_BUF";
+	rename -uid "650591A3-4DB5-6947-44B9-AA9FA90DBC56";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1339,19 +1438,19 @@ createNode transform -n "thumb002_FK_CON" -p "thumb002_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "thumb002_FK_CONShape" -p "thumb002_FK_CON";
-	rename -uid "D4600D24-4873-5DC6-B1AE-3E8C01528094";
+	rename -uid "8F701E15-40DE-7765-E466-4EB29B87DB53";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.1100094116520689 0 0 0 0 0.11000941165207101 0 0
-		 0 0 0.11000941165207023 0 1.3322676295501878e-14 0.17499999999999999 3.4638958368304884e-14 1;
-createNode transform -n "metacarpalIndex_FK_BUF" -p "handWrist_Target_BUF";
-	rename -uid "E568DE89-4587-DF09-4622-398715BF5F37";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292323835e-08 0 -0.11000941165206304 0
+		 0 0.11000941165207101 0 0 0.11000941165206438 0 3.5950514292324271e-08 0 1.3322676295501878e-14 0.17499999999999999 3.4638958368304884e-14 1;
+createNode transform -n "metacarpalIndex_RT_FK_BUF" -p "handWrist_Target_BUF";
+	rename -uid "CA4F9D35-4ECC-CCB6-BD8A-FCBEAFD702ED";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1380,12 +1479,43 @@ createNode transform -n "metacarpalIndex_FK_BUF" -p "handWrist_Target_BUF";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.98641994020326973 -0.003935156393839262 0.16419566411305103 0
-		 -0.066868475676233885 0.90348505302898074 0.42337142784316828 0 -0.15001436107955299 -0.428601532308719 0.89095253407379249 0
-		 0.20001974965509817 0.055618459325993186 0.17560040145923866 1;
+	setAttr ".opm" -type "matrix" 0.98641994020327239 -0.0039351563938390902 0.16419566411305131 0
+		 -0.066868475676233996 0.9034850530289793 0.423371427843168 0 -0.15001436107955454 -0.42860153230871878 0.89095253407379316 0
+		 0.20001974965509817 0.055618459325993186 0.17560040145923944 1;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "metacarpalIndex_FK_CON" -p "metacarpalIndex_FK_BUF";
-	rename -uid "A776FF43-4D5C-7893-FB91-9888FD9E5530";
+createNode transform -n "metacarpalIndex_mechanic_FK_BUF" -p "metacarpalIndex_RT_FK_BUF";
+	rename -uid "FF9EB9A2-4D5F-CAEB-0DA7-A7AAF5DA4A20";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "metacarpalIndex_FK_CON" -p "metacarpalIndex_mechanic_FK_BUF";
+	rename -uid "317989E3-40CF-ED09-55F7-AB821FFD748D";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1419,19 +1549,19 @@ createNode transform -n "metacarpalIndex_FK_CON" -p "metacarpalIndex_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "metacarpalIndex_FK_CONShape" -p "metacarpalIndex_FK_CON";
-	rename -uid "8BE3122E-4DD7-7170-37C1-34834E09D481";
+	rename -uid "B3B28EFB-456A-F144-106F-6C9B862A8ADE";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207023 0 0 0 0 0.1100094116520699 0 0
-		 0 0 0.11000941165207034 0 -3.7747582837255322e-15 0.17499999999999999 -7.9936057773011271e-15 1;
-createNode transform -n "index001_FK_BUF" -p "metacarpalIndex_FK_CON";
-	rename -uid "6D1166AF-4A6A-0B09-0587-E9999EB06675";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292324271e-08 0 -0.11000941165206438 0
+		 0 0.1100094116520699 0 0 0.11000941165206449 0 3.5950514292324304e-08 0 -3.7747582837255322e-15 0.17499999999999999 -7.9936057773011271e-15 1;
+createNode transform -n "index001_RT_FK_BUF" -p "metacarpalIndex_FK_CON";
+	rename -uid "2ACEA56A-4FEA-775F-58DB-12BD47C7E93C";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1460,12 +1590,43 @@ createNode transform -n "index001_FK_BUF" -p "metacarpalIndex_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.99350422988947162 -0.11176871451995196 -0.02137988882715508 0
-		 0.10725053560783845 0.98248782306165972 -0.15236469455685892 0 0.038035086479937585 0.14908196400010895 0.98809306252312779 0
-		 0.60999332439763743 1.9539925233402755e-14 0 1;
+	setAttr ".t" -type "double3" 0.60999332439763565 1.7763568394002505e-14 8.8817841970012523e-16 ;
+	setAttr ".r" -type "double3" -8.7660084969670358 1.2250707382452006 -6.4187576094673124 ;
+	setAttr ".s" -type "double3" 1.0000000000000029 0.99999999999999911 1.0000000000000004 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "index001_FK_CON" -p "index001_FK_BUF";
-	rename -uid "FF10A4D7-44FF-6E04-DDEC-389FB24DE5B7";
+createNode transform -n "index001_mechanic_FK_BUF" -p "index001_RT_FK_BUF";
+	rename -uid "08E6FD96-48B6-191B-6B62-5589C1410FA5";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "index001_FK_CON" -p "index001_mechanic_FK_BUF";
+	rename -uid "13DEA137-4167-6A3B-3543-77B3C3683E66";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1499,19 +1660,19 @@ createNode transform -n "index001_FK_CON" -p "index001_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "index001_FK_CONShape" -p "index001_FK_CON";
-	rename -uid "9C886843-4D67-42CD-9C89-8080D6250306";
+	rename -uid "ED7F2CE2-4B5C-90EB-4549-2CAAD4B4EAAA";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207101 0 0 0 0 0.11000941165206901 0 0
-		 0 0 0.11000941165207034 0 -2.5313084961453569e-14 0.17499999999999999 -7.3718808835110394e-14 1;
-createNode transform -n "index002_FK_BUF" -p "index001_FK_CON";
-	rename -uid "B7ACB5CE-4321-21C7-DF43-358364565B43";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292324523e-08 0 -0.11000941165206515 0
+		 0 0.11000941165206901 0 0 0.11000941165206449 0 3.5950514292324304e-08 0 -2.5313084961453569e-14 0.17499999999999999 -7.3718808835110394e-14 1;
+createNode transform -n "index002_RT_FK_BUF" -p "index001_FK_CON";
+	rename -uid "331D4060-49C2-7A26-5795-78B700C81362";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1540,12 +1701,43 @@ createNode transform -n "index002_FK_BUF" -p "index001_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.92593551957282294 -0.3711398742876541 -0.069990051485890714 0
-		 0.37205226198126107 0.92821178313720876 -1.1102230246251565e-16 0 0.06496559049158479 -0.026039956971511014 0.99754768943295313 0
-		 0.39519722057351903 0 6.3442698746030146e-05 1;
+	setAttr ".t" -type "double3" 0.39519722057351281 0 6.3442698744253789e-05 ;
+	setAttr ".r" -type "double3" -2.9891002159175346e-14 4.0134158087131357 -21.842241390192815 ;
+	setAttr ".s" -type "double3" 1.000000000000012 0.99999999999999467 1.0000000000000013 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "index002_FK_CON" -p "index002_FK_BUF";
-	rename -uid "47127A4E-4D81-5A1B-2E03-D880E4C27FEA";
+createNode transform -n "index002_mechanic_FK_BUF" -p "index002_RT_FK_BUF";
+	rename -uid "452711C9-4C9E-3812-932A-93845482DE2A";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "index002_FK_CON" -p "index002_mechanic_FK_BUF";
+	rename -uid "5B271009-45B6-E157-A955-FBACF59A4A9E";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1578,19 +1770,19 @@ createNode transform -n "index002_FK_CON" -p "index002_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "index002_FK_CONShape" -p "index002_FK_CON";
-	rename -uid "14A8BC03-4D17-E801-EDAD-0CA707C925AB";
+	rename -uid "C98CEC1F-4D35-C903-D9D7-4C824D61C473";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207156 0 0 0 0 0.11000941165206879 0 0
-		 0 0 0.11000941165207023 0 -2.1094237467877974e-14 0.17499999999999999 -8.7041485130612273e-14 1;
-createNode transform -n "index003_FK_BUF" -p "index002_FK_CON";
-	rename -uid "031C1378-439E-9AB5-42B2-C0A64FDBA493";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292324708e-08 0 -0.11000941165206571 0
+		 0 0.11000941165206879 0 0 0.11000941165206438 0 3.5950514292324271e-08 0 -2.1094237467877974e-14 0.17499999999999999 -8.7041485130612273e-14 1;
+createNode transform -n "index003_RT_FK_BUF" -p "index002_FK_CON";
+	rename -uid "8166979E-48A5-E59D-681F-19B78506159C";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1619,12 +1811,43 @@ createNode transform -n "index003_FK_BUF" -p "index002_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.99203120236906273 -0.12598636638820021 -0.0012365314929981552 0
-		 0.12531291217449958 0.98561537092252927 0.11339759540615124 0 -0.01306780655625181 -0.11264890627891344 0.99354891995614458 0
-		 0.21338227120345721 8.8817841970012523e-16 0.00010820707200931423 1;
+	setAttr ".t" -type "double3" 0.21338227120343323 -8.8817841970012523e-16 0.00010820707201020241 ;
+	setAttr ".r" -type "double3" 6.5112144269013301 0.070848053838426503 -7.2377263155103417 ;
+	setAttr ".s" -type "double3" 1.0000000000000924 0.99999999999992495 0.99999999999999301 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "index003_FK_CON" -p "index003_FK_BUF";
-	rename -uid "D5462FD0-4079-5A7B-C57F-16A661FFFBA3";
+createNode transform -n "index003_mechanic_FK_BUF" -p "index003_RT_FK_BUF";
+	rename -uid "F41F83D9-4AFA-406B-D6F9-4C8C8BA3C009";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "index003_FK_CON" -p "index003_mechanic_FK_BUF";
+	rename -uid "0ACAF12B-4B83-8731-C49B-E68659091103";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1656,19 +1879,19 @@ createNode transform -n "index003_FK_CON" -p "index003_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "index003_FK_CONShape" -p "index003_FK_CON";
-	rename -uid "D97A4BC8-4E52-BA31-DDF1-D4A0AAA65DB7";
+	rename -uid "83D56C2A-4A05-60A0-4877-5BB6FCA53B89";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207379 0 0 0 0 0.11000941165206657 0 0
-		 0 0 0.11000941165207034 0 -6.1728400169158704e-14 0.17499999999999999 -1.5898393712632242e-13 1;
-createNode transform -n "metacarpalMajor_FK_BUF" -p "handWrist_Target_BUF";
-	rename -uid "E713AB80-4BA5-4FCA-6F57-0AA71BC07868";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292325429e-08 0 -0.11000941165206793 0
+		 0 0.11000941165206657 0 0 0.11000941165206449 0 3.5950514292324304e-08 0 -6.1728400169158704e-14 0.17499999999999999 -1.5898393712632242e-13 1;
+createNode transform -n "metacarpalMajor_RT_FK_BUF" -p "handWrist_Target_BUF";
+	rename -uid "64B41686-4958-8A96-2F50-0191F8C11BAD";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1697,12 +1920,43 @@ createNode transform -n "metacarpalMajor_FK_BUF" -p "handWrist_Target_BUF";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.99760997678438446 0.029737618301897549 0.062369930880076474 0
-		 -0.045364724347370544 0.96274461909572051 0.26657989456658593 0 -0.052118864196583126 -0.26877215715169445 0.96179267596238405 0
-		 0.2269200693034974 0.12658606662029648 0.053246626964623955 1;
+	setAttr ".opm" -type "matrix" 0.99760997678438579 0.029737618301897514 0.062369930880076342 0
+		 -0.045364724347370301 0.96274461909571785 0.26657989456658537 0 -0.052118864196584166 -0.26877215715169456 0.96179267596238494 0
+		 0.2269200693034974 0.12658606662029648 0.053246626964625024 1;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "metacarpalMajor_FK_CON" -p "metacarpalMajor_FK_BUF";
-	rename -uid "ADB854CA-4FEB-E8EB-FE87-FA9691B0FD2D";
+createNode transform -n "metacarpalMajor_mechanic_FK_BUF" -p "metacarpalMajor_RT_FK_BUF";
+	rename -uid "BE9E2EE8-4F7A-59C2-D644-74A1E0B4BB64";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "metacarpalMajor_FK_CON" -p "metacarpalMajor_mechanic_FK_BUF";
+	rename -uid "CE7F3216-4598-1FF7-0384-38A568D6653A";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1736,19 +1990,19 @@ createNode transform -n "metacarpalMajor_FK_CON" -p "metacarpalMajor_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "metacarpalMajor_FK_CONShape" -p "metacarpalMajor_FK_CON";
-	rename -uid "4FD3E490-41C2-9D56-D95E-0BA3D9321ADF";
+	rename -uid "7D2B94B0-461C-0ADA-D799-FEA7615C5FF1";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207034 0 0 0 0 0.1100094116520699 0 0
-		 0 0 0.11000941165207045 0 -4.9960036108132044e-15 0.17499999999999999 -7.9936057773011271e-15 1;
-createNode transform -n "major001_FK_BUF" -p "metacarpalMajor_FK_CON";
-	rename -uid "3BE1F91E-4455-3B95-87E2-9FBF985A107E";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292324304e-08 0 -0.11000941165206449 0
+		 0 0.1100094116520699 0 0 0.1100094116520646 0 3.5950514292324344e-08 0 -4.9960036108132044e-15 0.17499999999999999 -7.9936057773011271e-15 1;
+createNode transform -n "major001_RT_FK_BUF" -p "metacarpalMajor_FK_CON";
+	rename -uid "0463A1B1-4E21-87E8-9B2A-9790B63D017B";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1777,12 +2031,43 @@ createNode transform -n "major001_FK_BUF" -p "metacarpalMajor_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.9837532731956844 -0.17795175504521754 -0.023720673537905468 0
-		 0.17889914893890377 0.98275449580045493 0.046783495946133291 0 0.014986393352026006 -0.050267025576734348 0.99862336952124042 0
-		 0.60962164592100354 1.7763568394002505e-15 0 1;
+	setAttr ".t" -type "double3" 0.60962164592100176 3.5527136788005009e-15 -1.3322676295501878e-15 ;
+	setAttr ".r" -type "double3" 2.6822308951086979 1.3592219669071761 -10.253394233317417 ;
+	setAttr ".s" -type "double3" 1.0000000000000009 0.99999999999999778 1.0000000000000009 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "major001_FK_CON" -p "major001_FK_BUF";
-	rename -uid "FDFBF24C-4E89-6690-3DAF-3B890AEB6337";
+createNode transform -n "major001_mechanic_FK_BUF" -p "major001_RT_FK_BUF";
+	rename -uid "993E28D4-477B-BA23-C05C-E597EC52DB2C";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "major001_FK_CON" -p "major001_mechanic_FK_BUF";
+	rename -uid "179CCCCF-4416-386E-697E-468CD959FDA8";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1816,19 +2101,19 @@ createNode transform -n "major001_FK_CON" -p "major001_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "major001_FK_CONShape" -p "major001_FK_CON";
-	rename -uid "CC46A545-4D64-ABF9-88FF-FDBA1F21B572";
+	rename -uid "4A88AACE-41BF-AF62-3348-46947E1DE069";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207045 0 0 0 0 0.11000941165206957 0 0
-		 0 0 0.11000941165207034 0 -9.9920072216264089e-16 0.17499999999999999 -3.907985046680551e-14 1;
-createNode transform -n "major002_FK_BUF" -p "major001_FK_CON";
-	rename -uid "CF6B557A-4F59-7409-EAE0-2EB5972CC3EB";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292324344e-08 0 -0.1100094116520646 0
+		 0 0.11000941165206957 0 0 0.11000941165206449 0 3.5950514292324304e-08 0 -9.9920072216264089e-16 0.17499999999999999 -3.907985046680551e-14 1;
+createNode transform -n "major002_RT_FK_BUF" -p "major001_FK_CON";
+	rename -uid "6412C047-4789-6BF5-274E-9EB14392A7F4";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1857,12 +2142,43 @@ createNode transform -n "major002_FK_BUF" -p "major001_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.88436511343984692 -0.46575170101829805 0.031204152432626947 0
-		 0.46679092659531374 0.88207132844742309 -0.06368989228563926 0 0.0021393874803854462 0.070890934043806808 0.99748177852609654 0
-		 0.36410035560132403 1.7763568394002505e-15 -8.8817841970012523e-16 1;
+	setAttr ".t" -type "double3" 0.36410035560131915 -3.5527136788005009e-15 8.8817841970012523e-16 ;
+	setAttr ".r" -type "double3" -3.6534151282189939 -1.7881565055086199 -27.773574911208055 ;
+	setAttr ".s" -type "double3" 1.0000000000000053 0.999999999999994 1.0000000000000058 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "major002_FK_CON" -p "major002_FK_BUF";
-	rename -uid "3C061DE3-4223-46A1-5570-548F4DE8507E";
+createNode transform -n "major002_mechanic_FK_BUF" -p "major002_RT_FK_BUF";
+	rename -uid "30F7610D-43DD-B931-A3B3-71BC00D8A3B5";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "major002_FK_CON" -p "major002_mechanic_FK_BUF";
+	rename -uid "F649B3C1-4E29-2A5F-1B6C-82962E8E91F1";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1896,19 +2212,19 @@ createNode transform -n "major002_FK_CON" -p "major002_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "major002_FK_CONShape" -p "major002_FK_CON";
-	rename -uid "A21EBF6F-42CF-425A-BF49-36977BBF76B0";
+	rename -uid "18EDA20F-4E02-1A3F-A8A6-11A3B46BB508";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207156 0 0 0 0 0.11000941165206901 0 0
-		 0 0 0.11000941165207023 0 -1.1435297153639112e-14 0.17499999999999999 -7.1054273576010019e-14 1;
-createNode transform -n "major003_FK_BUF" -p "major002_FK_CON";
-	rename -uid "052757D9-4FA1-3FDB-66C6-B5AE73A3AE35";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292324708e-08 0 -0.11000941165206571 0
+		 0 0.11000941165206901 0 0 0.11000941165206438 0 3.5950514292324271e-08 0 -1.1435297153639112e-14 0.17499999999999999 -7.1054273576010019e-14 1;
+createNode transform -n "major003_RT_FK_BUF" -p "major002_FK_CON";
+	rename -uid "E7CC6B7B-42D6-A144-DDD9-2CB2018730FD";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1937,12 +2253,43 @@ createNode transform -n "major003_FK_BUF" -p "major002_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.99885649511330565 -0.047809017662449278 3.4694469519536142e-17 0
-		 0.047805951818353336 0.99879244154270053 0.011324737882230596 0 -0.00054142459343414773 -0.011311787989120858 0.99993587309977827 0
-		 0.2899333154624637 -2.6645352591003757e-15 8.8817841970012523e-16 1;
+	setAttr ".t" -type "double3" 0.28993331546245571 -8.8817841970012523e-16 0 ;
+	setAttr ".r" -type "double3" 0.64887355488619303 4.1263348577385575e-14 -2.740299529675255 ;
+	setAttr ".s" -type "double3" 1.0000000000000202 0.99999999999996891 1.0000000000000162 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "major003_FK_CON" -p "major003_FK_BUF";
-	rename -uid "4EE882EB-4599-8375-EF88-CCB7B102F396";
+createNode transform -n "major003_mechanic_FK_BUF" -p "major003_RT_FK_BUF";
+	rename -uid "4D8C6ECC-4BB1-8B78-16ED-F78195E4C3F7";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "major003_FK_CON" -p "major003_mechanic_FK_BUF";
+	rename -uid "683734D7-4A9F-B70E-8F43-E4AA5308ACA5";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -1975,19 +2322,19 @@ createNode transform -n "major003_FK_CON" -p "major003_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "major003_FK_CONShape" -p "major003_FK_CON";
-	rename -uid "809D0E17-4972-6FFA-0118-9FBA13E6919D";
+	rename -uid "0F43CABA-4DA0-4E38-D084-CEB34F2BBDAF";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207356 0 0 0 0 0.11000941165206701 0 0
-		 0 0 0.11000941165206979 0 -1.6653345369377348e-14 0.17499999999999999 -1.6431300764452317e-13 1;
-createNode transform -n "metacarpalAnnular_FK_BUF" -p "handWrist_Target_BUF";
-	rename -uid "2D7B1154-4FC7-02B9-1B19-64A3D5C0070B";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292325357e-08 0 -0.11000941165206771 0
+		 0 0.11000941165206701 0 0 0.11000941165206393 0 3.5950514292324126e-08 0 -1.6653345369377348e-14 0.17499999999999999 -1.6431300764452317e-13 1;
+createNode transform -n "metacarpalAnnular_RT_FK_BUF" -p "handWrist_Target_BUF";
+	rename -uid "BEEDF748-40F2-380A-D117-A5857E4D3B02";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2016,12 +2363,43 @@ createNode transform -n "metacarpalAnnular_FK_BUF" -p "handWrist_Target_BUF";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.99863579988675655 -0.015037643632737047 -0.05000408441824955 0
-		 0.020232036531857567 0.99426075881851439 0.10505335868694915 0 0.048137343947357858 -0.10592172934582392 0.99320863033407281 0
-		 0.22960466787385858 0.14163900709787569 -0.034661844449637047 1;
+	setAttr ".opm" -type "matrix" 0.99863579988675777 -0.015037643632736601 -0.050004084418249481 0
+		 0.020232036531857824 0.9942607588185145 0.10505335868694915 0 0.048137343947357435 -0.10592172934582418 0.99320863033407358 0
+		 0.22960466787385947 0.14163900709787569 -0.0346618444496362 1;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "metacarpalAnnular_FK_CON" -p "metacarpalAnnular_FK_BUF";
-	rename -uid "3CFAA378-4C77-FABF-99EE-A784CF2532D7";
+createNode transform -n "metacarpalAnnular_mechanic_FK_BUF" -p "metacarpalAnnular_RT_FK_BUF";
+	rename -uid "7DF8A374-4410-B867-4028-3399E2653CDF";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "metacarpalAnnular_FK_CON" -p "metacarpalAnnular_mechanic_FK_BUF";
+	rename -uid "04AB7E09-4238-9634-4385-C3A2B003AC80";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2054,19 +2432,19 @@ createNode transform -n "metacarpalAnnular_FK_CON" -p "metacarpalAnnular_FK_BUF"
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "metacarpalAnnular_FK_CONShape" -p "metacarpalAnnular_FK_CON";
-	rename -uid "ECF81D79-41CF-D82A-7798-28ABFB289232";
+	rename -uid "B3150288-40B6-D989-1430-3DB5D7196A95";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207012 0 0 0 0 0.11000941165207012 0 0
-		 0 0 0.11000941165207045 0 5.8841820305133297e-15 0.17499999999999999 -2.6645352591003757e-15 1;
-createNode transform -n "annular001_FK_BUF" -p "metacarpalAnnular_FK_CON";
-	rename -uid "E2FC28FC-4397-5874-6B9C-E98F500C0019";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292324238e-08 0 -0.11000941165206427 0
+		 0 0.11000941165207012 0 0 0.1100094116520646 0 3.5950514292324344e-08 0 5.8841820305133297e-15 0.17499999999999999 -2.6645352591003757e-15 1;
+createNode transform -n "annular001_RT_FK_BUF" -p "metacarpalAnnular_FK_CON";
+	rename -uid "B95107FA-460B-C92C-058E-D7B3D490FE5A";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2095,12 +2473,43 @@ createNode transform -n "annular001_FK_BUF" -p "metacarpalAnnular_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.98255537650341052 -0.076119402586452056 -0.16967842719133069 0
-		 0.075094297371867166 0.99709858469192003 -0.012460293238620357 0 0.17013458968260278 -0.00049895415468118043 0.98542070834658324 0
-		 0.57161096046613702 0 0 1;
+	setAttr ".t" -type "double3" 0.57161096046613569 -1.7763568394002505e-15 -8.8817841970012523e-16 ;
+	setAttr ".r" -type "double3" -0.72444607943672212 9.7691226667323061 -4.4299046512368179 ;
+	setAttr ".s" -type "double3" 1.0000000000000011 1 1.0000000000000007 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "annular001_FK_CON" -p "annular001_FK_BUF";
-	rename -uid "57B5038D-4DE0-12F9-84C3-B88F5AB8FED4";
+createNode transform -n "annular001_mechanic_FK_BUF" -p "annular001_RT_FK_BUF";
+	rename -uid "C274E017-435B-AF31-3A94-548858DFEAAD";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "annular001_FK_CON" -p "annular001_mechanic_FK_BUF";
+	rename -uid "0D4DF137-4661-BC16-FD17-37AD1EFF57D0";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2134,19 +2543,19 @@ createNode transform -n "annular001_FK_CON" -p "annular001_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "annular001_FK_CONShape" -p "annular001_FK_CON";
-	rename -uid "6AC12141-49B7-8BCA-BE60-E184FCEE9C28";
+	rename -uid "B0F237E2-4C5C-9BF3-CC8A-D4B71427C698";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207045 0 0 0 0 0.11000941165206946 0 0
-		 0 0 0.11000941165207045 0 5.3290705182007514e-15 0.17499999999999999 -3.4638958368304884e-14 1;
-createNode transform -n "annular002_FK_BUF" -p "annular001_FK_CON";
-	rename -uid "E05219B5-496B-F9C0-E054-1D9B1CA313D6";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292324344e-08 0 -0.1100094116520646 0
+		 0 0.11000941165206946 0 0 0.1100094116520646 0 3.5950514292324344e-08 0 5.3290705182007514e-15 0.17499999999999999 -3.4638958368304884e-14 1;
+createNode transform -n "annular002_RT_FK_BUF" -p "annular001_FK_CON";
+	rename -uid "F6A9517E-4BB7-8CB7-B394-258C21BA770D";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2175,12 +2584,43 @@ createNode transform -n "annular002_FK_BUF" -p "annular001_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.90575210708632914 -0.41702703309729372 0.075508768859906025 0
-		 0.41710951091529963 0.9087252298128109 0.0154308977593553 0 -0.075051824845711795 0.017518857489202039 0.99702573347912848 0
-		 0.3428840372454145 0 0 1;
+	setAttr ".t" -type "double3" 0.34288403724541405 1.7763568394002505e-15 -4.4408920985006262e-16 ;
+	setAttr ".r" -type "double3" 0.88669199106116492 -4.3304555080071419 -24.722322407279684 ;
+	setAttr ".s" -type "double3" 1.0000000000000007 1.000000000000002 1.0000000000000018 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "annular002_FK_CON" -p "annular002_FK_BUF";
-	rename -uid "6773D81F-4F3D-D9B1-923B-849245F87682";
+createNode transform -n "annular002_mechanic_FK_BUF" -p "annular002_RT_FK_BUF";
+	rename -uid "1AD3EC23-4C59-03A6-C20D-0CB575369FE7";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "annular002_FK_CON" -p "annular002_mechanic_FK_BUF";
+	rename -uid "9481ADBB-4818-AF82-27D4-EDB336D27FD8";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2214,19 +2654,19 @@ createNode transform -n "annular002_FK_CON" -p "annular002_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "annular002_FK_CONShape" -p "annular002_FK_CON";
-	rename -uid "980A4D7F-4771-6288-B2CE-F5B76C43AB9E";
+	rename -uid "7E68B5BA-405C-B978-1CC3-F7B865158CC4";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.1100094116520709 0 0 0 0 0.11000941165206901 0 0
-		 0 0 0.11000941165207034 0 -1.27675647831893e-15 0.17499999999999999 -5.8619775700208265e-14 1;
-createNode transform -n "annular003_FK_BUF" -p "annular002_FK_CON";
-	rename -uid "F920A990-4163-7770-DCC9-349E915ECB61";
+	setAttr ".offsetMatrix" -type "matrix" 3.595051429232449e-08 0 -0.11000941165206504 0
+		 0 0.11000941165206901 0 0 0.11000941165206449 0 3.5950514292324304e-08 0 -1.27675647831893e-15 0.17499999999999999 -5.8619775700208265e-14 1;
+createNode transform -n "annular003_RT_FK_BUF" -p "annular002_FK_CON";
+	rename -uid "59679579-4E82-1CDF-57D1-EA8542D9B1A7";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2255,12 +2695,43 @@ createNode transform -n "annular003_FK_BUF" -p "annular002_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.99993761676070581 -0.011167931916415366 -0.00019970874306922404 0
-		 0.011169717403397578 0.99977777604745977 0.017878364991594231 0 5.5511151231257827e-17 -0.017879480371496059 0.99984014931470289 0
-		 0.2266355647061884 8.8817841970012523e-16 -2.2204460492503131e-16 1;
+	setAttr ".t" -type "double3" 0.22663556470618573 -1.7763568394002505e-15 0 ;
+	setAttr ".r" -type "double3" 1.024409456997954 0.011442468185786998 -0.63988867937196692 ;
+	setAttr ".s" -type "double3" 1.0000000000000027 0.99999999999999911 1.0000000000000056 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "annular003_FK_CON" -p "annular003_FK_BUF";
-	rename -uid "B5114F3A-4D74-99BE-4404-79A54DD363A0";
+createNode transform -n "annular003_mechanic_FK_BUF" -p "annular003_RT_FK_BUF";
+	rename -uid "017F0BC4-4FA1-6685-1EB5-85ACA48AC798";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "annular003_FK_CON" -p "annular003_mechanic_FK_BUF";
+	rename -uid "ED914245-4F6A-9CBA-96D2-AE87A2EFF68C";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2294,19 +2765,19 @@ createNode transform -n "annular003_FK_CON" -p "annular003_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "annular003_FK_CONShape" -p "annular003_FK_CON";
-	rename -uid "6268CB44-4A3C-E5A1-12CF-2DA8191789D5";
+	rename -uid "9688EB0F-4B5D-6C42-DE2A-8A9A8B8C6269";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.1100094116520739 0 0 0 0 0.11000941165206646 0 0
-		 0 0 0.11000941165207012 0 3.4194869158454821e-14 0.17499999999999999 -1.5099033134902129e-13 1;
-createNode transform -n "metacarpalPinky_FK_BUF" -p "handWrist_Target_BUF";
-	rename -uid "08FC2064-47F4-5855-9778-69B27E60BBB3";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292325469e-08 0 -0.11000941165206804 0
+		 0 0.11000941165206646 0 0 0.11000941165206427 0 3.5950514292324238e-08 0 3.4194869158454821e-14 0.17499999999999999 -1.5099033134902129e-13 1;
+createNode transform -n "metacarpalPinky_RT_FK_BUF" -p "handWrist_Target_BUF";
+	rename -uid "661824BB-47AC-D7E3-D7BA-DDA1B00E592B";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2335,12 +2806,43 @@ createNode transform -n "metacarpalPinky_FK_BUF" -p "handWrist_Target_BUF";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.98298250211792093 -0.01013272208455411 -0.18341954223350171 0
-		 -0.0013332749664138333 0.99805773800466069 -0.062281409641144009 0 0.18369437364234631 0.06146608456849445 0.9810597828572758 0
-		 0.22269216310752826 0.12942908999932712 -0.12214428200393601 1;
+	setAttr ".opm" -type "matrix" 0.98298250211792049 -0.01013272208455397 -0.18341954223350099 0
+		 -0.0013332749664132148 0.99805773800466047 -0.062281409641144356 0 0.18369437364234639 0.0614660845684942 0.98105978285727702 0
+		 0.22269216310752826 0.12942908999932712 -0.12214428200393522 1;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "metacarpalPinky_FK_CON" -p "metacarpalPinky_FK_BUF";
-	rename -uid "93C6DB1E-4775-FF4B-0EBA-4E91B29FB32F";
+createNode transform -n "metacarpalPinky_mechanic_FK_BUF" -p "metacarpalPinky_RT_FK_BUF";
+	rename -uid "10FA043A-40BD-29AE-3D64-D8BE7EB6C183";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "metacarpalPinky_FK_CON" -p "metacarpalPinky_mechanic_FK_BUF";
+	rename -uid "CE5E08DE-43B8-48B5-4885-9FB0462FA5E1";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2372,19 +2874,19 @@ createNode transform -n "metacarpalPinky_FK_CON" -p "metacarpalPinky_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "metacarpalPinky_FK_CONShape" -p "metacarpalPinky_FK_CON";
-	rename -uid "2FB22099-40E0-E52D-C4B0-8D9A0AD03881";
+	rename -uid "C238CBC8-41FB-593E-D986-0D9B342704EE";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207045 0 0 0 0 0.11000941165206968 0 0
-		 0 0 0.11000941165207034 0 3.3612002070526614e-14 0.17499999999999999 -1.2434497875801753e-14 1;
-createNode transform -n "pinky001_FK_BUF" -p "metacarpalPinky_FK_CON";
-	rename -uid "D224BC45-420B-B673-904C-50B6BE5B604E";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292324344e-08 0 -0.1100094116520646 0
+		 0 0.11000941165206968 0 0 0.11000941165206449 0 3.5950514292324304e-08 0 3.3612002070526614e-14 0.17499999999999999 -1.2434497875801753e-14 1;
+createNode transform -n "pinky001_RT_FK_BUF" -p "metacarpalPinky_FK_CON";
+	rename -uid "5F71EAE3-46CE-0E84-1B97-A78B42E80479";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2413,12 +2915,43 @@ createNode transform -n "pinky001_FK_BUF" -p "metacarpalPinky_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.98841059033961387 -0.099419391113079417 -0.11471830531878063 0
-		 0.098575715177126405 0.99504439825493507 -0.013018213348455362 0 0.11544406992923427 0.0015589009502070816 0.99331275867472146 0
-		 0.5430504104472611 -1.7763568394002505e-15 -1.1058862159352145e-16 1;
+	setAttr ".t" -type "double3" 0.54305041044726066 -1.7763568394002505e-15 -1.3314002678121994e-15 ;
+	setAttr ".r" -type "double3" -0.75086721084026231 6.5873776032802942 -5.7437838017254235 ;
+	setAttr ".s" -type "double3" 0.99999999999999933 0.99999999999999989 1.0000000000000009 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "pinky001_FK_CON" -p "pinky001_FK_BUF";
-	rename -uid "FEBC4C57-480B-3E6B-0116-199C1B7A3C2A";
+createNode transform -n "pinky001_mechanic_FK_BUF" -p "pinky001_RT_FK_BUF";
+	rename -uid "492886CA-4F9C-6BC2-B508-B3B1D8F7D68E";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "pinky001_FK_CON" -p "pinky001_mechanic_FK_BUF";
+	rename -uid "B05EF0FF-4189-35E1-D3F5-97B2E93DA614";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2452,19 +2985,19 @@ createNode transform -n "pinky001_FK_CON" -p "pinky001_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "pinky001_FK_CONShape" -p "pinky001_FK_CON";
-	rename -uid "DB5B4CCB-4B40-646D-FEFD-EFA43C2CBA15";
+	rename -uid "7CFC5387-4708-57A2-91D9-289D29A2E98B";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207068 0 0 0 0 0.11000941165206879 0 0
-		 0 0 0.11000941165207079 0 3.3001379406982778e-14 0.17499999999999999 -5.5067062021407764e-14 1;
-createNode transform -n "pinky002_FK_BUF" -p "pinky001_FK_CON";
-	rename -uid "9DAE3E9D-44E1-6C98-23D4-E2A191781B6D";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292324417e-08 0 -0.11000941165206482 0
+		 0 0.11000941165206879 0 0 0.11000941165206493 0 3.595051429232445e-08 0 3.3001379406982778e-14 0.17499999999999999 -5.5067062021407764e-14 1;
+createNode transform -n "pinky002_RT_FK_BUF" -p "pinky001_FK_CON";
+	rename -uid "7A597004-4946-1124-607E-E493204298F3";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2493,12 +3026,43 @@ createNode transform -n "pinky002_FK_BUF" -p "pinky001_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.97291649113692735 -0.21817065649087072 0.076387603183805594 0
-		 0.21874821703620864 0.9757809880685484 0.00082514693839556841 0 -0.074717593760130013 0.015906852936150018 0.99707785714673003 0
-		 0.23148982377183547 1.7763568394002505e-15 2.7755575615628914e-16 1;
+	setAttr ".t" -type "double3" 0.23148982377183902 1.7763568394002505e-15 3.3306690738754696e-16 ;
+	setAttr ".r" -type "double3" 0.04741598252981849 -4.3809548612867966 -12.639146767961687 ;
+	setAttr ".s" -type "double3" 0.99999999999999356 1.0000000000000024 1.0000000000000082 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "pinky002_FK_CON" -p "pinky002_FK_BUF";
-	rename -uid "11D2B51D-480B-CD9B-FA5C-D28DE810C694";
+createNode transform -n "pinky002_mechanic_FK_BUF" -p "pinky002_RT_FK_BUF";
+	rename -uid "EF93CC4C-4291-9687-FE02-8583D11EA067";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "pinky002_FK_CON" -p "pinky002_mechanic_FK_BUF";
+	rename -uid "93846778-4AC3-CC93-EAD2-09B4C42F9FAC";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2531,19 +3095,19 @@ createNode transform -n "pinky002_FK_CON" -p "pinky002_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "pinky002_FK_CONShape" -p "pinky002_FK_CON";
-	rename -uid "5C7B6E63-47DC-E3F6-B2FF-E2B9E8D1A451";
+	rename -uid "FC3EFCF3-4764-A111-05C4-BB942EA64819";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207223 0 0 0 0 0.11000941165206679 0 0
-		 0 0 0.11000941165207112 0 7.5550676825741903e-14 0.17499999999999999 -1.2612133559741778e-13 1;
-createNode transform -n "pinky003_FK_BUF" -p "pinky002_FK_CON";
-	rename -uid "F1CE263C-4F4A-EF9F-AC2E-BF970A1E80BF";
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292324926e-08 0 -0.11000941165206637 0
+		 0 0.11000941165206679 0 0 0.11000941165206526 0 3.5950514292324562e-08 0 7.5550676825741903e-14 0.17499999999999999 -1.2612133559741778e-13 1;
+createNode transform -n "pinky003_RT_FK_BUF" -p "pinky002_FK_CON";
+	rename -uid "881862C9-4C0D-DC0D-6C5E-6DAB56DF4B84";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2572,12 +3136,43 @@ createNode transform -n "pinky003_FK_BUF" -p "pinky002_FK_CON";
 	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
 	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
-	setAttr ".opm" -type "matrix" 0.99999853804586225 -0.0017092419903703675 -4.8967794428478317e-05 0
-		 0.0017099432816725987 0.99958841316979785 0.028637045079059995 0 2.7755575615628914e-17 -0.028637086945161996 0.99958987452415027 0
-		 0.23613819506573108 0 -1.9428902930940239e-16 1;
+	setAttr ".t" -type "double3" 0.23613819506573464 0 -3.3306690738754696e-16 ;
+	setAttr ".r" -type "double3" 1.6410061676803211 0.0028056479540180014 -0.097932400017164661 ;
+	setAttr ".s" -type "double3" 0.99999999999998601 0.99999999999999023 1.0000000000000333 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "pinky003_FK_CON" -p "pinky003_FK_BUF";
-	rename -uid "E578B503-42B5-35EA-0892-D6BA8219D462";
+createNode transform -n "pinky003_mechanic_FK_BUF" -p "pinky003_RT_FK_BUF";
+	rename -uid "C16B2896-435E-6FA5-1793-55A71FF2050B";
+	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
+		3 -en "None:FK:IK:Mix" -at "enum";
+	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
+	addAttr -ci true -sn "rig_guidMatchType" -ln "rig_guidMatchType" -min 0 -max 6 -en 
+		"SRT:SR:ST:RT:T:R:S" -at "enum";
+	addAttr -ci true -sn "rig_hierarchyOrder" -ln "rig_hierarchyOrder" -at "long";
+	addAttr -ci true -sn "rig_instance" -ln "rig_instance" -dv -1 -at "long";
+	addAttr -ci true -sn "rig_is" -ln "rig_is" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_locationDepth" -ln "rig_locationDepth" -min 0 -max 5 -en 
+		"None:Middle:Front=4:Back" -at "enum";
+	addAttr -ci true -sn "rig_locationHeight" -ln "rig_locationHeight" -min 0 -max 7 
+		-en "None:Middle:Up=6:Down" -at "enum";
+	addAttr -ci true -sn "rig_locationSide" -ln "rig_locationSide" -dv 1 -min 0 -max 
+		3 -en "None:Middle:Left:Right" -at "enum";
+	addAttr -ci true -sn "rig_mirrorAxis" -ln "rig_mirrorAxis" -min 0 -max 2 -en "Axis X:Axis Y:Axis Z" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_mirrorDefaultObject" -ln "rig_mirrorDefaultObject" 
+		-at "message";
+	addAttr -ci true -sn "rig_mirrorFreezeNegativeScale" -ln "rig_mirrorFreezeNegativeScale" 
+		-min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "rig_mirrorType" -ln "rig_mirrorType" -min 0 -max 6 -en "SRT:SR:ST:RT:T:R:S" 
+		-at "enum";
+	addAttr -ci true -sn "rig_objectType" -ln "rig_objectType" -min 0 -max 8 -en "Guid:Buffer:Rest:Controller:Constraint:Group:Asset:Module:Joint" 
+		-at "enum";
+	addAttr -s false -ci true -sn "rig_targetFK" -ln "rig_targetFK" -at "message";
+	addAttr -s false -ci true -sn "rig_targetIK" -ln "rig_targetIK" -at "message";
+	addAttr -ci true -sn "rig_targetMatchType" -ln "rig_targetMatchType" -min 0 -max 
+		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
+	setAttr ".rig_objectType" 1;
+createNode transform -n "pinky003_FK_CON" -p "pinky003_mechanic_FK_BUF";
+	rename -uid "6E999CA7-4297-75C4-93EB-6981E4F4BD48";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2611,19 +3206,19 @@ createNode transform -n "pinky003_FK_CON" -p "pinky003_FK_BUF";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 3;
 createNode fnk_rig_shape -n "pinky003_FK_CONShape" -p "pinky003_FK_CON";
-	rename -uid "F69CA9C0-4D1C-5C9B-1CF3-DB8FCAE462CF";
+	rename -uid "4CD69F11-4B9C-9F27-77AC-60921C82A3E8";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0.1948783 0.3162058 1.0384315 ;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
 	setAttr ".shapeType" 22;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
 	setAttr ".transparency" 0.10000000149011612;
-	setAttr ".offsetMatrix" -type "matrix" 0.11000941165207556 0 0 0 0 0.11000941165205236 0 0
-		 0 0 0.110009411652082 0 2.8835267507076878e-13 0.17499999999999999 -4.2188474935755949e-13 1;
+	setAttr ".offsetMatrix" -type "matrix" 3.5950514292326012e-08 0 -0.11000941165206971 0
+		 0 0.11000941165205236 0 0 0.11000941165207614 0 3.5950514292328116e-08 0 2.8835267507076878e-13 0.17499999999999999 -4.2188474935755949e-13 1;
 createNode transform -n "fingers_CON" -p "handWrist_Target_BUF";
-	rename -uid "8BFD732D-4B94-98A4-0E64-DAAD1F4FDEBF";
+	rename -uid "5C2DFBA1-4DDE-4029-65A3-F8AAD6011279";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2690,11 +3285,11 @@ createNode transform -n "fingers_CON" -p "handWrist_Target_BUF";
 	setAttr -k on ".bendRatioOut" 0.2;
 	setAttr -k on ".arcFingers";
 createNode fnk_rig_shape -n "fingers_CONShape" -p "fingers_CON";
-	rename -uid "8DDB09AC-48B1-3DDA-B9E2-6298CBF68CFF";
+	rename -uid "601DB300-4EC0-F85E-A3D8-B08FB564339A";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovrgbf" yes;
-	setAttr ".ovrgb" -type "float3" 0 0 1 ;
+	setAttr ".ovrgb" -type "float3" 1 0.73100001 0.84480941 ;
 	setAttr ".shapeType" 23;
 	setAttr ".wireWidth" 2;
 	setAttr ".fill" yes;
@@ -2702,7 +3297,7 @@ createNode fnk_rig_shape -n "fingers_CONShape" -p "fingers_CON";
 	setAttr ".offsetMatrix" -type "matrix" 0.016441702291496534 0.078292211782257079 0 0
 		 -0.41299141715140608 0.086729979587644224 0 0 0 0 0.624 0 1.8420000000000001 -0.29199999999999998 0 1;
 createNode transform -n "bones_GRP" -p "module";
-	rename -uid "EA4E0716-4232-F7AD-7410-19BCC63A148C";
+	rename -uid "451D0C6E-4DD3-335D-61D4-549717B3CC12";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2733,7 +3328,7 @@ createNode transform -n "bones_GRP" -p "module";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode joint -n "metacarpalThumb_JNT" -p "bones_GRP";
-	rename -uid "DB80E241-4CF9-D2A8-2DED-59A0B228236F";
+	rename -uid "1ABA5744-419D-7B0D-8BA1-E7B21DDE80C2";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2766,7 +3361,7 @@ createNode joint -n "metacarpalThumb_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "thumb001_JNT" -p "bones_GRP";
-	rename -uid "F14B1452-4ED8-8F2A-9BDA-ADB494E4FEE7";
+	rename -uid "CF7C1C90-40EB-6470-2446-28BAD67F893E";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2802,7 +3397,7 @@ createNode joint -n "thumb001_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "thumb002_JNT" -p "bones_GRP";
-	rename -uid "498A7BB0-4982-3642-7D46-3389BB6CFFD2";
+	rename -uid "B9CA1157-4DAE-47F8-31C7-6D80B5A42B6A";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2838,7 +3433,7 @@ createNode joint -n "thumb002_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "metacarpalIndex_JNT" -p "bones_GRP";
-	rename -uid "EA7E0D3D-4507-ED3A-C014-F8A5EBCA3FAC";
+	rename -uid "D7CD8502-4E7E-E06C-6E4F-FC8811D964CE";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2873,7 +3468,7 @@ createNode joint -n "metacarpalIndex_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "index001_JNT" -p "bones_GRP";
-	rename -uid "A8AA0AD7-4A3F-81AC-878E-D5A7B45159B6";
+	rename -uid "47B5315E-4671-231A-7E58-C7BF5FB971DF";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2909,7 +3504,7 @@ createNode joint -n "index001_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "index002_JNT" -p "bones_GRP";
-	rename -uid "166DFF59-4B7B-2136-36CC-E2858FD78210";
+	rename -uid "9FCFBE4F-48D2-21B2-7C1D-7F87685E8450";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2945,7 +3540,7 @@ createNode joint -n "index002_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "index003_JNT" -p "bones_GRP";
-	rename -uid "C900B7B3-49CF-C7FE-35D6-B9B41D984CDF";
+	rename -uid "44BB3E07-4387-24D0-06E8-FEBA86B8163A";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -2981,7 +3576,7 @@ createNode joint -n "index003_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "metacarpalMajor_JNT" -p "bones_GRP";
-	rename -uid "95584A06-4CF5-2AC8-8671-43AC506CFFEF";
+	rename -uid "4838B220-473C-E0A3-5EAC-F3866B835953";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3014,7 +3609,7 @@ createNode joint -n "metacarpalMajor_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "major001_JNT" -p "bones_GRP";
-	rename -uid "8AC6D79D-4250-B1DE-A376-B3B52703AABB";
+	rename -uid "83A64F55-4377-B18F-3535-F3A291ED2AC6";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3050,7 +3645,7 @@ createNode joint -n "major001_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "major002_JNT" -p "bones_GRP";
-	rename -uid "815C0C8C-4E8E-4125-63EE-99B538DD8627";
+	rename -uid "EBC2BB39-4D8B-5458-8DA7-BAB7F28B211D";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3086,7 +3681,7 @@ createNode joint -n "major002_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "major003_JNT" -p "bones_GRP";
-	rename -uid "8496BBBC-4C2F-9041-45D0-10901E802673";
+	rename -uid "F3C386BA-40D0-C90C-20CD-608B24FF3919";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3122,7 +3717,7 @@ createNode joint -n "major003_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "metacarpalAnnular_JNT" -p "bones_GRP";
-	rename -uid "77DF041A-4C4C-C5F9-F98C-BBB1B50EA9F3";
+	rename -uid "5A4588AB-475A-E685-E1EA-268A8E56A62E";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3155,7 +3750,7 @@ createNode joint -n "metacarpalAnnular_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "annular001_JNT" -p "bones_GRP";
-	rename -uid "EF2AE2E9-453B-B361-82EE-FFA24E7EDEAA";
+	rename -uid "076B7144-41FE-9F8E-8FA5-22A75823031F";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3191,7 +3786,7 @@ createNode joint -n "annular001_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "annular002_JNT" -p "bones_GRP";
-	rename -uid "0AEAADC7-4459-50C2-B764-EB96E2CFEB9D";
+	rename -uid "DA0A405F-4C7C-5494-95FF-1C8F8A7F8712";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3227,7 +3822,7 @@ createNode joint -n "annular002_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "annular003_JNT" -p "bones_GRP";
-	rename -uid "E629EDEF-4B90-1687-88C0-32B624A98541";
+	rename -uid "4127D430-41C2-555C-5551-668F98E7A3E6";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3263,7 +3858,7 @@ createNode joint -n "annular003_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "metacarpalPinky_JNT" -p "bones_GRP";
-	rename -uid "1865A13F-410F-1E4C-2232-6AAA9FA01C5C";
+	rename -uid "579120F6-4A08-3D5D-8FA2-3789A5FA8CFA";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3296,7 +3891,7 @@ createNode joint -n "metacarpalPinky_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "pinky001_JNT" -p "bones_GRP";
-	rename -uid "3684E6EF-40BE-E823-2676-BC96C9CAA4DD";
+	rename -uid "C47B74A4-4EEA-9AE3-2640-59892C3DCDB9";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3332,7 +3927,7 @@ createNode joint -n "pinky001_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "pinky002_JNT" -p "bones_GRP";
-	rename -uid "6D1F1EBA-4A7A-E6C6-7A48-4782C3566589";
+	rename -uid "8C43460F-4D2C-81A9-F7EE-218158FFA2D1";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3368,7 +3963,7 @@ createNode joint -n "pinky002_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode joint -n "pinky003_JNT" -p "bones_GRP";
-	rename -uid "77D4C0C3-4D78-3F86-0AE5-138F3949D74C";
+	rename -uid "B3CD5E0A-42FD-A66B-013B-059E24671A09";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3404,7 +3999,7 @@ createNode joint -n "pinky003_JNT" -p "bones_GRP";
 	setAttr ".rig_controllerType" 1;
 	setAttr ".rig_objectType" 8;
 createNode transform -n "algo_GRP" -p "module";
-	rename -uid "EDDA16F9-43E6-6F5E-BE60-58A5CF417720";
+	rename -uid "9BA31C86-40DA-920B-95BE-49BC5350693C";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3435,7 +4030,7 @@ createNode transform -n "algo_GRP" -p "module";
 		6 -en "SRT:SR:ST:RT:T:R:S" -at "enum";
 	setAttr ".rig_objectType" 5;
 createNode transform -n "mirrorCompensate_BUF" -p "algo_GRP";
-	rename -uid "154B1C1C-4F8D-D6C2-7B1B-5391F9D812E0";
+	rename -uid "681801E1-4758-2284-F66E-A78754E65934";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3467,8 +4062,8 @@ createNode transform -n "mirrorCompensate_BUF" -p "algo_GRP";
 	setAttr ".uocol" yes;
 	setAttr ".oclr" -type "float3" 0 1 1 ;
 	setAttr ".rig_objectType" 1;
-createNode transform -n "handWrist_IN_BUF" -p "mirrorCompensate_BUF";
-	rename -uid "AB58E42E-4167-FC51-FB44-4BB030BA3AB9";
+createNode transform -n "handWrist_RT_IN_BUF" -p "mirrorCompensate_BUF";
+	rename -uid "7CC88433-4E46-6E8E-E74E-78B99F5AC6E0";
 	addAttr -ci true -sn "rig_controllerType" -ln "rig_controllerType" -min 0 -max 
 		3 -en "None:FK:IK:Mix" -at "enum";
 	addAttr -s false -ci true -sn "rig_guid" -ln "rig_guid" -at "message";
@@ -3504,185 +4099,185 @@ createNode transform -n "handWrist_IN_BUF" -p "mirrorCompensate_BUF";
 	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr ".rig_objectType" 1;
 createNode unitConversion -n "unitConversion2";
-	rename -uid "8B408EFD-40BC-A8C3-2671-1D9AB2394732";
+	rename -uid "E4DBCA48-4DE6-FBD4-14A3-2B86A694CB08";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "thumb_bend_adjust_mult";
-	rename -uid "FCABBC82-4E1A-C81B-D71A-F8915851E550";
+	rename -uid "07FA7DB2-42CA-6EAF-0936-43B4C29AC1D5";
 	setAttr ".floatB" -1;
 createNode unitConversion -n "unitConversion3";
-	rename -uid "F26C5D37-44E1-F3AA-5610-E68D6BD5D978";
+	rename -uid "FF9F8ED5-4016-CD56-702D-918F69D5C036";
 	setAttr ".cf" 0.017453292519943295;
 createNode unitConversion -n "unitConversion1";
-	rename -uid "2D4A002A-403A-7E55-AC2D-D6A1F0237B23";
+	rename -uid "5929909E-490D-C483-B824-6A80CD6F80F3";
 	setAttr ".cf" 0.017453292519943295;
 createNode unitConversion -n "unitConversion64";
-	rename -uid "3369FB11-4CF9-F56A-B321-B99E78004738";
+	rename -uid "E16B19D5-4282-1C28-A9F8-B8928DEC3A20";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "fnk_float_multiply_indexMetacarp_rotY";
-	rename -uid "AFED4C1E-4055-6F3B-356E-5DBAE641EC40";
+	rename -uid "7797EE04-4533-E8AA-A2E5-C8A9FCFC103B";
 	setAttr ".floatB" -0.5;
 createNode unitConversion -n "unitConversion22";
-	rename -uid "F253F637-4312-B911-5F42-D380EB03AEBF";
+	rename -uid "A43CE0A1-4D0A-7A93-917F-31A0C76B4FE3";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "fnk_float_multiply_indexMetacarp_rotX";
-	rename -uid "283E9741-4A08-8FEF-4510-F4A1431FFEC3";
+	rename -uid "9A5D0CAD-48FE-EBAF-7EF4-95B99C69205D";
 	setAttr ".floatB" 0.80000001192092896;
 createNode fnk_float_multiply -n "fnk_float_multiply_indexMetacarp_rotZ";
-	rename -uid "3EC89EC7-4E6F-E19E-7CB1-D39126C76A9F";
+	rename -uid "95231ACE-44CE-E473-9857-F3B0D20A9B2C";
 	setAttr ".floatB" 1;
 createNode unitConversion -n "unitConversion23";
-	rename -uid "52454473-4D78-3F40-11E5-7FBAD9D45CBD";
+	rename -uid "77E39E72-4B73-4925-72FC-C699AE0AFBFD";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "fnk_float_multiply_arcIndex";
-	rename -uid "D102DD1B-467C-9F1D-5EC6-8C9B49FA0CFA";
+	rename -uid "8E29D1D4-49C2-5D9A-E6B7-DB940B283D05";
 	setAttr ".floatB" -1;
 createNode unitConversion -n "unitConversion4";
-	rename -uid "D6B37613-414F-A099-03CF-A6BADE0327B2";
+	rename -uid "FD59C520-4564-920F-C1AC-10A8BAF8E72E";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "index_value_adjust_mult";
-	rename -uid "394887C8-47EC-8558-C026-BC8CD8F90606";
+	rename -uid "1784DB1D-4EB7-67FC-A3A3-0A9C1B844BF4";
 	setAttr ".floatB" -1;
 createNode fnk_float_add -n "fnk_float_add_index";
-	rename -uid "1FCBDC2D-4D07-CAD4-30D2-B9BED6CFFEC6";
+	rename -uid "39312F7E-482F-F353-7965-C9B5C674D050";
 createNode fnk_float_multiply -n "fnk_float_multiply_index";
-	rename -uid "6E6A15AE-4470-2488-E542-E0B2BD32CEF9";
+	rename -uid "FCAB7FBA-451B-FFD6-165E-DA8BEA719446";
 createNode fnk_float_rescale -n "fnk_float_rescale_index";
-	rename -uid "DE29B3D9-4CF5-9156-B58E-DEAD74FD2E02";
+	rename -uid "4CB50E90-49AE-39F8-F127-409C55C005AD";
 createNode fnk_float_add -n "fnk_float_add_index_factor";
-	rename -uid "696BCBF7-42D1-1E43-9770-02A6CC37B3CF";
+	rename -uid "FDFB8EAF-4CF1-1415-AC91-739B39F37C2C";
 createNode unitConversion -n "unitConversion5";
-	rename -uid "CB9D9C6D-4A67-7E6B-66AA-2CA22216ABCB";
+	rename -uid "1414E087-4D82-B474-D5E3-3B9BF7316683";
 	setAttr ".cf" 0.017453292519943295;
 createNode unitConversion -n "unitConversion6";
-	rename -uid "F239E7D9-4477-9CA8-2756-97896F0C36FC";
+	rename -uid "5C905C14-4B25-F751-73B6-F7B8C11EC067";
 	setAttr ".cf" 0.017453292519943295;
 createNode unitConversion -n "unitConversion67";
-	rename -uid "7CD3AADE-48AF-4532-995E-F59B673F7291";
+	rename -uid "67ADC76F-4629-C5B6-5BE8-3D86E6F73CBE";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "fnk_float_multiply_matacarpalMajor_rotY";
-	rename -uid "3394D837-47CD-48B1-195D-0E8AE1825E3D";
+	rename -uid "B8204236-45FC-4F37-02B1-868234626F23";
 createNode unitConversion -n "unitConversion18";
-	rename -uid "0CCB1DAD-4F30-F40E-6C67-7E98250EDF31";
+	rename -uid "04813D4C-493D-2E90-9246-A5B758773111";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "fnk_float_multiply_matacarpalMajor_rotX";
-	rename -uid "17CBF695-4B76-7248-85CD-6495E9ECD325";
+	rename -uid "ED0903E4-456A-2C79-E98F-A7975FE20575";
 	setAttr ".floatB" 0.30000001192092896;
 createNode fnk_float_multiply -n "fnk_float_multiply_matacarpalMajor_rotZ";
-	rename -uid "C6FA39E0-48E5-3BE3-AD5E-249AA83F6D37";
+	rename -uid "AF311818-4CBB-5014-6C3C-9FA84A642788";
 	setAttr ".floatB" 0.80000001192092896;
 createNode unitConversion -n "unitConversion19";
-	rename -uid "B810B977-40F6-77CB-0905-EBB3CF94233B";
+	rename -uid "33C72AE8-4DD5-C372-8680-A8B40500EEF5";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "fnk_float_multiply_arcMajor";
-	rename -uid "BB88DC71-416C-CA0E-0E13-3585446DA10D";
+	rename -uid "BC7A3CFB-49BC-686A-CABD-1891CB73A6E5";
 	setAttr ".floatB" -1;
 createNode unitConversion -n "unitConversion9";
-	rename -uid "6876BCEF-4EF9-DB7A-CB2F-8BA9E4A1D29C";
+	rename -uid "264371BF-4821-ED83-F710-5891633FE953";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "major_value_adjust_mult";
-	rename -uid "036F250F-4A95-731F-CAE2-32A8FCA71CA1";
+	rename -uid "0FBF8D67-4892-10BA-E473-AF9F246B957F";
 	setAttr ".floatB" -1;
 createNode fnk_float_add -n "fnk_float_add_major";
-	rename -uid "BF89B3D9-478D-A978-F076-C2B770175455";
+	rename -uid "A2BFFA2F-4769-954C-9645-BFAE9BCAF8F6";
 createNode fnk_float_multiply -n "fnk_float_multiply_major";
-	rename -uid "CB007D9B-481A-55AF-EDF6-27A150AA57E6";
+	rename -uid "04F71CAB-4CB6-F1A1-C2A1-019349B4A019";
 createNode fnk_float_rescale -n "fnk_float_rescale_major";
-	rename -uid "14802060-4443-C8DA-95A9-BE967EB9C26B";
+	rename -uid "050D88A6-4669-9C62-F342-58871BBF6540";
 createNode fnk_float_add -n "fnk_float_add_major_factor";
-	rename -uid "BED05FF2-4870-598B-DC23-8EB81BCC929B";
+	rename -uid "5CFFCDFF-4B3D-DF82-4845-FE959698CD28";
 	setAttr ".floatB" 0.33000001311302185;
 createNode unitConversion -n "unitConversion8";
-	rename -uid "7520BD4C-4D1C-9A9A-ADA5-F0B2A77B9C12";
+	rename -uid "E6B69642-4B98-52E0-54A0-06BD50DA68A5";
 	setAttr ".cf" 0.017453292519943295;
 createNode unitConversion -n "unitConversion7";
-	rename -uid "09EFE36D-4A6E-9367-400E-679C7DE0E7B1";
+	rename -uid "9515EFAE-4FC0-DBA6-26F6-9591A93A8F0E";
 	setAttr ".cf" 0.017453292519943295;
 createNode unitConversion -n "unitConversion70";
-	rename -uid "5E119B1B-4CCB-723D-D3D6-D482C31C4365";
+	rename -uid "7D761039-4AD3-0048-67BA-D59911D60B1D";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "fnk_float_multiply_metacarpalAnnular_rotY";
-	rename -uid "D5A20CC1-40C1-AE2F-B139-41ADF8A291FC";
+	rename -uid "40CC4229-4695-9388-F4C8-9283EB69C70C";
 	setAttr ".floatB" 0.60000002384185791;
 createNode unitConversion -n "unitConversion20";
-	rename -uid "63BEBFC2-4CCE-ADFE-13ED-38A2FB8441EE";
+	rename -uid "079F88C4-4B04-7F64-D885-B59E541413DB";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "fnk_float_multiply_metacarpalAnnular_rotX";
-	rename -uid "A8953565-4828-45D1-256D-EF8C7390090E";
+	rename -uid "7A653267-4D92-4F75-BA5C-C5987D83900B";
 	setAttr ".floatB" -0.64999997615814209;
 createNode fnk_float_multiply -n "fnk_float_multiply_metacarpalAnnular_rotZ";
-	rename -uid "B5C77832-480A-FE38-DF0E-F490320AC2F5";
+	rename -uid "92ED5ACD-48F2-CDFA-B96C-BE9BD27B22E1";
 	setAttr ".floatB" 0.80000001192092896;
 createNode unitConversion -n "unitConversion21";
-	rename -uid "80FD9FF2-44FF-00E5-0B78-41A99016D711";
+	rename -uid "A47668B9-45FC-8262-734F-738000E27D04";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "fnk_float_multiply_arcAnnular";
-	rename -uid "8D6947C7-4C85-B885-359F-FBB552F78985";
+	rename -uid "717699B2-424C-AEFE-A915-B394397D4A0D";
 	setAttr ".floatB" -1;
 createNode unitConversion -n "unitConversion10";
-	rename -uid "C85395C2-4092-1AEF-C2D8-D6990855E7F8";
+	rename -uid "41B4FC19-4194-A1BE-B489-B294546D98EF";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "annular_value_adjust_mult";
-	rename -uid "E973A3B8-4376-74D4-15B7-C39E22C216CC";
+	rename -uid "AFC885F4-4379-12F6-3430-A0B035611616";
 	setAttr ".floatB" -1;
 createNode fnk_float_add -n "fnk_float_add_annular";
-	rename -uid "24800D32-4073-2005-8A55-808E5CD5A939";
+	rename -uid "D06E2A72-42DD-C1AE-493C-9AAE52E1C099";
 createNode fnk_float_multiply -n "fnk_float_multiply_annular";
-	rename -uid "2D22C076-423F-FCED-0F5D-6D84C0A48D35";
+	rename -uid "1CDDB1D8-4190-5753-E502-B2BD0C88EECE";
 createNode fnk_float_rescale -n "fnk_float_rescale_annular";
-	rename -uid "0BF3286D-445C-6C92-8C95-408361913A66";
+	rename -uid "02657124-4E39-E526-A35A-F6A10ED00FFA";
 createNode fnk_float_add -n "fnk_float_add_annular_factor";
-	rename -uid "ECBCB511-4230-C698-CDF7-418C5B440222";
+	rename -uid "95E0731D-4ECC-CF11-EDBB-5EB2B8464072";
 	setAttr ".floatB" 0.6600000262260437;
 createNode unitConversion -n "unitConversion12";
-	rename -uid "8F12FA58-4164-A21F-B318-FCB378435168";
+	rename -uid "49C5BFAF-44FA-FAC3-A8D6-9CBDC152B87C";
 	setAttr ".cf" 0.017453292519943295;
 createNode unitConversion -n "unitConversion11";
-	rename -uid "1481BFED-409D-DB35-7E24-20A0B6C5A3A3";
+	rename -uid "4A425D15-41C7-D731-4BA3-3F908DE61377";
 	setAttr ".cf" 0.017453292519943295;
 createNode unitConversion -n "unitConversion73";
-	rename -uid "91BD2833-49B6-B8CF-35C9-BE9E85338777";
+	rename -uid "DC843268-4F4A-2585-F988-36AF1CE40395";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "fnk_float_multiply_metacarpalPinky_rotY";
-	rename -uid "36DE9892-43F2-02E2-B7C9-C5B3DDE130D5";
+	rename -uid "10F92B9A-4C49-8151-A09C-2EB545C8CC88";
 	setAttr ".floatB" 1;
 createNode unitConversion -n "unitConversion16";
-	rename -uid "2137DDE9-4A0C-425F-4169-C0A39E66C22E";
+	rename -uid "E729E313-46C9-99E6-83BF-1B906B0284DE";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "fnk_float_multiply_metacarpalPinky_rotX";
-	rename -uid "62355C29-4DEF-8FF2-737B-9AB3DAEA59E7";
+	rename -uid "4A7D1BF3-4AE8-B7B8-7F3D-0EBBF2A0BF20";
 	setAttr ".floatB" -1.5;
 createNode fnk_float_multiply -n "fnk_float_multiply_metacarpalPinky_rotZ";
-	rename -uid "DB73B3E8-4A6D-1D57-70EC-1C9200606478";
+	rename -uid "A6EEE9A4-4A66-2003-8098-6288A64CFCBE";
 	setAttr ".floatB" 1.2000000476837158;
 createNode unitConversion -n "unitConversion17";
-	rename -uid "3404DA88-4123-41F2-ABA0-659BE96532DD";
+	rename -uid "D528A3D4-407B-C6DC-E47B-A09CF6A781CB";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "fnk_float_multiply_arcPinky";
-	rename -uid "FD86141D-4F65-D2EB-71DC-9FB75D0238B3";
+	rename -uid "8DAEAAA3-4DD6-85CA-5CF7-9D85020B9A7A";
 	setAttr ".floatB" -1;
 createNode unitConversion -n "unitConversion13";
-	rename -uid "D4CC1883-4046-F0D5-88CF-45ADBDC35D1B";
+	rename -uid "353F4D1E-4593-E4AA-827F-579E0869D677";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_multiply -n "pinky_value_adjust_mult";
-	rename -uid "86CDBC44-4DC4-11DE-0154-2BBC5BD75FAB";
+	rename -uid "D29E0F2C-485A-9BC4-54F7-5A9691FDDF0F";
 	setAttr ".floatB" -1;
 createNode fnk_float_add -n "fnk_float_add_pinky";
-	rename -uid "3543D64A-471C-CB7C-C1A5-0C918C041A43";
+	rename -uid "92FE63B7-466E-C75B-F6BC-8F9B3493B274";
 createNode fnk_float_multiply -n "fnk_float_multiply_pinky";
-	rename -uid "604FC8BA-42D6-8A4E-7845-2C90FF5357BF";
+	rename -uid "CDCA3ECC-40C8-4CD1-0923-B3A2A0F727FE";
 createNode fnk_float_rescale -n "fnk_float_rescale_pinky";
-	rename -uid "4378C4B4-407F-0B6F-7764-10951347B56B";
+	rename -uid "DBCEA62D-4FCB-5C98-F7CB-EF889A4947EE";
 createNode fnk_float_add -n "fnk_float_add_pinky_factor";
-	rename -uid "8A97160E-46BB-08F4-3928-4EBDCA90854E";
+	rename -uid "38298450-4ACD-7917-0C0E-C98C829809A1";
 	setAttr ".floatB" 1;
 createNode unitConversion -n "unitConversion14";
-	rename -uid "699F72FF-4055-DFE1-6F68-AFB9B2897580";
+	rename -uid "939A85B5-45C6-5846-B788-B99613FE5D92";
 	setAttr ".cf" 0.017453292519943295;
 createNode unitConversion -n "unitConversion15";
-	rename -uid "5C45EB28-4630-496C-EFA9-D4B2B814F2FA";
+	rename -uid "1E3C8A5D-4D9A-B04F-CEC1-36AC2D89E699";
 	setAttr ".cf" 0.017453292519943295;
 createNode fnk_float_rescale -n "fnk_float_rescale_mirrorX";
-	rename -uid "ACDDEC37-4445-8C41-B2B5-679B8DF8FDE2";
+	rename -uid "1D1FE770-4821-AD0D-37D7-18980621079F";
 	setAttr ".oldMin" 1;
 	setAttr ".oldMax" 0;
 	setAttr ".newMin" -1;
@@ -3733,54 +4328,56 @@ select -ne :hardwareRenderGlobals;
 	setAttr ".btrs" 512;
 select -ne :ikSystem;
 	setAttr -s 4 ".sol";
-connectAttr "setup.guideVisibility" "guid_GRP.v";
-connectAttr "handWrist_IN_BUF.wm" "handWrist_Target_BUF.opm";
-connectAttr "unitConversion2.o" "metacarpalThumb_FK_BUF.rz";
-connectAttr "metacarpalThumb_GUID.msg" "metacarpalThumb_FK_BUF.rig_guid";
-connectAttr "unitConversion3.o" "thumb001_FK_BUF.rz";
-connectAttr "thumb001_GUID.msg" "thumb001_FK_BUF.rig_guid";
-connectAttr "unitConversion1.o" "thumb002_FK_BUF.rz";
-connectAttr "thumb002_GUID.msg" "thumb002_FK_BUF.rig_guid";
-connectAttr "unitConversion64.o" "metacarpalIndex_FK_BUF.ry";
-connectAttr "unitConversion22.o" "metacarpalIndex_FK_BUF.rx";
-connectAttr "unitConversion23.o" "metacarpalIndex_FK_BUF.rz";
-connectAttr "metacarpalIndex_GUID.msg" "metacarpalIndex_FK_BUF.rig_guid";
-connectAttr "unitConversion4.o" "index001_FK_BUF.rz";
-connectAttr "index001_GUID.msg" "index001_FK_BUF.rig_guid";
-connectAttr "unitConversion5.o" "index002_FK_BUF.rz";
-connectAttr "index002_GUID.msg" "index002_FK_BUF.rig_guid";
-connectAttr "unitConversion6.o" "index003_FK_BUF.rz";
-connectAttr "index003_GUID.msg" "index003_FK_BUF.rig_guid";
-connectAttr "unitConversion67.o" "metacarpalMajor_FK_BUF.ry";
-connectAttr "unitConversion18.o" "metacarpalMajor_FK_BUF.rx";
-connectAttr "unitConversion19.o" "metacarpalMajor_FK_BUF.rz";
-connectAttr "metacarpalMajor_GUID.msg" "metacarpalMajor_FK_BUF.rig_guid";
-connectAttr "unitConversion9.o" "major001_FK_BUF.rz";
-connectAttr "major001_GUID.msg" "major001_FK_BUF.rig_guid";
-connectAttr "unitConversion8.o" "major002_FK_BUF.rz";
-connectAttr "major002_GUID.msg" "major002_FK_BUF.rig_guid";
-connectAttr "unitConversion7.o" "major003_FK_BUF.rz";
-connectAttr "major003_GUID.msg" "major003_FK_BUF.rig_guid";
-connectAttr "unitConversion70.o" "metacarpalAnnular_FK_BUF.ry";
-connectAttr "unitConversion20.o" "metacarpalAnnular_FK_BUF.rx";
-connectAttr "unitConversion21.o" "metacarpalAnnular_FK_BUF.rz";
-connectAttr "metacarpalAnnular_GUID.msg" "metacarpalAnnular_FK_BUF.rig_guid";
-connectAttr "unitConversion10.o" "annular001_FK_BUF.rz";
-connectAttr "annular001_GUID.msg" "annular001_FK_BUF.rig_guid";
-connectAttr "unitConversion12.o" "annular002_FK_BUF.rz";
-connectAttr "annular002_GUID.msg" "annular002_FK_BUF.rig_guid";
-connectAttr "unitConversion11.o" "annular003_FK_BUF.rz";
-connectAttr "annular003_GUID.msg" "annular003_FK_BUF.rig_guid";
-connectAttr "unitConversion73.o" "metacarpalPinky_FK_BUF.ry";
-connectAttr "unitConversion16.o" "metacarpalPinky_FK_BUF.rx";
-connectAttr "unitConversion17.o" "metacarpalPinky_FK_BUF.rz";
-connectAttr "metacarpalPinky_GUID.msg" "metacarpalPinky_FK_BUF.rig_guid";
-connectAttr "unitConversion13.o" "pinky001_FK_BUF.rz";
-connectAttr "pinky001_GUID.msg" "pinky001_FK_BUF.rig_guid";
-connectAttr "unitConversion14.o" "pinky002_FK_BUF.rz";
-connectAttr "pinky002_GUID.msg" "pinky002_FK_BUF.rig_guid";
-connectAttr "unitConversion15.o" "pinky003_FK_BUF.rz";
-connectAttr "pinky003_GUID.msg" "pinky003_FK_BUF.rig_guid";
+connectAttr "setup.Guides_Visibility" "guid_GRP.v";
+connectAttr "setup.Controllers_Visibility" "controllers_GRP.v";
+connectAttr "handWrist_RT_IN_BUF.wm" "handWrist_Target_BUF.opm";
+connectAttr "metacarpalThumb_GUID.msg" "metacarpalThumb_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion2.o" "metacarpalThumb_mechanic_FK_BUF.rz";
+connectAttr "thumb001_GUID.msg" "thumb001_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion3.o" "thumb001_mechanic_FK_BUF.rz";
+connectAttr "thumb002_GUID.msg" "thumb002_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion1.o" "thumb002_mechanic_FK_BUF.rz";
+connectAttr "metacarpalIndex_GUID.msg" "metacarpalIndex_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion64.o" "metacarpalIndex_mechanic_FK_BUF.ry";
+connectAttr "unitConversion22.o" "metacarpalIndex_mechanic_FK_BUF.rx";
+connectAttr "unitConversion23.o" "metacarpalIndex_mechanic_FK_BUF.rz";
+connectAttr "index001_GUID.msg" "index001_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion4.o" "index001_mechanic_FK_BUF.rz";
+connectAttr "index002_GUID.msg" "index002_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion5.o" "index002_mechanic_FK_BUF.rz";
+connectAttr "index003_GUID.msg" "index003_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion6.o" "index003_mechanic_FK_BUF.rz";
+connectAttr "metacarpalMajor_GUID.msg" "metacarpalMajor_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion67.o" "metacarpalMajor_mechanic_FK_BUF.ry";
+connectAttr "unitConversion18.o" "metacarpalMajor_mechanic_FK_BUF.rx";
+connectAttr "unitConversion19.o" "metacarpalMajor_mechanic_FK_BUF.rz";
+connectAttr "major001_GUID.msg" "major001_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion9.o" "major001_mechanic_FK_BUF.rz";
+connectAttr "major002_GUID.msg" "major002_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion8.o" "major002_mechanic_FK_BUF.rz";
+connectAttr "major003_GUID.msg" "major003_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion7.o" "major003_mechanic_FK_BUF.rz";
+connectAttr "metacarpalAnnular_GUID.msg" "metacarpalAnnular_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion70.o" "metacarpalAnnular_mechanic_FK_BUF.ry";
+connectAttr "unitConversion20.o" "metacarpalAnnular_mechanic_FK_BUF.rx";
+connectAttr "unitConversion21.o" "metacarpalAnnular_mechanic_FK_BUF.rz";
+connectAttr "annular001_GUID.msg" "annular001_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion10.o" "annular001_mechanic_FK_BUF.rz";
+connectAttr "annular002_GUID.msg" "annular002_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion12.o" "annular002_mechanic_FK_BUF.rz";
+connectAttr "annular003_GUID.msg" "annular003_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion11.o" "annular003_mechanic_FK_BUF.rz";
+connectAttr "metacarpalPinky_GUID.msg" "metacarpalPinky_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion73.o" "metacarpalPinky_mechanic_FK_BUF.ry";
+connectAttr "unitConversion16.o" "metacarpalPinky_mechanic_FK_BUF.rx";
+connectAttr "unitConversion17.o" "metacarpalPinky_mechanic_FK_BUF.rz";
+connectAttr "pinky001_GUID.msg" "pinky001_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion13.o" "pinky001_mechanic_FK_BUF.rz";
+connectAttr "pinky002_GUID.msg" "pinky002_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion14.o" "pinky002_mechanic_FK_BUF.rz";
+connectAttr "pinky003_GUID.msg" "pinky003_RT_FK_BUF.rig_guid";
+connectAttr "unitConversion15.o" "pinky003_mechanic_FK_BUF.rz";
+connectAttr "setup.Joints_Visibility" "bones_GRP.v";
 connectAttr "metacarpalThumb_FK_CON.wm" "metacarpalThumb_JNT.opm";
 connectAttr "thumb001_FK_CON.wm" "thumb001_JNT.opm";
 connectAttr "thumb002_FK_CON.wm" "thumb002_JNT.opm";
@@ -3801,7 +4398,7 @@ connectAttr "pinky001_FK_CON.wm" "pinky001_JNT.opm";
 connectAttr "pinky002_FK_CON.wm" "pinky002_JNT.opm";
 connectAttr "pinky003_FK_CON.wm" "pinky003_JNT.opm";
 connectAttr "fnk_float_rescale_mirrorX.result" "mirrorCompensate_BUF.sx";
-connectAttr "hand_GUID.msg" "handWrist_IN_BUF.rig_guid";
+connectAttr "hand_GUID.msg" "handWrist_RT_IN_BUF.rig_guid";
 connectAttr "thumb_bend_adjust_mult.result" "unitConversion2.i";
 connectAttr "fingers_CON.thumbBend" "thumb_bend_adjust_mult.floatA";
 connectAttr "thumb_bend_adjust_mult.result" "unitConversion3.i";
@@ -3961,4 +4558,4 @@ connectAttr "fnk_float_multiply_arcMajor.msg" ":defaultRenderUtilityList1.u" -na
 		;
 connectAttr "fnk_float_multiply_arcAnnular.msg" ":defaultRenderUtilityList1.u" -na
 		;
-// End of hand_v008.ma
+// End of hand_v001.ma

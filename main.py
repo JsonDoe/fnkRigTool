@@ -1,8 +1,8 @@
 import sys
 from PySide6 import QtWidgets
-from ui.mainWidget import MainWidget
 
 
+"""
 def __main__():
     app = QtWidgets.QApplication(sys.argv)
 
@@ -18,3 +18,8 @@ def __main__():
 
 
 __main__()
+"""
+
+from ui import main_ui
+main_ui.show()
+
