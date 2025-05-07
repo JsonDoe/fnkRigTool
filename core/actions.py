@@ -4,17 +4,6 @@ import os
 import maya.api.OpenMaya as om
 import re
 
-
-"""
-match_controllers_and_buffers_to_guides(namespace=None)
-handle_arm_module_match_guides(namespace="L_arm:")
-handle_arm_module_match_guides(namespace="R_arm:")
-handle_leg_module_match_guides(namespace="L_leg:")
-handle_leg_module_match_guides(namespace="R_leg:")
-handle_hand_module_match_guides(namespace="L_hand:")
-handle_hand_module_match_guides(namespace="R_hand:")
-"""
-
 DEFAULT_NSPC = ""
 
 
@@ -74,94 +63,92 @@ def import_ma_file(file_path, namespace: str = "__BUILD__"):
         print(f"Failed to import file: {e}")
 
 
-def disable_module_controllers_visibility(parent: str):
+def disable_module_controllers_visibility(node_name: str):
     """
     Disables visibility of the controller group for the specified module.
 
-    :param parent: Name of the parent node
-    :type parent: str
+    :param node_name: Name of the setup node
+    :type node_name: str
     """
-    cmds.setAttr(f"{parent}setup.controllersVisibility", 0)
+    cmds.setAttr(f"{node_name}.Controllers_Visibility", 0)
 
 
-def enable_module_controllers_visibility(parent: str):
+def enable_module_controllers_visibility(node_name: str):
     """
     Enables visibility of the controller group for the specified module.
 
-    :param parent: Name of the parent node
-    :type parent: str
+    :param node_name: Name of the setup node
+    :type node_name: str
     """
-    cmds.setAttr(f"{parent}setup.controllersVisibility", 1)
+    cmds.setAttr(f"{node_name}.Controllers_Visibility", 1)
 
 
-def disable_module_guides_visibility(parent: str):
+def disable_module_guides_visibility(node_name: str):
     """
     Disables visibility of the guide group for the specified module.
 
-    :param parent: Name of the parent node
-    :type parent: str
+    :param node_name: Name of the setup node
+    :type node_name: str
     """
-    cmds.setAttr(f"{parent}setup.guidesVisibility", 0)
+    cmds.setAttr(f"{node_name}.Guides_Visibility", 0)
 
 
-def enable_module_guides_visibility(parent: str):
+def enable_module_guides_visibility(node_name: str):
     """
     Enables visibility of the guide group for the specified module.
 
-    :param parent: Name of the parent node
-    :type parent: str
+    :param node_name: Name of the setup node
+    :type node_name: str
     """
-    cmds.setAttr(f"{parent}setup.guidesVisibility", 1)
+    cmds.setAttr(f"{node_name}.Guides_Visibility", 1)
 
 
-def disable_module_joints_visibility(parent: str):
+def disable_module_joints_visibility(node_name: str):
     """
     Disables visibility of the joints/bones group for the specified module.
 
-    :param parent: Name of the parent node
-    :type parent: str
+    :param node_name: Name of the setup node
+    :type node_name: str
     """
-    cmds.setAttr(f"{parent}setup.jointsVisibility", 0)
+    cmds.setAttr(f"{node_name}.Controllers_Visibility", 0)
 
 
-def enable_module_joints_visibility(parent: str):
+def enable_module_joints_visibility(node_name: str):
     """
     Enables visibility of the joints/bones group for the specified module.
 
-    :param parent: Name of the parent node
-    :type parent: str
+    :param node_name: Name of the setup node
+    :type node_name: str
     """
-    cmds.setAttr(f"{parent}setup.jointsVisibility", 1)
+    cmds.setAttr(f"{node_name}.Controllers_Visibility", 1)
 
 
-def set_module_to_build_mode(module_name: str):
+def set_module_to_build_mode(node_name: str = "setup"):
     """
     Switches the specified module to build mode:
     - Hides controllers and joints
     - Shows guides
 
-    :param module_name: Name of the module (used as the parent node prefix)
-    :type module_name: str
+    :param node_name: Name of the node
+    :type node_name: str
     """
-    parent = module_name + "¦"
-    disable_module_controllers_visibility(parent=parent)
-    disable_module_joints_visibility(parent=parent)
-    enable_module_guides_visibility(parent=parent)
+    disable_module_controllers_visibility(node_name=node_name)
+    disable_module_joints_visibility(node_name=node_name)
+    enable_module_guides_visibility(node_name=node_name)
 
 
-def set_module_to_display_mode(module_name: str):
+def set_module_to_display_mode(node_name: str = "setup"):
     """
-    Switches the specified module to display mode:
-    - Shows controllers and joints
-    - Hides guides
+    Switches the specified module to build mode:
+    - Hides controllers and joints
+    - Shows guides
 
-    :param module_name: Name of the module (used as the parent node prefix)
-    :type module_name: str
+    :param node_name: Name of the node
+    :type node_name: str
     """
-    parent = module_name + "¦"
-    enable_module_controllers_visibility(parent=parent)
-    enable_module_joints_visibility(parent=parent)
-    disable_module_guides_visibility(parent=parent)
+    enable_module_controllers_visibility(node_name=node_name)
+    enable_module_joints_visibility(node_name=node_name)
+    disable_module_guides_visibility(node_name=node_name)
 
 
 def freeze_namespace(ns_to_freeze="default"):
@@ -368,7 +355,8 @@ def get_latest_module_publish_path(module_name: str) -> str:
     """
     base_dir = os.path.abspath(
         os.path.join(
-            os.path.dirname(__file__), '..', 'modules',module_name, 'publish'))
+            os.path.dirname(__file__), '..', 'modules', module_name, 'publish')
+            )
 
     if not os.path.isdir(base_dir):
         print(f"Publish directory not found for module: {module_name}")
@@ -394,9 +382,58 @@ def get_latest_module_publish_path(module_name: str) -> str:
     return os.path.join(base_dir, latest_file)
 
 
+def migrate_nodes_to_namespace(old_ns: str, new_ns: str):
+    """
+    Creates a new namespace and moves all nodes from the old namespace into it.
+    Does NOT delete or remove the old namespace.
 
-"""
-if __name__ == "__main__":
-    scope = "selection" if cmds.ls(selection=True) else "scene"
-    snap_hierarchy_to_guid(scope)
-"""
+    :param old_ns: The existing namespace containing the nodes.
+    :param new_ns: The target namespace to migrate nodes into.
+    """
+    # Check if the old namespace exists
+    if not cmds.namespace(exists=old_ns):
+        cmds.warning(f"Namespace '{old_ns}' does not exist.")
+        return
+
+    # Create new namespace if it doesn't exist
+    if not cmds.namespace(exists=new_ns):
+        cmds.namespace(add=new_ns)
+
+    # Get all nodes in the old namespace
+    nodes = cmds.namespaceInfo(
+        old_ns, listNamespace=True, dagPath=True, recurse=True) or []
+
+    if not nodes:
+        print(f"No nodes found in namespace '{old_ns}'.")
+        return
+
+    # Move each node to the new namespace
+    for node in nodes:
+        if f"{old_ns}:" in node:
+            new_name = node.replace(f"{old_ns}:", f"{new_ns}:")
+            try:
+                cmds.rename(node, new_name)
+            except Exception as e:
+                print(f"Failed to move {node} to {new_ns}: {e}")
+
+    print(f"All nodes moved from '{old_ns}' to '{new_ns}'.")
+
+
+def delete_namespace_if_exists(namespace: str, merge_with_root: bool = True):
+    """
+    Deletes a namespace if it exists in the scene.
+
+    :param namespace: The name of the namespace to delete.
+    :param merge_with_root: If True, merges contents with root namespace
+    before deleting.
+    """
+    if not cmds.namespace(exists=namespace):
+        print(f"Namespace '{namespace}' does not exist.")
+        return
+
+    try:
+        cmds.namespace(removeNamespace=namespace,
+                       mergeNamespaceWithRoot=merge_with_root)
+        print(f"Namespace '{namespace}' deleted successfully.")
+    except Exception as e:
+        print(f"Failed to delete namespace '{namespace}': {e}")
