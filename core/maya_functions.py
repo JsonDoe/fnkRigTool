@@ -144,8 +144,7 @@ def set_offset_parent_matrix_from_target_matrix(source: str, target: str):
         return
 
     # Get the world transformation matrix of the source object
-    source_matrix = cmds.xform(
-        source, query=True, worldSpace=True, matrix=True)
+    source_matrix = cmds.xform(source, query=True, worldSpace=True, matrix=True)
 
     # Convert to MMatrix for better precision
     source_mmatrix = om.MMatrix(source_matrix)
@@ -153,28 +152,19 @@ def set_offset_parent_matrix_from_target_matrix(source: str, target: str):
     # Get the inverse world matrix of the target's parent (if it has one)
     parent = cmds.listRelatives(target, parent=True)
     if parent:
-        parent_matrix = cmds.xform(
-            parent[0], query=True, worldSpace=True, matrix=True
-        )
+        parent_matrix = cmds.xform(parent[0], query=True, worldSpace=True, matrix=True)
         parent_mmatrix = om.MMatrix(parent_matrix)
         relative_matrix = source_mmatrix * parent_mmatrix.inverse()
     else:
         relative_matrix = source_mmatrix  # If no parent, use the world matrix
 
     # Apply the computed relative matrix to the target's offsetParentMatrix
-    cmds.setAttr(
-        target + ".offsetParentMatrix", list(relative_matrix), type="matrix"
-    )
+    cmds.setAttr(target + ".offsetParentMatrix", list(relative_matrix), type="matrix")
 
 
 def set_offset_parent_matrix(
     target: str,
-    matrix_values: list[float] = [
-        1,
-        0, 0, 0, 0, 1,
-        0, 0, 0, 0, 1,
-        0, 0, 0, 0, 1
-    ],
+    matrix_values: list[float] = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
 ):
     """Sets the .offsetParentMatrix attribute of the target node to the given
     matrix values.
@@ -189,15 +179,11 @@ def set_offset_parent_matrix(
         return
 
     if len(matrix_values) != 16:
-        cmds.warning(
-            "Invalid matrix: A transformation matrix must have 16 values."
-        )
+        cmds.warning("Invalid matrix: A transformation matrix must have 16 values.")
         return
 
     # Convert list to MMatrix for precision
     input_mmatrix = om.MMatrix(matrix_values)
 
     # Set the offsetParentMatrix attribute
-    cmds.setAttr(
-        target + ".offsetParentMatrix", list(input_mmatrix), type="matrix"
-    )
+    cmds.setAttr(target + ".offsetParentMatrix", list(input_mmatrix), type="matrix")

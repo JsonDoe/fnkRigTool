@@ -1,10 +1,5 @@
 import maya.cmds as cmds
-from maya_functions import (
-    match_all_transformation,
-    set_offset_parent_matrix_from_target_matrix,
-)
 from frankenstein.rigUtils import RigUtils
-import maya.cmds as cmds
 import os
 import maya.api.OpenMaya as om
 
@@ -160,8 +155,7 @@ def set_offset_parent_matrix_from_target_matrix(source: str, target: str):
     parent = cmds.listRelatives(target, parent=True)
     if parent:
         parent_matrix = cmds.xform(
-            parent[0], query=True, worldSpace=True, matrix=True
-        )
+            parent[0], query=True, worldSpace=True, matrix=True)
         parent_mmatrix = om.MMatrix(parent_matrix)
         relative_matrix = source_mmatrix * parent_mmatrix.inverse()
     else:
@@ -169,18 +163,13 @@ def set_offset_parent_matrix_from_target_matrix(source: str, target: str):
 
     # Apply the computed relative matrix to the target's offsetParentMatrix
     cmds.setAttr(
-        target + ".offsetParentMatrix", list(relative_matrix), type="matrix"
-    )
+        target + ".offsetParentMatrix", list(relative_matrix), type="matrix")
 
 
 def set_offset_parent_matrix(
     target: str,
     matrix_values: list[float] = [
-        1,
-        0, 0, 0, 0, 1,
-        0, 0, 0, 0, 1,
-        0, 0, 0, 0, 1
-    ],
+        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
 ):
     """Sets the .offsetParentMatrix attribute of the target node to the given
     matrix values.
@@ -196,8 +185,7 @@ def set_offset_parent_matrix(
 
     if len(matrix_values) != 16:
         cmds.warning(
-            "Invalid matrix: A transformation matrix must have 16 values."
-        )
+            "Invalid matrix: A transformation matrix must have 16 values.")
         return
 
     # Convert list to MMatrix for precision
@@ -205,8 +193,7 @@ def set_offset_parent_matrix(
 
     # Set the offsetParentMatrix attribute
     cmds.setAttr(
-        target + ".offsetParentMatrix", list(input_mmatrix), type="matrix"
-    )
+        target + ".offsetParentMatrix", list(input_mmatrix), type="matrix")
 
 
 DEFAULT_NSPC = "__TEMP__:"
@@ -247,8 +234,10 @@ def match_controllers_and_buffers_to_guides(namespace: str = None):
         buffers = [
             node
             for node in sel
-            if node.startswith(f"{namespace}") and node.endswith("_BUF") and
-            "_IN_" in node and "Target" not in node
+            if node.startswith(f"{namespace}")
+            and node.endswith("_BUF")
+            and "_IN_" in node
+            and "Target" not in node
         ]  # TODO change to _IN_BUF
         controllers = [
             node
@@ -256,8 +245,12 @@ def match_controllers_and_buffers_to_guides(namespace: str = None):
             if node.startswith(f"{namespace}") and node.endswith("_CON")
         ]
     else:
-        buffers = [node for node in sel if node.endswith("_BUF") and
-                   "_IN_" in node and "Target" not in node]
+        buffers = [
+            node
+            for node in sel
+            if node.endswith("_BUF") and "_IN_" in node
+            and "Target" not in node
+        ]
         controllers = [node for node in sel if node.endswith("_CON")]
 
     # Prioritize matching buffers first
@@ -331,6 +324,7 @@ def enable_module_guides_visibility(namespace: str = DEFAULT_NSPC):
     """
     cmds.setAttr(f"{namespace}setup.guidesVisibility", 1)
 
+
 def disable_module_joints_visibility(namespace: str = DEFAULT_NSPC):
     """disable the module bones group visibility
 
@@ -348,13 +342,12 @@ def enable_module_joints_visibility(namespace: str = DEFAULT_NSPC):
     """
     cmds.setAttr(f"{namespace}setup.jointsVisibility", 1)
 
+
 def get_FK_controllers(namespace: str = ""):
 
     return [
-        x
-        for x in cmds.ls()
-        if x.startswith(namespace) and x.endswith("_FK_CON")
-    ]
+        x for x in cmds.ls()
+        if x.startswith(namespace) and x.endswith("_FK_CON")]
 
 
 def handle_arm_module_match_guides(namespace: str = DEFAULT_NSPC):
@@ -411,9 +404,8 @@ def handle_hand_module_match_guides(namespace: str = DEFAULT_NSPC):
     match_controllers_and_buffers_to_guides(namespace=namespace)
 
     FK_buffers = [
-        x
-        for x in cmds.ls()
-        if x.startswith(namespace) and x.endswith("_FK_CON")
+        x for x in cmds.ls() if x.startswith(namespace)
+        and x.endswith("_FK_CON")
     ]
 
     for buffer in FK_buffers:
@@ -424,6 +416,8 @@ def handle_hand_module_match_guides(namespace: str = DEFAULT_NSPC):
     match_controllers_and_buffers_to_guides(namespace=namespace)
     store_controllers_rest_pose(namespace=namespace)
 
+
+"""
 match_controllers_and_buffers_to_guides(namespace=None)
 handle_arm_module_match_guides(namespace="L_arm:")
 handle_arm_module_match_guides(namespace="R_arm:")
@@ -431,6 +425,138 @@ handle_leg_module_match_guides(namespace="L_leg:")
 handle_leg_module_match_guides(namespace="R_leg:")
 handle_hand_module_match_guides(namespace="L_hand:")
 handle_hand_module_match_guides(namespace="R_hand:")
+"""
 
 
+def get_nodes_with_rig_guid_in_scope(scope="scene"):
+    """
+    Retrieves nodes with a connected 'rig_guid' attribute within a given scope.
 
+    :param scope: "scene" for the whole scene or "selection" for currently
+    selected hierarchy
+    :return: Sorted list of nodes containing 'rig_guid'
+    """
+    if scope == "selection":
+        selection = cmds.ls(selection=True, long=True)
+        if not selection:
+            cmds.warning("No hierarchy selected.")
+            return []
+        nodes = cmds.listRelatives(
+            selection, allDescendents=True, fullPath=True) or []
+        nodes += selection
+    else:
+        nodes = cmds.ls(long=True)
+
+    nodes_with_guid = []
+    for node in nodes:
+        if cmds.attributeQuery("rig_guid", node=node, exists=True):
+            connections = (
+                cmds.listConnections(
+                    f"{node}.rig_guid", source=True, destination=False)
+                or []
+            )
+            if connections:
+                nodes_with_guid.append(node)
+
+    nodes_with_guid.sort(key=lambda n: len(n.split("|")))
+    return nodes_with_guid
+
+
+def match_transform(
+        source, target, match_translation=True, match_rotation=True):
+    """
+    Matches the transform of the source node to the target node.
+
+    :param source: Source node to move
+    :param target: Target node to match
+    :param match_translation: Match translation if True
+    :param match_rotation: Match rotation if True
+    :return: True if successful, False otherwise
+    """
+    if not cmds.objExists(source) or not cmds.objExists(target):
+        cmds.warning(f"Cannot align. Missing node: {source} or {target}")
+        return False
+
+    if match_translation:
+        translation = cmds.xform(
+            target, query=True, worldSpace=True, translation=True)
+        cmds.xform(source, worldSpace=True, translation=translation)
+
+    if match_rotation:
+        rotation = cmds.xform(
+            target, query=True, worldSpace=True, rotation=True)
+        cmds.xform(source, worldSpace=True, rotation=rotation)
+
+    return True
+
+
+def apply_offset_parent_matrix(node):
+    """
+    Adds the current local matrix to the offsetParentMatrix and resets
+    local transformations.
+
+    :param node: Node to apply transformation to
+    """
+    if not cmds.objExists(node):
+        return
+
+    local_matrix = om.MMatrix(
+        cmds.xform(node, query=True, matrix=True, objectSpace=True)
+    )
+    offset_matrix = om.MMatrix(cmds.getAttr(f"{node}.offsetParentMatrix"))
+
+    new_offset_matrix = local_matrix * offset_matrix
+    new_offset_matrix_list = [new_offset_matrix[i] for i in range(16)]
+
+    cmds.setAttr(
+        f"{node}.offsetParentMatrix", new_offset_matrix_list, type="matrix")
+
+    cmds.setAttr(f"{node}.translate", 0, 0, 0, type="double3")
+    cmds.setAttr(f"{node}.rotate", 0, 0, 0, type="double3")
+    cmds.setAttr(f"{node}.scale", 1, 1, 1, type="double3")
+
+
+def snap_hierarchy_to_guid(scope="scene"):
+    """
+    Aligns nodes with the 'rig_guid' attribute to their associated guides.
+
+    :param scope: "scene" for the whole scene or "selection" for currently
+    selected hierarchy
+    """
+    nodes = get_nodes_with_rig_guid_in_scope(scope)
+    if not nodes:
+        cmds.warning(f"No nodes with 'rig_guid' found in scope: {scope}.")
+        return
+
+    for node in nodes:
+        guide_list = (
+            cmds.listConnections(
+                f"{node}.rig_guid", source=True, destination=False)
+            or []
+        )
+        if not guide_list:
+            print(f"No guide found for node: {node}")
+            continue
+
+        guide = guide_list[0]
+        print(f"Processing '{node}' with guide '{guide}'")
+
+        if "CON" in node:
+            match_transform(
+                node, guide, match_translation=True, match_rotation=True)
+            apply_offset_parent_matrix(node)
+        elif "_T_" in node:
+            match_transform(
+                node, guide, match_translation=True, match_rotation=False)
+        elif "_RT_" in node:
+            match_transform(
+                node, guide, match_translation=True, match_rotation=True)
+        else:
+            print(f"Node '{node}' does not match any known type.")
+
+
+"""
+if __name__ == "__main__":
+    scope = "selection" if cmds.ls(selection=True) else "scene"
+    snap_hierarchy_to_guid(scope)
+"""

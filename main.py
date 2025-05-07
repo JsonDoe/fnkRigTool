@@ -2,6 +2,7 @@ import sys
 from PySide6 import QtWidgets
 from ui.mainWidget import MainWidget
 
+
 def __main__():
     app = QtWidgets.QApplication(sys.argv)
 
@@ -14,5 +15,6 @@ def __main__():
     wid.show()
 
     app.exec()
+
 
 __main__()

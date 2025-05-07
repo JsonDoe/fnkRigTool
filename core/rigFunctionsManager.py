@@ -80,9 +80,7 @@ class RigFunctionsManager:
             controllers = [
                 x
                 for x in cmds.ls()
-                if x.endswith("_CON")
-                and "tangent" not in x
-                and "setup" not in x
+                if x.endswith("_CON") and "tangent" not in x and "setup" not in x
             ]
         cmds.select(controllers)
         self.ru.setNeutralPose2()
@@ -129,9 +127,7 @@ class RigFunctionsManager:
         :rtype: list[str]
         """
         return [
-            x
-            for x in cmds.ls()
-            if x.startswith(namespace) and x.endswith("_FK_CON")
+            x for x in cmds.ls() if x.startswith(namespace) and x.endswith("_FK_CON")
         ]
 
     def handle_arm_module_match_guides(self, namespace: str = "TEMP"):
@@ -182,9 +178,7 @@ class RigFunctionsManager:
         self.match_controllers_and_buffers_to_guides(namespace=namespace)
 
         FK_buffers = [
-            x
-            for x in cmds.ls()
-            if x.startswith(namespace) and x.endswith("_FK_CON")
+            x for x in cmds.ls() if x.startswith(namespace) and x.endswith("_FK_CON")
         ]
         for buffer in FK_buffers:
             self.mayaManager.set_offset_parent_matrix_from_target_matrix(

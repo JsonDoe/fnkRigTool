@@ -10,9 +10,7 @@ class RigBuilder:
 
     def manage_match_modules(self, entry: str, namespace: str = "TEMP"):
         if entry == 0:
-            self.rfm.match_controllers_and_buffers_to_guides(
-                namespace=namespace
-            )
+            self.rfm.match_controllers_and_buffers_to_guides(namespace=namespace)
         if entry == 1:
             self.rfm.handle_arm_module_match_guides(namespace=namespace)
         if entry == 2:
