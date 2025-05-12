@@ -3,28 +3,29 @@ from PySide6 import QtWidgets, QtCore, QtGui
 from maya import OpenMayaUI as omui
 import maya.cmds as cmds
 from shiboken6 import wrapInstance
-from core.actions import set_module_to_display_mode, snap_hierarchy_to_guid, delete_namespace_if_exists, migrate_nodes_to_namespace
+from core.actions import set_module_to_display_mode, snap_hierarchy_to_guid, freeze_namespace, delete_namespace_if_exists
 from core.constants import BUILDNSPC
 
 PREVIEW_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'utils', 'preview'))
-
 
 def get_maya_main_window():
     main_window_ptr = omui.MQtUtil.mainWindow()
     return wrapInstance(int(main_window_ptr), QtWidgets.QWidget)
 
-
 class ModuleBuildUI(QtWidgets.QDialog):
-    def __init__(self, module_name, parent=get_maya_main_window()):
+    def __init__(self, module_name: str, namespace: str, parent=get_maya_main_window()):
         super().__init__(parent)
         self.setWindowTitle(f"Build Module: {module_name}")
         self.setMinimumWidth(300)
+        self.setWindowFlags(self.windowFlags() | QtCore.Qt.Window)  # Non-blocking
 
-        # === Main layout ===
-        main_layout = QtWidgets.QVBoxLayout()
+        self.module_name = module_name
+        self.namespace = namespace
+
+        main_layout = QtWidgets.QVBoxLayout(self)
         self.setLayout(main_layout)
 
-        # === Build image ===
+        # Image
         image_label = QtWidgets.QLabel()
         image_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         image_path = os.path.join(PREVIEW_DIR, "build.jpg")
@@ -33,55 +34,61 @@ class ModuleBuildUI(QtWidgets.QDialog):
             scaled = pixmap.scaledToWidth(250, QtCore.Qt.TransformationMode.SmoothTransformation)
             image_label.setPixmap(scaled)
         else:
-            image_label.setText("(No build image found)")
+            image_label.setText("(No build image)")
         main_layout.addWidget(image_label)
 
-        # === Instruction ===
-        instruction_label = QtWidgets.QLabel(
-            "Place the guides consistently then click 'build' to generate the rig module"
-        )
-        instruction_label.setWordWrap(True)
-        instruction_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
-        main_layout.addWidget(instruction_label)
+        # Instructions
+        instructions = QtWidgets.QLabel("Place the guides consistently then click 'build' to generate the rig module")
+        instructions.setWordWrap(True)
+        main_layout.addWidget(instructions)
 
-        # === Namespace field ===
-        ns_layout = QtWidgets.QHBoxLayout()
-        ns_label = QtWidgets.QLabel("Namespace:")
-        self.ns_input = QtWidgets.QLineEdit()
-        self.ns_input.setText(module_name)
-        ns_layout.addWidget(ns_label)
-        ns_layout.addWidget(self.ns_input)
-        main_layout.addLayout(ns_layout)
-
-        # === Freeze namespace checkbox (THIS IS WHAT WAS MISSING VISUALLY) ===
+        # Freeze checkbox
         self.freeze_checkbox = QtWidgets.QCheckBox("Freeze namespace on build")
         self.freeze_checkbox.setChecked(True)
         main_layout.addWidget(self.freeze_checkbox)
 
-        # === Build button ===
-        self.build_btn = QtWidgets.QPushButton("Build")
-        self.build_btn.clicked.connect(self.build_module)
-        main_layout.addWidget(self.build_btn)
+        # === Buttons layout ===
+        btn_layout = QtWidgets.QHBoxLayout()
 
-        # Final stretch to pad bottom
+        # Build Button
+        build_btn = QtWidgets.QPushButton("Build")
+        build_btn.clicked.connect(self.build_module)
+        btn_layout.addWidget(build_btn)
+
+        # Cancel Button
+        cancel_btn = QtWidgets.QPushButton("Cancel")
+        cancel_btn.clicked.connect(self.cancel)
+        btn_layout.addWidget(cancel_btn)
+
+        main_layout.addLayout(btn_layout)
+
         main_layout.addStretch()
 
     def build_module(self):
-        namespace = self.ns_input.text()
+        namespace = self.namespace
         freeze_enabled = self.freeze_checkbox.isChecked()
 
-        cmds.select(f"{BUILDNSPC}:module")
-        snap_hierarchy_to_guid(scope="selection")
-        set_module_to_display_mode(BUILDNSPC + ":setup")
-        migrate_nodes_to_namespace(old_ns=BUILDNSPC, new_ns=namespace)
-        delete_namespace_if_exists(BUILDNSPC)
+        try:
+            cmds.select(f"{namespace}:module")
+            snap_hierarchy_to_guid(scope="selection")
+            set_module_to_display_mode(namespace + ":setup")
+            if freeze_enabled:
+                freeze_namespace(ns_to_freeze=namespace)
+            cmds.select(clear=True)
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(self, "Build Failed", str(e))
+            return
 
-
-        QtWidgets.QMessageBox.information(
-            self,
-            "Build Triggered",
-            f"Building rig for namespace: {namespace}\nFreeze namespace: {freeze_enabled}"
-        )
-
-        # TODO: Add actual rig logic and freezing here
+        QtWidgets.QMessageBox.information(self, "Success", f"Rig built for: {namespace}")
         self.close()
+
+    def cancel(self):
+        cmds.delete(f"{self.namespace}:module")
+        delete_namespace_if_exists(namespace=self.namespace)
+        self.close()
+        if self.parent():
+            self.parent().show()
+
+        # Bring back main UI
+        if self.parent():
+            self.parent().show()

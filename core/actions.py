@@ -110,7 +110,7 @@ def disable_module_joints_visibility(node_name: str):
     :param node_name: Name of the setup node
     :type node_name: str
     """
-    cmds.setAttr(f"{node_name}.Controllers_Visibility", 0)
+    cmds.setAttr(f"{node_name}.Joints_Visibility", 0)
 
 
 def enable_module_joints_visibility(node_name: str):
@@ -120,7 +120,7 @@ def enable_module_joints_visibility(node_name: str):
     :param node_name: Name of the setup node
     :type node_name: str
     """
-    cmds.setAttr(f"{node_name}.Controllers_Visibility", 1)
+    cmds.setAttr(f"{node_name}.Joints_Visibility", 1)
 
 
 def set_module_to_build_mode(node_name: str = "setup"):
@@ -384,30 +384,25 @@ def get_latest_module_publish_path(module_name: str) -> str:
 
 def migrate_nodes_to_namespace(old_ns: str, new_ns: str):
     """
-    Creates a new namespace and moves all nodes from the old namespace into it.
-    Does NOT delete or remove the old namespace.
+    Creates a new namespace and moves all nodes from the old namespace into it,
+    processing children first to avoid renaming conflicts.
 
     :param old_ns: The existing namespace containing the nodes.
     :param new_ns: The target namespace to migrate nodes into.
     """
-    # Check if the old namespace exists
     if not cmds.namespace(exists=old_ns):
         cmds.warning(f"Namespace '{old_ns}' does not exist.")
         return
 
-    # Create new namespace if it doesn't exist
     if not cmds.namespace(exists=new_ns):
         cmds.namespace(add=new_ns)
 
-    # Get all nodes in the old namespace
-    nodes = cmds.namespaceInfo(
-        old_ns, listNamespace=True, dagPath=True, recurse=True) or []
+    # List all DAG and non-DAG nodes (combined)
+    nodes = cmds.ls(f"{old_ns}:*", long=True, recursive=True) or []
 
-    if not nodes:
-        print(f"No nodes found in namespace '{old_ns}'.")
-        return
+    # Sort by path length descending to rename deepest nodes first
+    nodes.sort(key=lambda n: len(n.split("|")), reverse=True)
 
-    # Move each node to the new namespace
     for node in nodes:
         if f"{old_ns}:" in node:
             new_name = node.replace(f"{old_ns}:", f"{new_ns}:")
@@ -416,7 +411,7 @@ def migrate_nodes_to_namespace(old_ns: str, new_ns: str):
             except Exception as e:
                 print(f"Failed to move {node} to {new_ns}: {e}")
 
-    print(f"All nodes moved from '{old_ns}' to '{new_ns}'.")
+    print(f"All nodes migrated from '{old_ns}' to '{new_ns}' (children-first).")
 
 
 def delete_namespace_if_exists(namespace: str, merge_with_root: bool = True):
@@ -437,3 +432,24 @@ def delete_namespace_if_exists(namespace: str, merge_with_root: bool = True):
         print(f"Namespace '{namespace}' deleted successfully.")
     except Exception as e:
         print(f"Failed to delete namespace '{namespace}': {e}")
+
+
+def find_setup_node_in_selection(module_root: str = cmds.ls(selection=True, long=True)):
+    """
+    Finds and returns the first child node named '*_setup' under each selected object.
+    :return: List of setup node names (strings), or empty list if none found.
+    """
+    module_root = module_root
+    if not module_root:
+        cmds.warning("No object selected.")
+        return []
+
+    setup_nodes = []
+    for root in module_root:
+        children = cmds.listRelatives(root, allDescendents=True, fullPath=True) or []
+        for node in children:
+            if node.endswith("setup"):
+                setup_nodes.append(node)
+                break  # Stop at the first match per selected root
+
+    return setup_nodes[0]
