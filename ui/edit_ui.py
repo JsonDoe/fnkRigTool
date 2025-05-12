@@ -4,13 +4,15 @@ from maya import OpenMayaUI as omui
 import maya.cmds as cmds
 from shiboken6 import wrapInstance
 from core.actions import set_module_to_display_mode, snap_hierarchy_to_guid
-from core.constants import BUILDNSPC
 
-PREVIEW_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'utils', 'preview'))
+PREVIEW_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..', 'utils', 'preview'))
+
 
 def get_maya_main_window():
     main_window_ptr = omui.MQtUtil.mainWindow()
     return wrapInstance(int(main_window_ptr), QtWidgets.QWidget)
+
 
 class ModuleEditUI(QtWidgets.QDialog):
     def __init__(self, selection, setup_node, parent=get_maya_main_window()):
@@ -31,14 +33,17 @@ class ModuleEditUI(QtWidgets.QDialog):
         image_path = os.path.join(PREVIEW_DIR, "build.jpg")
         if os.path.exists(image_path):
             pixmap = QtGui.QPixmap(image_path)
-            scaled = pixmap.scaledToWidth(250, QtCore.Qt.TransformationMode.SmoothTransformation)
+            scaled = pixmap.scaledToWidth(
+                250, QtCore.Qt.TransformationMode.SmoothTransformation)
             image_label.setPixmap(scaled)
         else:
             image_label.setText("(No build image)")
         main_layout.addWidget(image_label)
 
         # === Instructions ===
-        instructions = QtWidgets.QLabel("Adjust or reposition your guides, then click 'Rebuild' to update the rig.")
+        instructions = QtWidgets.QLabel(
+            "Adjust or reposition your guides,"
+            " then click 'Rebuild' to update the rig.")
         instructions.setWordWrap(True)
         main_layout.addWidget(instructions)
 
@@ -70,7 +75,8 @@ class ModuleEditUI(QtWidgets.QDialog):
             QtWidgets.QMessageBox.critical(self, "Rebuild Failed", str(e))
             return
 
-        QtWidgets.QMessageBox.information(self, "Rebuild Complete", "Rig Module has been rebuilt.")
+        QtWidgets.QMessageBox.information(
+            self, "Rebuild Complete", "Rig Module has been rebuilt.")
         self.close()
         if self.parent():
             self.parent().show()

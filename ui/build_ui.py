@@ -8,16 +8,20 @@ from core.constants import BUILDNSPC
 
 PREVIEW_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'utils', 'preview'))
 
+
 def get_maya_main_window():
     main_window_ptr = omui.MQtUtil.mainWindow()
     return wrapInstance(int(main_window_ptr), QtWidgets.QWidget)
 
+
 class ModuleBuildUI(QtWidgets.QDialog):
-    def __init__(self, module_name: str, namespace: str, parent=get_maya_main_window()):
+    def __init__(
+            self, module_name: str, namespace: str,
+            parent=get_maya_main_window()):
         super().__init__(parent)
         self.setWindowTitle(f"Build Module: {module_name}")
         self.setMinimumWidth(300)
-        self.setWindowFlags(self.windowFlags() | QtCore.Qt.Window)  # Non-blocking
+        self.setWindowFlags(self.windowFlags() | QtCore.Qt.Window)
 
         self.module_name = module_name
         self.namespace = namespace

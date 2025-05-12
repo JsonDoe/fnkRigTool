@@ -8,15 +8,20 @@ from shiboken6 import wrapInstance
 from .build_ui import ModuleBuildUI
 from .edit_ui import ModuleEditUI
 from core.actions import get_latest_module_publish_path, \
-    import_ma_file, set_module_to_build_mode, delete_namespace_if_exists, find_setup_node_in_selection
-from core.constants import BUILDNSPC
+    import_ma_file, set_module_to_build_mode, delete_namespace_if_exists, \
+    find_setup_node_in_selection
 
-MODULES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'modules'))
-PREVIEW_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'utils', 'preview'))
+
+MODULES_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..', 'modules'))
+PREVIEW_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..', 'utils', 'preview'))
+
 
 def get_maya_main_window():
     main_window_ptr = omui.MQtUtil.mainWindow()
     return wrapInstance(int(main_window_ptr), QtWidgets.QWidget)
+
 
 class AutoRigToolUI(QtWidgets.QDialog):
     def __init__(self, parent=get_maya_main_window()):
@@ -55,7 +60,9 @@ class AutoRigToolUI(QtWidgets.QDialog):
         self.duplicate_btn.clicked.connect(self.duplicate_module)
         self.freeze_btn.clicked.connect(self.freeze_namespaces)
 
-        for btn in [self.build_btn, self.edit_btn, self.duplicate_btn, self.freeze_btn]:
+        for btn in [
+            self.build_btn, self.edit_btn, self.duplicate_btn, self.freeze_btn
+                ]:
             self.layout().addWidget(btn)
 
         self.load_modules()
@@ -64,7 +71,9 @@ class AutoRigToolUI(QtWidgets.QDialog):
         self.module_selector.clear()
         if not os.path.exists(MODULES_DIR):
             return
-        modules = [f for f in sorted(os.listdir(MODULES_DIR)) if os.path.isdir(os.path.join(MODULES_DIR, f))]
+        modules = [
+            f for f in sorted(os.listdir(MODULES_DIR))
+            if os.path.isdir(os.path.join(MODULES_DIR, f))]
         self.module_selector.addItems(modules)
         self.on_module_change()
 
@@ -91,7 +100,8 @@ class AutoRigToolUI(QtWidgets.QDialog):
             pixmap = QtGui.QPixmap(preview_path_jpg)
 
         if pixmap and not pixmap.isNull():
-            scaled = pixmap.scaledToWidth(250, QtCore.Qt.TransformationMode.SmoothTransformation)
+            scaled = pixmap.scaledToWidth(
+                250, QtCore.Qt.TransformationMode.SmoothTransformation)
             self.preview_label.setPixmap(scaled)
         else:
             self.preview_label.clear()
@@ -102,24 +112,31 @@ class AutoRigToolUI(QtWidgets.QDialog):
         namespace = self.namespace_input.text()
         if selected:
             delete_namespace_if_exists(namespace)
-            import_ma_file(get_latest_module_publish_path(selected), namespace=namespace)
+            import_ma_file(
+                get_latest_module_publish_path(selected), namespace=namespace)
             set_module_to_build_mode(namespace + ":setup")
             self.hide()
-            self.builder = ModuleBuildUI(module_name=selected, namespace=namespace, parent=self)
+            self.builder = ModuleBuildUI(
+                module_name=selected, namespace=namespace, parent=self)
             self.builder.show()
 
     def edit_selected_module(self):
         selected = cmds.ls(selection=True)
         if not selected:
-            QtWidgets.QMessageBox.warning(self, "No Selection", "Please select a module root group in the scene.")
+            QtWidgets.QMessageBox.warning(
+                self, "No Selection",
+                "Please select a module root group in the scene.")
             return
         setup_node = find_setup_node_in_selection(selected)
         if not setup_node:
-            QtWidgets.QMessageBox.warning(self, "No Setup Node", "Please make sure the module contains a setup node.")
+            QtWidgets.QMessageBox.warning(
+                self, "No Setup Node",
+                "Please make sure the module contains a setup node.")
             return
         set_module_to_build_mode(setup_node)
         self.hide()
-        self.editor = ModuleEditUI(selection=selected, setup_node=setup_node, parent=self)
+        self.editor = ModuleEditUI(
+            selection=selected, setup_node=setup_node, parent=self)
         self.editor.show()
 
     def duplicate_module(self):
@@ -134,12 +151,17 @@ class AutoRigToolUI(QtWidgets.QDialog):
             dst = os.path.join(MODULES_DIR, f"{new_name}_{count}")
             count += 1
         shutil.copytree(src, dst)
-        QtWidgets.QMessageBox.information(self, "Duplicate", f"Duplicated module to: {os.path.basename(dst)}")
+        QtWidgets.QMessageBox.information(
+            self, "Duplicate",
+            f"Duplicated module to: {os.path.basename(dst)}")
         self.load_modules()
         self.module_selector.setCurrentText(os.path.basename(dst))
 
     def freeze_namespaces(self):
-        QtWidgets.QMessageBox.information(self, "Freeze Namespaces", "Namespace freezing not implemented yet.")
+        QtWidgets.QMessageBox.information(
+            self, "Freeze Namespaces",
+            "Namespace freezing not implemented yet.")
+
 
 def show():
     global window
