@@ -16,16 +16,43 @@ class ModuleEditUI(QtWidgets.QDialog):
     def __init__(self, selection, setup_node, parent=get_maya_main_window()):
         super().__init__(parent)
         self.setWindowTitle("Edit Module")
-        self.setMinimumWidth(300)
+        self.setMinimumWidth(350)
         self.setWindowFlags(self.windowFlags() | QtCore.Qt.Window)
 
         self.selection = selection
         self.setup_node = setup_node
 
-        main_layout = QtWidgets.QVBoxLayout(self)
-        self.setLayout(main_layout)
+        self.setStyleSheet("""
+            QDialog {
+                background-color: #2d2d2d;
+                color: #f0f0f0;
+                font-family: 'Segoe UI';
+                font-size: 10pt;
+            }
+            QLabel {
+                font-weight: bold;
+            }
+            QLineEdit, QCheckBox {
+                background-color: #3c3c3c;
+                border: 1px solid #555;
+                border-radius: 4px;
+                padding: 4px;
+                color: white;
+            }
+            QPushButton {
+                background-color: #444;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 4px;
+            }
+            QPushButton:hover {
+                background-color: #555;
+            }
+        """)
 
-        # Image
+        layout = QtWidgets.QVBoxLayout(self)
+
+        # === Preview Image ===
         image_label = QtWidgets.QLabel()
         image_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         image_path = os.path.join(PREVIEW_DIR, "build.jpg")
@@ -36,38 +63,35 @@ class ModuleEditUI(QtWidgets.QDialog):
             image_label.setPixmap(scaled)
         else:
             image_label.setText("(No build image)")
-        main_layout.addWidget(image_label)
+        layout.addWidget(image_label)
 
         # === Instructions ===
         instructions = QtWidgets.QLabel(
-            "Adjust or reposition your guides,"
-            " then click 'Rebuild' to update the rig.")
+            "Adjust or reposition your guides, then click "
+            "'Rebuild' to update the rig.")
         instructions.setWordWrap(True)
-        main_layout.addWidget(instructions)
+        layout.addWidget(instructions)
 
-        # === Buttons layout ===
+        # === Button Row ===
         btn_layout = QtWidgets.QHBoxLayout()
-
-        # Rebuild Button
         rebuild_btn = QtWidgets.QPushButton("Rebuild")
         rebuild_btn.clicked.connect(self.rebuild_module)
         btn_layout.addWidget(rebuild_btn)
 
-        # Cancel Button
         cancel_btn = QtWidgets.QPushButton("Cancel")
         cancel_btn.clicked.connect(self.cancel)
         btn_layout.addWidget(cancel_btn)
 
-        main_layout.addLayout(btn_layout)
-        main_layout.addStretch()
+        layout.addSpacing(10)
+        layout.addLayout(btn_layout)
+        layout.addStretch()
 
     def rebuild_module(self):
         try:
             cmds.select(self.selection)
             snap_hierarchy_to_guid(scope="selection")
-            for node in self.selection:
-                if cmds.objExists(self.setup_node):
-                    set_module_to_display_mode(self.setup_node)
+            if cmds.objExists(self.setup_node):
+                set_module_to_display_mode(self.setup_node)
             cmds.select(clear=True)
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Rebuild Failed", str(e))
@@ -80,6 +104,7 @@ class ModuleEditUI(QtWidgets.QDialog):
             self.parent().show()
 
     def cancel(self):
+        set_module_to_display_mode(self.setup_node)
         self.close()
         if self.parent():
             self.parent().show()

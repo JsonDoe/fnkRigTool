@@ -20,4 +20,7 @@ importlib.reload(ui.build_ui)
 importlib.reload(ui.main_ui)
 importlib.reload(ui.edit_ui)
 # Show the main UI
-ui.main_ui.show()
+
+from main import launch_autorig_tool
+
+launch_autorig_tool()

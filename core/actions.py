@@ -30,8 +30,8 @@ def duplicate_special_selected():
         smartTransform=False,
         returnRootsOnly=True,
         instanceLeaf=False,
-        upstreamNodes=True,       # Duplicate input graph = True
-        inputConnections=False,   # Don't duplicate input connections
+        upstreamNodes=True,
+        inputConnections=False,
         renameChildren=True
     )
 
@@ -409,7 +409,8 @@ def migrate_nodes_to_namespace(old_ns: str, new_ns: str):
             except Exception as e:
                 print(f"Failed to move {node} to {new_ns}: {e}")
 
-    print(f"All nodes migrated from '{old_ns}' to '{new_ns}' (children-first).")
+    print(
+        f"All nodes migrated from '{old_ns}' to '{new_ns}' (children-first).")
 
 
 def delete_namespace_if_exists(namespace: str, merge_with_root: bool = True):
@@ -432,9 +433,11 @@ def delete_namespace_if_exists(namespace: str, merge_with_root: bool = True):
         print(f"Failed to delete namespace '{namespace}': {e}")
 
 
-def find_setup_node_in_selection(module_root: str = cmds.ls(selection=True, long=True)):
+def find_setup_node_in_selection(
+        module_root: str = cmds.ls(selection=True, long=True)):
     """
-    Finds and returns the first child node named '*_setup' under each selected object.
+    Finds and returns the first child node named '*_setup' under each selected
+    object.
     :return: List of setup node names (strings), or empty list if none found.
     """
     module_root = module_root
@@ -444,7 +447,8 @@ def find_setup_node_in_selection(module_root: str = cmds.ls(selection=True, long
 
     setup_nodes = []
     for root in module_root:
-        children = cmds.listRelatives(root, allDescendents=True, fullPath=True) or []
+        children = cmds.listRelatives(
+            root, allDescendents=True, fullPath=True) or []
         for node in children:
             if node.endswith("setup"):
                 setup_nodes.append(node)
@@ -455,7 +459,8 @@ def find_setup_node_in_selection(module_root: str = cmds.ls(selection=True, long
 
 def create_and_set_namespace(namespace: str):
     """
-    Creates the given namespace if it doesn't exist and sets it as the current namespace.
+    Creates the given namespace if it doesn't exist and sets it as the current
+    namespace.
 
     :param namespace: Name of the namespace to create and activate
     """

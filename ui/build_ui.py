@@ -3,7 +3,8 @@ from PySide6 import QtWidgets, QtCore, QtGui
 from maya import OpenMayaUI as omui
 import maya.cmds as cmds
 from shiboken6 import wrapInstance
-from core.actions import set_module_to_display_mode, snap_hierarchy_to_guid, freeze_namespace, delete_namespace_if_exists
+from core.actions import set_module_to_display_mode, snap_hierarchy_to_guid, \
+    freeze_namespace, delete_namespace_if_exists
 from core.constants import PREVIEW_DIR
 
 
@@ -24,6 +25,34 @@ class ModuleBuildUI(QtWidgets.QDialog):
         self.module_name = module_name
         self.namespace = namespace
 
+        self.setStyleSheet("""
+            QDialog {
+                background-color: #2d2d2d;
+                color: #f0f0f0;
+                font-family: 'Segoe UI';
+                font-size: 10pt;
+            }
+            QLabel {
+                font-weight: bold;
+            }
+            QLineEdit, QCheckBox {
+                background-color: #3c3c3c;
+                border: 1px solid #555;
+                border-radius: 4px;
+                padding: 4px;
+                color: white;
+            }
+            QPushButton {
+                background-color: #444;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 4px;
+            }
+            QPushButton:hover {
+                background-color: #555;
+            }
+        """)
+
         main_layout = QtWidgets.QVBoxLayout(self)
         self.setLayout(main_layout)
 
@@ -33,14 +62,17 @@ class ModuleBuildUI(QtWidgets.QDialog):
         image_path = os.path.join(PREVIEW_DIR, "build.jpg")
         if os.path.exists(image_path):
             pixmap = QtGui.QPixmap(image_path)
-            scaled = pixmap.scaledToWidth(250, QtCore.Qt.TransformationMode.SmoothTransformation)
+            scaled = pixmap.scaledToWidth(
+                250, QtCore.Qt.TransformationMode.SmoothTransformation)
             image_label.setPixmap(scaled)
         else:
             image_label.setText("(No build image)")
         main_layout.addWidget(image_label)
 
         # Instructions
-        instructions = QtWidgets.QLabel("Place the guides consistently then click 'build' to generate the rig module")
+        instructions = QtWidgets.QLabel(
+            "Place the guides consistently then click "
+            "'build' to generate the rig module")
         instructions.setWordWrap(True)
         main_layout.addWidget(instructions)
 
@@ -81,7 +113,8 @@ class ModuleBuildUI(QtWidgets.QDialog):
             QtWidgets.QMessageBox.critical(self, "Build Failed", str(e))
             return
 
-        QtWidgets.QMessageBox.information(self, "Success", f"Rig built for: {namespace}")
+        QtWidgets.QMessageBox.information(
+            self, "Success", f"Rig built for: {namespace}")
         self.close()
 
     def cancel(self):
