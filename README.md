@@ -108,5 +108,5 @@ MIT License
 ## 📬 Contact
 
 Developed by **Julien Miternique**  
-Special thanks to **Emilien Blancquaert** for his participation to the fabrication of the various Rig Modules and to my teacher **Guillaume Baratte** for his Frankenstein Tool logic and inspiring to develop this tool.
+Special thanks to **Emilien Blancquaert** for his participation to the fabrication of the various Rig Modules and to my teacher **Guillaume Baratte** for his Frankenstein Tool logic and inspiring me to develop this tool.
 For support, bug reports or contributions, please contact: julienmiternique.pro@gmail.com
