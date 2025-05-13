@@ -190,6 +190,21 @@ class AutoRigToolUI(QtWidgets.QDialog):
             self.module_selector.setCurrentText(os.path.basename(dst))
 
     def duplicate_module(self):
+        """
+        Duplicates the selected module into a new namespace using Maya's
+        Duplicate Special.
+
+        Workflow:
+        - Verifies a node is selected and a duplicate prefix is provided.
+        - Deletes any existing namespace with the given prefix.
+        - Creates and sets a new namespace.
+        - Duplicates the selected node with its input graph (upstream nodes).
+        - Freezes the newly created namespace
+            (prefixes nodes and removes the namespace).
+        - Resets to the root namespace.
+
+        User is notified of success or any failure via popup dialogs.
+        """
         selected = cmds.ls(selection=True, long=True)
         namespace = self.duplicate_prefix_input.text().strip()
 
