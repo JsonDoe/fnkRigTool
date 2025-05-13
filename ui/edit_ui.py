@@ -4,9 +4,7 @@ from maya import OpenMayaUI as omui
 import maya.cmds as cmds
 from shiboken6 import wrapInstance
 from core.actions import set_module_to_display_mode, snap_hierarchy_to_guid
-
-PREVIEW_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..', 'utils', 'preview'))
+from core.constants import PREVIEW_DIR
 
 
 def get_maya_main_window():

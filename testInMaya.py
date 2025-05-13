@@ -11,9 +11,13 @@ import ui.build_ui
 import ui.main_ui
 import ui.edit_ui
 import core.actions
+import core.constants
+
+importlib.reload(core.actions)
+importlib.reload(core.constants)
+
 importlib.reload(ui.build_ui)
 importlib.reload(ui.main_ui)
 importlib.reload(ui.edit_ui)
-importlib.reload(core.actions)
 # Show the main UI
 ui.main_ui.show()

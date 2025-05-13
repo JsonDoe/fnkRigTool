@@ -4,8 +4,6 @@ import os
 import maya.api.OpenMaya as om
 import re
 
-DEFAULT_NSPC = ""
-
 
 def duplicate_special_selected():
     """
@@ -453,3 +451,19 @@ def find_setup_node_in_selection(module_root: str = cmds.ls(selection=True, long
                 break  # Stop at the first match per selected root
 
     return setup_nodes[0]
+
+
+def create_and_set_namespace(namespace: str):
+    """
+    Creates the given namespace if it doesn't exist and sets it as the current namespace.
+
+    :param namespace: Name of the namespace to create and activate
+    """
+    if not namespace:
+        cmds.warning("No namespace specified.")
+        return
+
+    if not cmds.namespace(exists=namespace):
+        cmds.namespace(add=namespace)
+
+    cmds.namespace(set=namespace)
