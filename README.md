@@ -4,35 +4,9 @@ A modular, UI-driven autorigging system for Autodesk Maya 2025+.
 
 Designed for technical artists and riggers, this tool provides a clean and extensible interface to:
 - Build and edit rig modules
-- Publish versioned `.ma` files
+- Publish versioned rig modules
 - Duplicate modules under new namespaces
-- Freeze and clean up namespaces for export
-
----
-
-## 📂 Project Structure
-
-```
-fnkRigTool/
-├── core/                # Rig logic and utilities
-│   ├── actions.py
-│   ├── constants.py
-│   └── ...
-├── ui/                  # All PySide6 UI logic
-│   ├── main_ui.py
-│   ├── build_ui.py
-│   ├── edit_ui.py
-│   └── ...
-├── modules/             # Your rig module folders go here
-│   └── spine/
-│       └── publish/
-├── utils/
-│   ├── icons/           # SVG/PNG icons for the UI
-│   └── preview/         # Preview images for each module
-├── fnkRigTool.mod       # Maya .mod file for module loading
-├── main.py              # Entry point to launch the tool
-└── testInMaya.py        # Dev script to reload and run the UI in Maya
-```
+- Freeze and clean up namespaces
 
 ---
 
@@ -108,6 +82,7 @@ To auto-load the tool as a module:
 - Maya 2025+  
 - Python 3.10+ (as used in Maya 2025)  
 - PySide6 (comes with Maya 2025)
+- Frankenstein Tool (from https://github.com/BaratteG/ for the rig modules logic)
 
 ---
 
@@ -127,11 +102,12 @@ import testInMaya
 
 ## 📄 License
 
-MIT License (or insert your studio's custom license)
+MIT License
 
 ---
 
 ## 📬 Contact
 
-Developed by **[Your Name or Studio]**  
-For support, bug reports or contributions, please contact: your.email@domain.com
+Developed by **Julien Miternique**  
+Special thanks to **Emilien Blancquaert** for his participation to the fabrication of the various Rig Modules and to my teacher **Guillaume Baratte** for his Frankenstein Tool logic and inspiring to develop this tool.
+For support, bug reports or contributions, please contact: julienmiternique.pro@gmail.com
