@@ -73,7 +73,7 @@ To auto-load the tool as a module:
 ## 🖼 UI Preview
 
 *(Include a screenshot here if desired)*  
-![UI Preview](docs/ui_preview.jpg)
+![UI Preview](docs/ui_preview.JPG)
 
 ---
 
