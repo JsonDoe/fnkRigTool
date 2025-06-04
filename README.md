@@ -121,8 +121,8 @@ MIT License
 Created by **Julien Miternique**
 
 Special thanks to:
-- **Emilien Blancquaert** – Participation to the rig module development
+- [**Emilien Blancquaert**](https://www.linkedin.com/in/emilien-blancquaert/) – Participation to the rig module development
 - **Guillaume Baratte** – Frankenstein Tool foundation and mentorship
 
 For support, bugs, or questions:  
-📬 julienmiternique.pro@gmail.com
+[LinkedIn](https://www.linkedin.com/in/julien-miternique/) • 📬 julienmiternique.pro@gmail.com • 
