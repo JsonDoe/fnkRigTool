@@ -353,8 +353,10 @@ def get_latest_module_publish_path(module_name: str) -> str:
     """
     base_dir = os.path.abspath(
         os.path.join(
-            os.path.dirname(__file__), '..', 'modules', module_name, 'publish')
+            os.path.dirname(__file__),
+            '..', 'data', 'modules', module_name
             )
+    )
 
     if not os.path.isdir(base_dir):
         print(f"Publish directory not found for module: {module_name}")

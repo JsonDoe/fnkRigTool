@@ -11,7 +11,7 @@ from core.actions import (
     delete_namespace_if_exists, find_setup_node_in_selection, freeze_namespace,
     create_and_set_namespace, add_prefix_and_remove_namespaces
 )
-from core.constants import MODULES_DIR, PREVIEW_DIR
+from core.constants import MODULES_DIR, PREVIEW_DIR, ICONS_DIR
 
 
 def get_maya_main_window():
@@ -26,8 +26,7 @@ class AutoRigToolUI(QtWidgets.QDialog):
         self.setMinimumWidth(350)
         self.setLayout(QtWidgets.QVBoxLayout())
 
-        self.icon_dir = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), '..', 'utils', 'icons'))
+        self.icon_dir = ICONS_DIR
         self.setStyleSheet(self._get_stylesheet())
         self._build_ui()
         self.load_modules()
