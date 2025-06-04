@@ -64,6 +64,9 @@ To install this tool as a Maya module:
 - ✅ UI built in PySide6 (Maya 2025 native)
 - ✅ Full `.mod` install support for clean integration
 
+
+![windTool Preview](ressources/preview/demoFnkRigTool.gif)
+
 ---
 
 ## 🗂 Folder Layout
