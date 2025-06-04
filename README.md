@@ -125,4 +125,4 @@ Special thanks to:
 - **Guillaume Baratte** – Frankenstein Tool foundation and mentorship
 
 For support, bugs, or questions:  
-[LinkedIn](https://www.linkedin.com/in/julien-miternique/) • 📬 julienmiternique.pro@gmail.com • 
+[LinkedIn](https://www.linkedin.com/in/julien-miternique/) • 📬 julienmiternique.pro@gmail.com
