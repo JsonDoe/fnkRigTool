@@ -1,6 +1,6 @@
 # fnkRigTool
 
-🎛️ A modular, UI-driven autorigging system for Autodesk Maya 2025+
+A modular, UI-driven autorigging system for Autodesk Maya 2025+
 
 Designed for rigging TDs and technical artists, `fnkRigTool` provides a clean and extensible interface to:
 - Build and edit reusable rig modules
@@ -12,13 +12,13 @@ Designed for rigging TDs and technical artists, `fnkRigTool` provides a clean an
 
 ## 🚀 Quick Start
 
-### 🧩 Option 1: Script Editor
+### Option 1: Script Editor
 ```python
 import main
 main.launch_autorig_tool()
 ```
 
-### 🧩 Option 2: `test/test_run.py`
+### Option 2: `test/test_run.py`
 To reload + launch with hot-reloading enabled:
 ```python
 exec(open(r"C:/path/to/fnkRigTool/test/test_run.py", encoding="utf-8").read())
@@ -26,7 +26,7 @@ exec(open(r"C:/path/to/fnkRigTool/test/test_run.py", encoding="utf-8").read())
 
 ---
 
-## 🧩 Maya Integration (.mod Support)
+## Maya Integration (.mod Support)
 
 To install this tool as a Maya module:
 
@@ -56,13 +56,13 @@ To install this tool as a Maya module:
 
 ## ✨ Features
 
-- ✅ Visual rig module browser with icon previews
-- ✅ Build, edit, publish `.ma` rig modules
-- ✅ Auto-versioned publishing workflow
-- ✅ On-the-fly guide rebuilding
-- ✅ Namespace duplication with preserved links
-- ✅ UI built in PySide6 (Maya 2025 native)
-- ✅ Full `.mod` install support for clean integration
+- Visual rig module browser with icon previews
+- Build, edit, publish `.ma` rig modules
+- Auto-versioned publishing workflow
+- On-the-fly guide rebuilding
+- Namespace duplication with preserved links
+- UI built in PySide6 (Maya 2025 native)
+- Full `.mod` install support for clean integration
 
 
 ![windTool Preview](ressources/preview/demoFnkRigTool.gif)
@@ -125,4 +125,4 @@ Special thanks to:
 - **Guillaume Baratte** – Frankenstein Tool foundation and mentorship
 
 For support, bugs, or questions:  
-[LinkedIn](https://www.linkedin.com/in/julien-miternique/) • 📬 julienmiternique.pro@gmail.com
+[LinkedIn](https://www.linkedin.com/in/julien-miternique/) • julienmiternique.pro@gmail.com
