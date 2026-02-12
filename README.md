@@ -10,7 +10,7 @@ Designed for rigging TDs and technical artists, `fnkRigTool` provides a clean an
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Option 1: Script Editor
 ```python
@@ -54,7 +54,7 @@ To install this tool as a Maya module:
 
 ---
 
-## ✨ Features
+## Features
 
 - Visual rig module browser with icon previews
 - Build, edit, publish `.ma` rig modules
@@ -69,7 +69,7 @@ To install this tool as a Maya module:
 
 ---
 
-## 🗂 Folder Layout
+## Folder Layout
 
 ```
 fnkRigTool/
@@ -92,7 +92,7 @@ fnkRigTool/
 
 ---
 
-## 🛠 Requirements
+## Requirements
 
 - Maya 2025+
 - Python 3.10 (built-in)
@@ -101,7 +101,7 @@ fnkRigTool/
 
 ---
 
-## 🧪 Dev Tip
+## Dev Tip
 
 To reload and run cleanly from Maya during development:
 ```python
@@ -110,13 +110,13 @@ exec(open(r"C:/your/workspace/fnkRigTool/test/test_run.py", encoding="utf-8").re
 
 ---
 
-## 📄 License
+## License
 
 MIT License
 
 ---
 
-## 🙏 Credits
+## Credits
 
 Created by **Julien Miternique**
 
